@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart'
+import Users from './Users';
+import AdminDisplay from './AdminDisplay';
+import UserHome_C from './UserHome_C';
+import ProductDetails_C from './ProductDetails_C';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,6 +17,11 @@ root.render(
     <Routes>
         <Route path='/' element={<App />} />
         <Route path='/ShoppingCart' element={<ShoppingCart />} />
+        <Route path='/users' element={<Users />} />
+        <Route path='/AdminDisplay' element={<AdminDisplay />} />
+        <Route path='/UserHome_C' element={<UserHome_C />} />
+        <Route path='/ProductDetails_C' element={<ProductDetails_C />} />
+        <Route path='/shopping-cart' element={<ShoppingCart />} />
   
     </Routes>
   </BrowserRouter>

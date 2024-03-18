@@ -23,6 +23,10 @@ const ShoppingCartItem = ({ item, increaseQuantity, decreaseQuantity, deleteItem
 };
 
 const ShoppingCart = () => {
+
+
+  const [users, setUsers] = useState([]);
+  
   const [cartItems, setCartItems] = useState([
     { id: 1, photo: 'https://cms.sarasavi.lk/storage/product/1788704878.jpg', name: 'Item 1', price: 10, quantity: 1 },
     { id: 2, photo: 'https://cms.sarasavi.lk/storage/product/1035007150.jpg', name: 'Item 2', price: 15, quantity: 1 },
