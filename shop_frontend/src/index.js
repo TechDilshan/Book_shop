@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Cart from './Cart'
+import ShoppingCart from './ShoppingCart'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -12,7 +12,7 @@ root.render(
   <BrowserRouter>
     <Routes>
         <Route path='/' element={<App />} />
-        <Route path='/Cart' element={<Cart />} />
+        <Route path='/ShoppingCart' element={<ShoppingCart />} />
   
     </Routes>
   </BrowserRouter>
