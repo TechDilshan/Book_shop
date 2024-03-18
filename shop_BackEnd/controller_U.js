@@ -30,5 +30,32 @@ const getCart = (req, res, next) => {
         });
 };
 
+
+const updateCart = (req, res, next) => {
+    const { id, email, quantity } = req.body;
+    
+    Cart.updateOne({ id: id }, { $set: { quantity: quantity} })
+        .then(response => {
+            res.json({ response })
+        })
+        .catch(error => {
+            res.json({ error })
+        });
+};
+
+
+const deleteCart = (req, res, next) => {
+    const id = req.body.id;
+    Cart.deleteOne({id: id})
+        .then(response => {
+            res.json({ response })
+        })
+        .catch(error => {
+            res.json({ error })
+        });
+};
+
 exports.createCart = createCart;
+exports.updateCart = updateCart;
+exports.deleteCart = deleteCart;
 exports.getCart = getCart;
