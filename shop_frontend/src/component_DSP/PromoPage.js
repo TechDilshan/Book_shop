@@ -30,7 +30,7 @@ const PromoPage = () => {
 
 
   const getCouponsDB = () =>{
-    axios.get("http://localhost:3001/coupons/getcoupon/")
+    axios.get("http://localhost:3001/api/getcoupon/")
     .then((res) =>{
       setCoupons(res.data);    
     })
