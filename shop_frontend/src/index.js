@@ -11,6 +11,14 @@ import UserHome_C from './UserHome_C';
 import ProductDetails_C from './ProductDetails_C';
 
 
+import PromoPage from './component_DSP/PromoPage'
+import CouponManage from './component_DSP/CouponManage'
+import Dashboard from './component_DSP/PromoDashboard'
+import UpdateCoupon from './component_DSP/UpdateCoupon'
+
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -22,6 +30,16 @@ root.render(
         <Route path='/UserHome_C' element={<UserHome_C />} />
         <Route path='/ProductDetails_C' element={<ProductDetails_C />} />
         <Route path='/shopping-cart' element={<ShoppingCart />} />
+
+        {/*  Routes Promotion Management - DILINA */}
+        <Route path='/promopage' element={<PromoPage />} />
+        <Route path='/couponpage' element={<CouponManage />} />
+        <Route path='/cmdashboard' element={<Dashboard />} />
+        <Route  path='/update/:UID' element={<UpdateCoupon />}/>
+
+
+
+
   
     </Routes>
   </BrowserRouter>
