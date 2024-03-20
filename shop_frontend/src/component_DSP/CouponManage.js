@@ -83,7 +83,7 @@ function CouponManage() {
         description
       }
       console.log(newCoupon);
-      axios.post("http://localhost:8070/coupons/addcoupon",newCoupon).then(()=>{
+      axios.post("http://localhost:3001/coupons/addcoupon",newCoupon).then(()=>{
           
          
 
@@ -187,11 +187,11 @@ function CouponManage() {
             {coupons.map((cpn) => (
             <tr key={cpn._id}>
               <td class="border border-gray-300 px-4 py-2">{cpn.couponId}</td>
-              <td class="border border-gray-300 px-4 py-2"><i>Type>></i><b>{cpn.discountType}</b><br/>  <i>Percentage>></i><b>{cpn.discountPercentage}%</b><br/>   <i>Amount>></i><b>RS: {cpn.fixedAmount} </b></td>
+              <td class="border border-gray-300 px-4 py-2"><i>Type</i><b>{cpn.discountType}</b><br/>  <i>Percentage</i><b>{cpn.discountPercentage}%</b><br/>   <i>Amount</i><b>RS: {cpn.fixedAmount} </b></td>
               <td class="border border-gray-300 px-4 py-2">{cpn.minCount}</td>
               <td class="border border-gray-300 px-4 py-2">{cpn.ExpDate}</td>
               <td class="border border-gray-300 px-4 py-2">{cpn.description}</td>
-              <td class="border border-gray-300 px-4 py-2"><i>User_Type</i>>><b>{cpn.couponVisibility} </b><br/><i> Customer ID</i>>><b>{cpn.cusId}</b></td>
+              <td class="border border-gray-300 px-4 py-2"><i>User_Type</i><b>{cpn.couponVisibility} </b><br/><i> Customer ID</i><b>{cpn.cusId}</b></td>
               <td class="border border-gray-300 px-4 py-2">
             
                 <Link to={`/update/${cpn._id}`} className="btn btn-success">

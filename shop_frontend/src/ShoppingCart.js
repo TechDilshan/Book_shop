@@ -6,6 +6,9 @@ import CartBlock_U from './CartBlock_U';
 
 const ShoppingCart = () => {
   const [carts, setCarts] = useState([]);
+ 
+
+
 
   useEffect(() => {
     getCart();
@@ -21,8 +24,13 @@ const ShoppingCart = () => {
       });
   };
   
+ 
+
+
   const userEmail = sessionStorage.getItem('userEmail');
   const filteredCarts = carts.filter(cart => cart.email === userEmail);
+
+
 
   return (
     <div>
@@ -31,6 +39,7 @@ const ShoppingCart = () => {
       </div>
       <div className='shopping-cart'>
         <h2 className='cart-title'>Shopping Cart</h2>
+       
         <div className=''>
           {filteredCarts.map((cart) => (
             <div key={cart.id} className=''>
