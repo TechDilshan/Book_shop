@@ -96,7 +96,20 @@ const Users = () => {
   };
 
   return (
+    <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8" style={{ backgroundColor: '#c3ddec' }}>
+        
+        <nav className="bg-gray-800 text-white p-4 flex justify-between items-center mb-4">
+          <div className="flex items-center ml-10 ">
+            <a href="/users" className="mr-10 hover:text-gray-300">Add Product</a>
+            <a href="#" className="mr-10 hover:text-gray-300" onClick={handleDisplayButtonClick}>Display Product</a> 
+          </div>
+          <div className="flex items-center mr-10 ">
+            <a href="#" className="mr-2 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
+          </div>
+        </nav>
+      
     <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '100px' }}>
+      
       {displayTable ? (
         <AdminDisplay
           rows={users}
@@ -117,10 +130,10 @@ const Users = () => {
             isEdit={isEdit}
             setIsEdit={setIsEdit}
           />
-          <Button onClick={handleDisplayButtonClick}>Display Users</Button>
         </div>
       )}
     </Box>
+    </div>
   );
 };
 

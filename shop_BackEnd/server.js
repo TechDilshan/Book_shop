@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyparser = require ("body-parser"); 
 const mongoose = require('mongoose');
 const bodyPaeser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 const dotenv = require('dotenv');
 require('dotenv').config();
@@ -38,6 +39,44 @@ const connect = async () => {
 };
 
 connect();
+
+
+//________________________________________________________________________________________________________
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'chamikadilshan1123@gmail.com', // Your email address
+        pass: 'rebamsneqyhhwcsh' // Your email password
+    }
+});
+
+// Function to send email
+const sendEmail = (email, subject, body) => {
+    const mailOptions = {
+        from: 'chamikadilshan1123@gmail.com', // Sender address
+        to: email,
+        subject: subject,
+        text: body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+};
+
+// Example route to trigger email sending
+app.post('/api/send-email', (req, res) => {
+    const { email, subject, body } = req.body;
+    sendEmail(email, subject, body);
+    res.send('Email sent successfully');
+});
+
+//________________________________________________________________________________________________________
 
 const couponRouter = require("./routes/coupons.js")
 //app.use("/coupons",couponRouter);

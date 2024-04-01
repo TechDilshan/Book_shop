@@ -17,7 +17,11 @@ import Dashboard from './component_DSP/PromoDashboard'
 import UpdateCoupon from './component_DSP/UpdateCoupon'
 
 
-
+// Add the FontAwesome CDN link dynamically
+const fontAwesomeLink = document.createElement('link');
+fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+fontAwesomeLink.rel = 'stylesheet';
+document.head.appendChild(fontAwesomeLink);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

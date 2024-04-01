@@ -91,13 +91,6 @@ const UserHome_C = () => {
       <div>
         <Navi/>
       </div>
-      <div>
-        <a href="/shopping-cart">
-          <Button variant="contained" color="primary">
-            Go to Cart
-          </Button>
-        </a>
-      </div>
 
 
       <div class="flex justify-end w-full px-2">

@@ -95,7 +95,6 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
 
   return (
     <div>
-      <Button className='user-button' onClick={handleButtonClick}>Users</Button>
 
       <Button onClick={() => handleCategoryButtonClick('All')}>All Items</Button>
       <Button onClick={() => handleCategoryButtonClick('bookitem')}>Book Items</Button>

@@ -77,7 +77,7 @@ const ProductItem_C = ({ rows }) => {
                     <button className="increment" onClick={handleIncrement}>+</button>
                 </div>
                 <button className="add-to-cart" onClick={() => {
-                                                                  StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add" });
+                                                                  StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes:row.sdes, price:row.price });
                                                                   createCart({ productId: row.id, qty: quantity });
                                                                 }}>
                     <span className="cart-icon">+</span>
