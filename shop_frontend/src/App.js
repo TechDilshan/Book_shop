@@ -31,6 +31,7 @@ function App() {
         />
         <button className='user-button' onClick={() => { navigate('/users'); }}>Admin</button>
         <button className='Admin-button' onClick={() => { navigate('/UserHome_C'); saveSession(); }}>Users</button>
+        <button className='Admin-button' onClick={() => { navigate('/cmdashboard'); saveSession(); }}>Promotion_Manager</button>
       </header>
     </div>
   );

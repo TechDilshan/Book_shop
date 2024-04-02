@@ -3,6 +3,7 @@
 import React from 'react';
 //import './stockDetails.css'; // Import your CSS file
 import PromoPage from './PromoPage';
+import logo from '../image/logo.jpg'
 
 function Dashboard() {
   return (
@@ -21,7 +22,7 @@ function Dashboard() {
     <div className="md:container md:mx-auto ">
         
     <header className="flex justify-between items-center m-10">
-        <img src="css/logo.png" alt="Logo" className="w-16" />
+        <img src={logo} alt="Logo" className="w-20" />
         <div className="text-center">
           <h1 className="text-2xl font-bold">Promotion & Coupon Management Dashboard</h1>
           <h4 className="text-sm text-gray-600">Promotion and Coupon Manager</h4>

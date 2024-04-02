@@ -33,7 +33,7 @@ function UpdateCoupon() {
   function sendUpdatedData(e){
 
     console.log(updatedInfo);
-    axios.put(`http://localhost:8070/coupons/updatecoupon/${UID}`,updatedInfo).then(()=>{
+    axios.put(`http://localhost:3001/api/updatecoupon/${UID}`,updatedInfo).then(()=>{
         
     alert("Coupon Updated successfully");
         
@@ -48,7 +48,7 @@ function UpdateCoupon() {
 
   useEffect(() => {
   
-    axios.get(`http://localhost:8070/coupons/getcoupon/${UID}`)
+    axios.get(`http://localhost:3001/api/getcoupon/${UID}`)
       .then(res => {
         
         setCouponInfo(res.data.user);

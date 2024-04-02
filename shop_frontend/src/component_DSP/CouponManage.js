@@ -24,7 +24,7 @@ function CouponManage() {
 
 
     const getCouponsDB = () =>{
-      axios.get("http://localhost:8070/coupons/getcoupon/")
+      axios.get("http://localhost:3001/api/getcoupon/")
       .then((res) =>{
         setCoupons(res.data);    
         setOriginalCoupons(res.data);
@@ -35,7 +35,7 @@ function CouponManage() {
     }
 
     const handleDelete = (cusId) => {
-      axios.delete(`http://localhost:8070/coupons/deletecoupon/${cusId}`)
+      axios.delete(`http://localhost:3001/api/deletecoupon/${cusId}`)
         .then(() => {
           alert("Student deleted successfully!");
           getCouponsDB();
@@ -83,7 +83,7 @@ function CouponManage() {
         description
       }
       console.log(newCoupon);
-      axios.post("http://localhost:3001/coupons/addcoupon",newCoupon).then(()=>{
+      axios.post("http://localhost:3001/api/addcoupon",newCoupon).then(()=>{
           
          
 
