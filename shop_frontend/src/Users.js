@@ -4,7 +4,7 @@ import UserForm from './UserForm';
 import AdminDisplay from './AdminDisplay';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Foot from './footer';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -104,7 +104,8 @@ const Users = () => {
             <a href="#" className="mr-10 hover:text-gray-300" onClick={handleDisplayButtonClick}>Display Product</a> 
           </div>
           <div className="flex items-center mr-10 ">
-            <a href="#" className="mr-2 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
+            <a href="#" className="mr-10 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
+            <a href="/" className="hover:text-gray-300">Logout</a>
           </div>
         </nav>
       
@@ -133,6 +134,10 @@ const Users = () => {
         </div>
       )}
     </Box>
+
+    <div>
+        <Foot/>
+      </div>
     </div>
   );
 };

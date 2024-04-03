@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField} from '@mui/material';
 import ProductItem_C from './ProductItem_C';
 import Navi from './Navi';
+import Foot from './footer';
 import Axios from 'axios';
 import { AiOutlinePlus ,AiOutlineSearch } from 'react-icons/ai';
 import './CSS_C/ProductHomeCSS_C.css';
@@ -87,14 +88,14 @@ const UserHome_C = () => {
 
   return (
     
-    <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8">
+    <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8" style={{ backgroundColor: "#e0f2fe" }}>
       <div>
         <Navi/>
       </div>
 
 
       <div class="flex justify-end w-full px-2">
-        <div class="flex space-x-4 w-full max-w-screen-lg items-center">
+        <div class="flex space-x-4 w-full max-w-screen-lg items-center" >
           <div class="relative inline-block text-left">
             <button
               type="button"
@@ -131,7 +132,7 @@ const UserHome_C = () => {
         </div>
       </div>
 
-      <div class="bg-light-blue-50 p-2 flex flex-col">
+      <div class="bg-light-blue-50 p-2 flex flex-col" style={{ backgroundColor: "#e0f2fe" }}>
         <div class="flex flex-wrap justify-center">
           {visibleUsers.map((user) => (
             <div key={user.id} class="flex-shrink-0 m-2 md:m-1">
@@ -140,8 +141,6 @@ const UserHome_C = () => {
           ))}
         </div>
       </div>
-
-
 
 
       <div id="book-items-section" class="product-section">
@@ -172,6 +171,14 @@ const UserHome_C = () => {
     )}
   </div>
 </div>
+
+
+      <div class="container_p">
+        <div class="image-container_p">
+          <img src="https://www.franklinprints.com/images/upload/images/flyer-brochure-printing.jpg" alt="Placeholder"/>
+        </div>
+      </div>
+
 
 <div id="school-items-section" class="product-section">
   <div class="section-header">
@@ -262,9 +269,12 @@ const UserHome_C = () => {
 
       
 
-
+      <div>
+        <Foot/>
+      </div>
 
     </div>
+    
   );
 };
 
