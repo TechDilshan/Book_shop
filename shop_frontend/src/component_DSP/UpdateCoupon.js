@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function UpdateCoupon() {
+
+  const [uuid , setuuid] = useState(null);
   const { UID } = useParams();
   const [couponInfo, setCouponInfo] = useState(null);
 
@@ -129,7 +131,7 @@ function UpdateCoupon() {
 
       
         <div className="flex justify-end">
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Coupon</button>
+          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"> {uuid ? "Update Product" : "Add Product"}</button>
         </div>
       </form>
     </div>

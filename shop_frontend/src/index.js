@@ -15,7 +15,7 @@ import PromoPage from './component_DSP/PromoPage'
 import CouponManage from './component_DSP/CouponManage'
 import Dashboard from './component_DSP/PromoDashboard'
 import UpdateCoupon from './component_DSP/UpdateCoupon'
-
+import CouponView from './component_DSP/CouponView';
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -40,7 +40,8 @@ root.render(
         <Route path='/couponpage' element={<CouponManage />} />
         <Route path='/cmdashboard' element={<Dashboard />} />
         <Route  path='/update/:UID' element={<UpdateCoupon />}/>
-
+        <Route  path='/couponview' element={<CouponView />}/>
+        CouponView
 
 
 
