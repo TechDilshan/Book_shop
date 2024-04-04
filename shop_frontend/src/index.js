@@ -16,12 +16,15 @@ import CouponManage from './component_DSP/CouponManage'
 import Dashboard from './component_DSP/PromoDashboard'
 import UpdateCoupon from './component_DSP/UpdateCoupon'
 
+import FeedbackDisplay from './components_chamu/FeedbackDisplay'
+import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
+
+
 import PrintDocCreate_D from './PrintDocCreate_D';
 import PrintingOrderMain_D from './PrintingOrderMain_D';
 import AdminPriceChartCreate_D from './AdminPriceChartCreate_D';
 import AdminMain_D from './AdminMain_D';
 import PriceChartDisplay_D from './PriceChartDisplay_D';
-import PrintingOrderDisplayAdmin_D from './PrintingOrderDisplayAdmin_D';
 import PrintOrderMain_D from './PrintOrderMain_D';
 import CouponView from './component_DSP/CouponView';
 
@@ -49,13 +52,18 @@ root.render(
         <Route path='/cmdashboard' element={<Dashboard />} />
         <Route  path='/update/:UID' element={<UpdateCoupon />}/>
 
+        {/*  Routes Reviews Management - Chamu */}
+        <Route path='/feedbackpage' element={<FeedbackDisplay />} />
+        <Route path='/feedbackadmin' element={<AdminFeedbackPage />} />
+
+
+        
         <Route path='/PrintDocCreate_D' element={<PrintDocCreate_D />} />
         <Route path='/PrintingOrderMain_D' element={<PrintingOrderMain_D />} />
         <Route path='/AdminPriceChartCreate_D' element={<AdminPriceChartCreate_D />} />
         <Route path='/AdminMain_D' element={<AdminMain_D />} />
         <Route path='/PriceChartDisplay_D' element={<PriceChartDisplay_D />} />
         <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
-        <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin_D />} />
         <Route  path='/couponview' element={<CouponView />}/>
         CouponView
 

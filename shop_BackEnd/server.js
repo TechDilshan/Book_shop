@@ -78,6 +78,8 @@ app.post('/api/send-email', (req, res) => {
 
 //________________________________________________________________________________________________________
 
+const feedbackRouter = require('./routes/reviews.js');
+
 const couponRouter = require("./routes/coupons.js")
 //app.use("/coupons",couponRouter);
 
@@ -89,6 +91,6 @@ const server_U = app_U.listen(port_U, host, () => {
     console.log(`Node server is listening to ${server_U.address().port}`)
 });
 
-app.use('/api', router,couponRouter);
+app.use('/api', router,couponRouter,feedbackRouter);
 app_U.use('/api_U', router_U);
 //ABI
