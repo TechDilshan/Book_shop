@@ -19,7 +19,7 @@ import UpdateCoupon from './component_DSP/UpdateCoupon'
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
 
-
+import PrintingOrderDisplayAdmin_D from './PrintingOrderDisplayAdmin_D';
 import PrintDocCreate_D from './PrintDocCreate_D';
 import PrintingOrderMain_D from './PrintingOrderMain_D';
 import AdminPriceChartCreate_D from './AdminPriceChartCreate_D';
@@ -63,6 +63,7 @@ root.render(
         <Route path='/AdminPriceChartCreate_D' element={<AdminPriceChartCreate_D />} />
         <Route path='/AdminMain_D' element={<AdminMain_D />} />
         <Route path='/PriceChartDisplay_D' element={<PriceChartDisplay_D />} />
+        <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin_D />} />
         <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
         <Route  path='/couponview' element={<CouponView />}/>
         CouponView
