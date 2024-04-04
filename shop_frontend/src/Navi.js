@@ -25,6 +25,7 @@ const NaviBar = () => {
         <a href="/UserHome_C" className="mr-10 hover:text-gray-300">Home</a>
         <a href="#" className="mr-10 hover:text-gray-300">About Us</a>
         <a href="/PrintingOrderMain_D" className="mr-10 hover:text-gray-300">Printing</a>
+        <a href="/couponview" className="mr-10 hover:text-gray-300">Coupons</a>
       </div>
      
 

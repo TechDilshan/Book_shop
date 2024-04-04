@@ -47,14 +47,21 @@ router.route("/getcoupon").get((req,res)=>{
 
 router.route("/updatecoupon/:id").put(async(req,res)=>{
     let cpnId = req.params.id;
-    const {couponId,discountPercentage,cusId,description} = req.body;
+    const {couponId,discountType,discountPercentage,fixedAmount,minCount,ExpDate,couponVisibility,cusId,description} = req.body;
 
-    const updateCoupon ={
+    var updateCoupon ={
         couponId,
+        discountType,
         discountPercentage,
+        fixedAmount,
+        minCount,
+        ExpDate,
+        couponVisibility,
         cusId,
         description
     }
+
+
 
     const update = await coupon.findByIdAndUpdate(cpnId , updateCoupon).then(()=>{
             res.status(200).send({

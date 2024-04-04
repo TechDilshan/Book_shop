@@ -4,16 +4,25 @@ import React from 'react';
 //import './stockDetails.css'; // Import your CSS file
 import PromoPage from './PromoPage';
 import logo from '../image/logo.jpg'
+import Navi from '../Navi';
+import Foot from '../footer';
 
 function Dashboard() {
   return (
-    <div className='flex mx-auto'>
-    <div className="h-screen sticky top-0 bg-gray-100 shadow-xl w-64">
-      <div className="px-8 pt-10">
+    <div >
+      <div className='fixed w-[100%]' >
+         <Navi/>
+      </div>
+       
+      
+    <div className='flex mx-auto' >
+      
+    <div className="h-screen  bg-gray-100 shadow-xl w-64">
+      <div className="px-8 pt-20">
         <div className="py-4 text-black text-2xl font-bold pt-5">Rathi Intech</div>
         <nav className="mt-8 pt-10">
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="couponpage" target="iframe_a">Manage Coupon</a>
-          <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="couponpage" target="iframe_a">Genarate Report</a>
+          <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="/update/:UID" target="iframe_a">Genarate Report</a>
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="promopage" target="iframe_a">Test Coupons</a>
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-red-500 hover:text-white"href="">Logout</a>
         </nav>
@@ -21,7 +30,7 @@ function Dashboard() {
     </div>
     <div className="md:container md:mx-auto ">
         
-    <header className="flex justify-between items-center m-10">
+    <header className="flex justify-between items-center m-20">
         <img src={logo} alt="Logo" className="w-20" />
         <div className="text-center">
           <h1 className="text-2xl font-bold">Promotion & Coupon Management Dashboard</h1>
@@ -36,13 +45,17 @@ function Dashboard() {
         </div>
       </header>
 
-      <hr className="horizontal-line"/>
-
+    
+<hr className='mt-[-50px]'/>
       <main>
-        <iframe src="couponpage"name="iframe_a"  className=" columns-2"height="600px" width="100%" title="Iframe Example"></iframe>
+        <iframe src="couponpage"name="iframe_a"  className=" columns-3 pt-2 "height="600px" width="100%" title="Iframe Example"></iframe>
       </main>
 
     </div>
+    </div>
+    <div>
+        <Foot/>
+      </div>
     </div>
   );
 }

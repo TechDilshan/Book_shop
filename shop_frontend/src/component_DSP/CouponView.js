@@ -1,14 +1,15 @@
 import logo from "../image/logo.jpg";
 import  axios  from 'axios';
 import React, { useState, useEffect } from 'react';
-
+import Navi from '../Navi';
+import Foot from '../footer';
 
 
 function CouponView(){
     const [coupons , setCoupons] = useState([])
     const currentDate = new Date();
     const date = currentDate.toISOString().split('T')[0]; // Extracting date part only
-    
+    const [searchQuery, setSearchQuery] = useState('');
 
 
     const getCouponsDB = () =>{
@@ -23,6 +24,18 @@ function CouponView(){
       }
 
 
+      const handleInputChange = (e) => {
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+    
+        // Filter students based on the search query as you type
+        const filteredCoupons = coupons.filter(coupon =>
+          coupon.couponId.toLowerCase().includes(query) || coupon.ExpDate.toLowerCase().includes(query)
+        );
+        setCoupons(filteredCoupons);
+      };
+
+
       
     useEffect(()=>{
         if (coupons.length === 0) {
@@ -33,7 +46,31 @@ function CouponView(){
       },)
 
     return (
-        <div>
+      <div>
+      <div className=' w-[100%]' >
+         <Navi/>
+      </div>
+
+<div className="m-10">
+      <div class="flex">
+        <h1 class="text-3xl font-bold mb-4 w-full">Coupon & Promotion Management</h1>
+      </div>
+
+
+
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-black">Search</label>
+      <div class="relative">
+    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-300 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+    </div>
+    <input type="text" id="default-search" value={searchQuery} onChange={handleInputChange} class="block w-full p-4 ps-10 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Coupon Code, Exp.Date..." required/>
+
+      </div>
+  </div>
+        <div className=" grid justify-center mt-10 ml-[-50%]">
+          
         {coupons.map((cpn) => (
             <div key={cpn._id}>
             <div className="w-[00px] h-[200px] relative">
@@ -117,7 +154,11 @@ function CouponView(){
           ))}
 
            
-        </div>
+        </div>   
+        <div>
+        <Foot/>
+      </div>
+         </div>
     );
 }
 

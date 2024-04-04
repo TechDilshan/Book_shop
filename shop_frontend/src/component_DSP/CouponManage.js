@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import  axios  from 'axios';
 import { Link } from 'react-router-dom';
-
+import logo from '../image/logo.jpg'
 
 function CouponManage() {
 
@@ -103,6 +103,8 @@ function CouponManage() {
         cusId,
         description
       }
+
+
     
       axios.put(`http://localhost:3001/api/updatecoupon/${IdSet}`,cpnup).then(()=>{
           
@@ -117,7 +119,9 @@ function CouponManage() {
 
 
     function sendData(e){
-      e.preventDefault();
+      e.preventDefault();      
+
+
       const newCoupon ={
         couponId,
         discountType,
@@ -129,6 +133,9 @@ function CouponManage() {
         cusId,
         description
       }
+
+
+
       console.log(newCoupon);
       axios.post("http://localhost:3001/api/addcoupon",newCoupon).then(()=>{
           
@@ -157,6 +164,13 @@ function CouponManage() {
   
     const handleDiscountTypeChange = (event) => {
       setDiscountType(event.target.value);
+      
+      if(discountType == "fixedAmount"){
+        setDiscountPercentage(0)
+      }
+      else{
+        setFixedAmount(0);
+      }
     };
   
     const handleCouponVisibilityChange = (event) => {
@@ -176,7 +190,7 @@ function CouponManage() {
     };
       
   return (
-    <div class="w-full h-screen p-24 bg-white">
+    <div class="w-full h-screen px-24 bg-white">
     <div class="flex">
         <h1 class="text-3xl font-bold mb-4 w-full">Coupon & Promotion Management</h1>
     </div>
@@ -196,7 +210,28 @@ function CouponManage() {
 
 <br/>
 
-    <br/>
+   
+    <div class="flex">
+ 
+ <div class="container mx-auto">
+ <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
+           <img src={logo} class="w-20 mx-auto mb-4 rounded-lg" />
+           <h3 class="text-2xl font-semibold mb-4">{description}<br />{discountPercentage} % </h3>
+           <div class="flex items-center space-x-2 mb-1">
+             <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">{couponId}</span>
+             <button onClick={() => navigator.clipboard.writeText(couponId)}> <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
+             </button>
+           </div>
+           <p class="text-sm">Valid Till: {ExpDate}</p>
+           
+     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
+     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
+     
+
+         </div>
+       </div>
+</div>
+<br/>
 
     <div class="overflow-x-auto overflow-y-auto">
         <table class="w-full border-collapse border border-gray-300">
@@ -224,12 +259,14 @@ function CouponManage() {
               <td class="border border-gray-300 px-4 py-2"><i>User_Type</i><b>{cpn.couponVisibility} </b><br/><i> Customer ID</i><b>{cpn.cusId}</b></td>
               <td class="border border-gray-300 px-4 py-2">
             
-                <Link to={`/update/${cpn._id}`} className="btn btn-success">
-                <svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <button
+                  className="btn btn-danger"
+                  onClick={() => handleupdate(cpn._id)}  >
+                            <svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
     <path fill-rule="evenodd" d="M8 7V2.2a2 2 0 0 0-.5.4l-4 3.9a2 2 0 0 0-.3.5H8Zm2 0V2h7a2 2 0 0 1 2 2v.1a5 5 0 0 0-4.7 1.4l-6.7 6.6a3 3 0 0 0-.8 1.6l-.7 3.7a3 3 0 0 0 3.5 3.5l3.7-.7a3 3 0 0 0 1.5-.9l4.2-4.2V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M17.4 8a1 1 0 0 1 1.2.3 1 1 0 0 1 0 1.6l-.3.3-1.6-1.5.4-.4.3-.2Zm-2.1 2.1-4.6 4.7-.4 1.9 1.9-.4 4.6-4.7-1.5-1.5ZM17.9 6a3 3 0 0 0-2.2 1L9 13.5a1 1 0 0 0-.2.5L8 17.8a1 1 0 0 0 1.2 1.1l3.7-.7c.2 0 .4-.1.5-.3l6.6-6.6A3 3 0 0 0 18 6Z" clip-rule="evenodd"/>
   </svg>
-                </Link>
+              </button>
                 </td>
 
                 <td class="border border-gray-300 px-4 py-2">
@@ -243,11 +280,9 @@ function CouponManage() {
                 </button>
               </td>
               <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleupdate(cpn._id)}
-                >Edit
-              </button>
+                <Link to={`/update/${cpn._id}`} className="btn btn-success">
+  
+                </Link>
                 </td>
             </tr>
           ))}
@@ -348,8 +383,8 @@ function CouponManage() {
           name="couponVisibility"
           className="mt-1 p-2 w-full border rounded-md"
           value={couponVisibility}
-          onChange={handleCouponVisibilityChange }
-        >
+          onChange={handleCouponVisibilityChange } >
+       
           <option value="All_Users">All Users</option>
           <option value="One_User">One User</option>
         </select>
@@ -388,26 +423,28 @@ function CouponManage() {
        
         
         {IdSet ? 
-            <button onClick={sendUpdatedData} class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center gap-3 mt-4" type="submit">
+            <button onClick={sendUpdatedData} class="select-none font-bold  text-xs py-2 px-4 rounded-lg bg-gray-600 hover:bg-gray-900 text-white shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 flex  gap-3 mt-4" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" stroke-width="2" class="h-4 w-4"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
                 </svg> 
-               "Update Coupon" 
+               "UPDATE COUPON" 
 
             </button>
             
             : 
-            <button onClick={sendData} class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center gap-3 mt-4" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" stroke-width="2" class="h-4 w-4"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-            </svg> 
-           "Add Coupon" 
+            <button onClick={sendData} class="select-none font-bold  text-xs py-2 px-4 rounded-lg  bg-gray-700 hover:bg-gray-900 text-white shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 flex  gap-3 mt-4" type="submit">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+</svg>
 
+           "ADD COUPON" 
+          
             </button>
         }
 
 
             {IdSet ?
-            <button class="p-2 text-red-600 " onClick={ClearData}>
-                            Claer
+            <button class=" m-2 ml-10 select-none font-bold  text-xs py-2 px-4 rounded-lg bg-red-900 hover:bg-red-600 text-white shadow-red-900/10 hover:shadow-lg hover:shadow-gray-900" onClick={ClearData}>
+                            CANCEL
                         </button>:""
                         }
             
@@ -423,26 +460,7 @@ function CouponManage() {
     <div class="w-full pt-5 px-4 mb-8 mx-auto text-center ">
         
     </div>
-    <div class="flex">
- 
- <div class="container mx-auto">
- <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
-           <img src="https://i.postimg.cc/KvTqpZq9/uber.png" class="w-20 mx-auto mb-4 rounded-lg" />
-           <h3 class="text-2xl font-semibold mb-4">{description}<br />{discountPercentage} % </h3>
-           <div class="flex items-center space-x-2 mb-1">
-             <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">{couponId}</span>
-             <button onClick={() => navigator.clipboard.writeText(couponId)}> <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
-             </button>
-           </div>
-           <p class="text-sm">Valid Till: {ExpDate}</p>
-           
-     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
-     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
-     
 
-         </div>
-       </div>
-</div>
 </div>
 
 
@@ -456,3 +474,6 @@ function CouponManage() {
 }
 
 export default CouponManage;
+
+
+
