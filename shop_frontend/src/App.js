@@ -32,7 +32,7 @@ function App() {
         <button className='Admin-button' onClick={() => { navigate('/UserHome_C'); saveSession(); }}>Customer</button>
         <button className='user-button' onClick={() => { navigate('/users'); }}>Product Manager "Dilshan"</button>
         <button className='Admin-button' onClick={() => { navigate('/cmdashboard'); saveSession(); }}>Promotion Manager "Dilina"</button>
-        <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Printing Manager "Sayumi"</button>
+        <button className='Admin-button' onClick={() => { navigate('/AdminMain_D'); saveSession(); }}>Printing Manager "Sayumi"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Admin "Chamu"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Order Manager "Andrew"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Financial Manager "Abishan"</button>

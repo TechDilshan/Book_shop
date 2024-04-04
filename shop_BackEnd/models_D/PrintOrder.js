@@ -36,6 +36,10 @@ const PrintOrderSchema = new Schema({
     },
     otherOptions: {
         type: String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now // Automatically set the current timestamp when a document is created
     }
 });
 

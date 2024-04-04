@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PrintDocStyles_D.css';
+import Navi from './Navi';
+import Foot from './footer';
 
 function PriceTable() {
   const [showForm, setShowForm] = useState(false);
@@ -145,6 +147,9 @@ function PriceTable() {
 
   return (
     <div>
+      <div>
+        <Navi/>
+      </div>
       {showForm ? (
         <div id="form1">
           <h2 className='topicMain'>Print Request Form</h2>
@@ -295,6 +300,9 @@ function PriceTable() {
           <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>
         </div>
       )}
+      <div>
+        <Foot/>
+      </div>
     </div>
   );
 }

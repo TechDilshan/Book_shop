@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PrintDocStyles_D.css';
 import './AdminStyle_D.css';
+import Foot from './footer';
+import Navi from './Navi';
 
 export default function AllPapers() {
     const [allpaperSizes, setAllPaperSizes] = useState([]);
@@ -104,9 +106,12 @@ export default function AllPapers() {
 
     return (
         <div>
+            <div>
+        <Navi/>
+      </div>
             {!addSection && (
                 <div>
-                    <h1><center>All Paper Sizes</center></h1>
+                    <h1 className='Allpapertop'>All Paper Sizes</h1>
                     <table className="admintable">
                         <thead>
                             <tr>
@@ -195,6 +200,9 @@ export default function AllPapers() {
                     </form>
                 </div>
             )}
+            <div>
+        <Foot/>
+      </div>
         </div>
     );
 }
