@@ -3,7 +3,7 @@ import axios from 'axios';
 import './PrintDocStyles_D.css';
 import './AdminStyle_D.css';
 import Foot from './footer';
-import Navi from './Navi';
+import NaviPrintManager_D from './NaviPrintManager_D';
 
 export default function AllPapers() {
     const [allpaperSizes, setAllPaperSizes] = useState([]);
@@ -106,9 +106,9 @@ export default function AllPapers() {
 
     return (
         <div>
-            <div>
-        <Navi/>
-      </div>
+        <div>
+            <NaviPrintManager_D/>
+        </div>
             {!addSection && (
                 <div>
                     <h1 className='Allpapertop'>All Paper Sizes</h1>
@@ -138,7 +138,6 @@ export default function AllPapers() {
                         </tbody>
                     </table>
                     <button className='btnadd' onClick={() => { setAddSection(true); resetForm(); }}>Add New Paper</button>
-                    <button className='btnviewuser'>View User Chart</button>
                 </div>
             )}
 
@@ -200,9 +199,9 @@ export default function AllPapers() {
                     </form>
                 </div>
             )}
-            <div>
-        <Foot/>
-      </div>
+        <div>
+            <Foot/>
+        </div>
         </div>
     );
 }

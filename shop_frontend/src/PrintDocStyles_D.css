@@ -45,6 +45,20 @@
     text-align: center;
   }
 
+  /* Admin's view table */
+  .allPrintingOrders {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+  }
+
+  .allPrintingOrders th, .allPrintingOrders td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+
   /*Print req form topic*/
   .topicMain {
     text-align: center;

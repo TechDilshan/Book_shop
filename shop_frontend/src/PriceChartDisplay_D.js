@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PrintDocStyles_D.css';
+import NaviPrintManager_D from './NaviPrintManager_D';
+import Foot from './footer';
 
 function PriceTable() {
   const [allPaperSizes, setAllPaperSizes] = useState([]);
@@ -47,7 +49,11 @@ function PriceTable() {
 };
 
   return (
-    <div id="pricetble">
+    <div>
+      <div>
+        <NaviPrintManager_D/>
+      </div>
+        <div id="pricetble">
           <h1 className='priceChartTopic'>Printing Price Chart</h1>
           <table className="userchart">
             <thead>
@@ -72,6 +78,10 @@ function PriceTable() {
             </tbody>
           </table>
         </div>
+      <div>
+        <Foot/>
+      </div>
+      </div>
   );
 }
 
