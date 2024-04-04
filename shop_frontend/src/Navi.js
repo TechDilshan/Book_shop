@@ -22,7 +22,7 @@ const NaviBar = () => {
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center mb-4">
       <div className="flex items-center ml-10 ">
-        <a href="#" className="mr-10 hover:text-gray-300">Home</a>
+        <a href="/UserHome_C" className="mr-10 hover:text-gray-300">Home</a>
         <a href="#" className="mr-10 hover:text-gray-300">About Us</a>
         <a href="#" className="mr-10 hover:text-gray-300">Printing</a>
         
@@ -32,8 +32,8 @@ const NaviBar = () => {
 
       <div className="flex items-center mr-10 ">
         <a href="/shopping-cart" className="mr-10 hover:text-gray-300"><i className="fa-solid fa-cart-shopping"></i></a>
-        <a href="#" className="mr-2 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
-        
+        <a href="#" className="mr-10 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
+        <a href="/" className="hover:text-gray-300">Logout</a>
       </div>
     </nav>
   );

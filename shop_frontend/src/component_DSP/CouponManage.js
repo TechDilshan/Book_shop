@@ -20,8 +20,7 @@ function CouponManage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [originalCoupons, setOriginalCoupons] = useState([]);
 
-
-
+    const [IdSet,setIdSet] = useState(null);
 
     const getCouponsDB = () =>{
       axios.get("http://localhost:3001/api/getcoupon/")
@@ -46,16 +45,39 @@ function CouponManage() {
         });
     };
 
+
+    const handleupdate = (cusId) => {
+      ClearData();
+      axios.get(`http://localhost:3001/api/getcoupon/${cusId}`)
+        .then((res) => {
+          console.log(res.data.user)
+          setCouponId(res.data.user.couponId);
+          setDiscountType(res.data.user.discountType);
+          setCouponVisibility(res.data.user.couponVisibility            );
+          setDiscountPercentage(res.data.user.discountPercentage);
+          setFixedAmount(res.data.user.fixedAmount);
+          setMinCount(res.data.user.minCount);
+          setExpDate(res.data.user.ExpDate);
+          setDescription(res.data.user.description);
+          setCustomerId(res.data.user.cusId);
+          setIdSet(res.data.user._id)
+
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    };
     const ClearData = () =>{
-      setCouponId("COUPON01");
-      setDiscountType('Free_Deliver');
+      setCouponId("");
+      setDiscountType('');
       setCouponVisibility('All_Users');
       setDiscountPercentage("0");
       setFixedAmount("");
       setMinCount("");
       setExpDate("(Exp Date)");
-      setDescription("Description");
+      setDescription("");
       setCustomerId("");
+      setIdSet("");
 
       document.getElementById('couponCode').value = "";
       //document.getElementById('discountType').value = 'freeDeliver';
@@ -68,6 +90,31 @@ function CouponManage() {
       //document.getElementById('cusId').value = "";
 
     }
+
+    function sendUpdatedData(){
+      const cpnup ={
+        couponId,
+        discountType,
+        discountPercentage,
+        fixedAmount,
+        minCount,
+        ExpDate,
+        couponVisibility,
+        cusId,
+        description
+      }
+    
+      axios.put(`http://localhost:3001/api/updatecoupon/${IdSet}`,cpnup).then(()=>{
+          
+      alert("Coupon Updated successfully");
+      getCouponsDB();
+      ClearData();
+  
+      }).catch((err)=>{
+         
+          alert(err.message); 
+      })}
+
 
     function sendData(e){
       e.preventDefault();
@@ -97,6 +144,8 @@ function CouponManage() {
           alert(err.message); 
       })
   }
+
+  
 
     useEffect(()=>{
       if (coupons.length === 0) {
@@ -146,26 +195,7 @@ function CouponManage() {
 
 
 <br/>
-    <div class="flex">
- 
-        <div class="container mx-auto">
-        <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
-                  <img src="https://i.postimg.cc/KvTqpZq9/uber.png" class="w-20 mx-auto mb-4 rounded-lg" />
-                  <h3 class="text-2xl font-semibold mb-4">{description}<br />{discountPercentage} % </h3>
-                  <div class="flex items-center space-x-2 mb-1">
-                    <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">{couponId}</span>
-                    <button onClick={() => navigator.clipboard.writeText(couponId)}> <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
-                    </button>
-                  </div>
-                  <p class="text-sm">Valid Till: {ExpDate}</p>
-                  
-            <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
-            <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
-            
 
-                </div>
-              </div>
-    </div>
     <br/>
 
     <div class="overflow-x-auto overflow-y-auto">
@@ -201,6 +231,7 @@ function CouponManage() {
   </svg>
                 </Link>
                 </td>
+
                 <td class="border border-gray-300 px-4 py-2">
                 <button
                   className="btn btn-danger"
@@ -211,6 +242,13 @@ function CouponManage() {
   </svg>
                 </button>
               </td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleupdate(cpn._id)}
+                >Edit
+              </button>
+                </td>
             </tr>
           ))}
                
@@ -219,7 +257,7 @@ function CouponManage() {
                     <td class="border border-gray-300 px-4 py-2">
                         <div class="mb-4">
                         <label for="couponCode" class="block text-sm font-medium text-gray-600">Coupon Code</label>
-                        <input type="text" id="couponCode" name="couponCode" class="mt-1 p-2 w-full border rounded-md"                     
+                        <input type="text" id="couponCode" name="couponCode" class="mt-1 p-2 w-full border rounded-md"   value={couponId}                   
                         onChange={(e)=>{
                         setCouponId(e.target.value);
                         setDiscountType('Free_Deliver');
@@ -285,18 +323,18 @@ function CouponManage() {
                     <td class="border border-gray-300 px-4 py-2">
                     <div class="mb-4">
         <label for="minPurchaseCount" class="block text-sm font-medium text-gray-600">Minimum Purchase Count</label>
-        <input type="number" id="minPurchaseCount" name="minPurchaseCount" class="mt-1 p-2 w-full border rounded-md" onChange={(e) => setMinCount(e.target.value)}/>
+        <input type="number" id="minPurchaseCount" name="minPurchaseCount" value={minCount} class="mt-1 p-2 w-full border rounded-md"  onChange={(e) => setMinCount(e.target.value)}/>
       </div>
       </td>
                     <td class="border border-gray-300 px-4 py-2">
                     <div class="mb-4">
         <label for="expirationDate" class="block text-sm font-medium text-gray-600">Expiration Date</label>
-        <input type="datetime-local" id="expirationDate" name="expirationDate" class="mt-1 p-2 w-full border rounded-md" onChange={(e) => setExpDate(e.target.value)}/>
+        <input type="datetime-local" id="expirationDate" name="expirationDate" class="mt-1 p-2 w-full border rounded-md" value={ExpDate} onChange={(e) => setExpDate(e.target.value)}/>
       </div></td>
       <td class="border border-gray-300 px-4 py-2">
       <div class="mb-4">
         <label for="description" class="block text-sm font-medium text-gray-600">Description</label>
-        <textarea id="description" name="description" placeholder='Type Description Here...' rows="3"  className="mt-1 p-2 w-full border rounded-md border-transparent focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" onChange={(e) => setDescription(e.target.value)}></textarea>
+        <textarea id="description" name="description" placeholder='Type Description Here...' rows="3" value={description} className="mt-1 p-2 w-full border rounded-md border-transparent focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" onChange={(e) => setDescription(e.target.value)}></textarea>
       </div>
       </td>
 
@@ -347,12 +385,32 @@ function CouponManage() {
     </div>
     <div class="flex w-2/3 justify-center mx-auto mt-8">
         <div>
-        <form onSubmit={sendData}>
-            <button  class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center gap-3 mt-4" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" stroke-width="2" class="h-4 w-4"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path></svg> 
-                Add Attendee
+       
+        
+        {IdSet ? 
+            <button onClick={sendUpdatedData} class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center gap-3 mt-4" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" stroke-width="2" class="h-4 w-4"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+                </svg> 
+               "Update Coupon" 
+
             </button>
-            </form>
+            
+            : 
+            <button onClick={sendData} class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center gap-3 mt-4" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" stroke-width="2" class="h-4 w-4"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+            </svg> 
+           "Add Coupon" 
+
+            </button>
+        }
+
+
+            {IdSet ?
+            <button class="p-2 text-red-600 " onClick={ClearData}>
+                            Claer
+                        </button>:""
+                        }
+            
         </div>
 
 
@@ -365,6 +423,26 @@ function CouponManage() {
     <div class="w-full pt-5 px-4 mb-8 mx-auto text-center ">
         
     </div>
+    <div class="flex">
+ 
+ <div class="container mx-auto">
+ <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
+           <img src="https://i.postimg.cc/KvTqpZq9/uber.png" class="w-20 mx-auto mb-4 rounded-lg" />
+           <h3 class="text-2xl font-semibold mb-4">{description}<br />{discountPercentage} % </h3>
+           <div class="flex items-center space-x-2 mb-1">
+             <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">{couponId}</span>
+             <button onClick={() => navigator.clipboard.writeText(couponId)}> <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
+             </button>
+           </div>
+           <p class="text-sm">Valid Till: {ExpDate}</p>
+           
+     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
+     <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
+     
+
+         </div>
+       </div>
+</div>
 </div>
 
 

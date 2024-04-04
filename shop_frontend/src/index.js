@@ -22,6 +22,7 @@ import AdminPriceChartCreate_D from './AdminPriceChartCreate_D';
 import AdminMain_D from './AdminMain_D';
 import PriceChartDisplay_D from './PriceChartDisplay_D';
 import PrintOrderMain_D from './PrintOrderMain_D';
+import CouponView from './component_DSP/CouponView';
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -53,6 +54,9 @@ root.render(
         <Route path='/AdminMain_D' element={<AdminMain_D />} />
         <Route path='/PriceChartDisplay_D' element={<PriceChartDisplay_D />} />
         <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
+        <Route  path='/couponview' element={<CouponView />}/>
+        CouponView
+
 
 
   

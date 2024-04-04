@@ -76,10 +76,17 @@ const ProductItem_C = ({ rows }) => {
                     <input type="number" className="quantity-input" value={quantity} min="1" />
                     <button className="increment" onClick={handleIncrement}>+</button>
                 </div>
-                <button className="add-to-cart" onClick={() => {
-                                                                  StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes:row.sdes, price:row.price });
-                                                                  createCart({ productId: row.id, qty: quantity });
-                                                                }}>
+                <button 
+                    className={`add-to-cart ${row.stock === 0 ? '' : 'disabled'}`}
+                    onClick={() => {
+                      if (row.stock === 0) {
+                        alert("Stock is zero. Cannot add to cart.");
+                      } else {
+                        StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
+                        createCart({ productId: row.id, qty: quantity });
+                      }
+                    }}
+                  >
                     <span className="cart-icon">+</span>
                     <span className="add-text">Add</span>
                   </button>
