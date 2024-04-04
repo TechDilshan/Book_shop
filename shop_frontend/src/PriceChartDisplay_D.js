@@ -48,30 +48,30 @@ function PriceTable() {
 
   return (
     <div id="pricetble">
-      <h1 style={{marginBottom: "30px" }}><center>Printing Price Chart</center></h1>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Paper Size</th>
-            <th>Black & White - Single-Sided</th>
-            <th>Black & White - Double-Sided</th>
-            <th>Coloured - Single-Sided</th>
-            <th>Coloured - Double-Sided</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(allPaperSizes).map(([paperSize, prices], index) => (
-            <tr key={index}>
-              <td>{paperSize}</td>
-              <td>{prices.blackAndWhite_single}</td>
-              <td>{prices.blackAndWhite_double}</td>
-              <td>{prices.coloured_single}</td>
-              <td>{prices.coloured_double}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          <h1 className='priceChartTopic'>Printing Price Chart</h1>
+          <table className="userchart">
+            <thead>
+              <tr>
+                <th>Paper Size</th>
+                <th>Black & White - Single-Sided</th>
+                <th>Black & White - Double-Sided</th>
+                <th>Coloured - Single-Sided</th>
+                <th>Coloured - Double-Sided</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(allPaperSizes).map(([paperSize, prices], index) => (
+                <tr key={index}>
+                  <td>{paperSize}</td>
+                  <td>{prices.blackAndWhite_single}</td>
+                  <td>{prices.blackAndWhite_double}</td>
+                  <td>{prices.coloured_single}</td>
+                  <td>{prices.coloured_double}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
   );
 }
 

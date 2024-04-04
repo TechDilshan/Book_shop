@@ -13,6 +13,7 @@ router.route("/add").post((req, res) => {
     const doubleSided = req.body.doubleSided;
     const paperSize = req.body.paperSize;
     const otherOptions = req.body.otherOptions;
+    const documentID = req.body.documentID;
 
     const newPrintOrder = new PrintOrder({
         uEmail,
@@ -23,7 +24,8 @@ router.route("/add").post((req, res) => {
         orientation,
         doubleSided,
         paperSize,
-        otherOptions
+        otherOptions,
+        documentID
     });
 
     //pass the object to the DB as a doc

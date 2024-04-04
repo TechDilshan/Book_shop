@@ -17,6 +17,7 @@ function PriceTable() {
     singleSide: false,
     paperSize: 'A4',
     otherOptions: '',
+    documentID: '',
   });
 
   //Deleting a paper size
@@ -71,6 +72,7 @@ function PriceTable() {
           singleSide: false,
           paperSize: 'A4',
           otherOptions: '',
+          documentID: '',
         });
       })
       .catch((error) => {
