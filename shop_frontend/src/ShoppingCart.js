@@ -189,19 +189,23 @@ const ShoppingCart = () => {
             </div>   
           );
         })}
+        <div>
+           <button class="update">UPDATE</button>
+           </div>
+        
         <div className="pdf-download-button">
           <PDFDownloadLink document={<BillGenerator items={filteredCartItems} total={total} carts={carts} />} fileName="bill.pdf">
             {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download Bill')}
           </PDFDownloadLink>
         </div>
-
-          
+       
+       
         <div className="total-amount">Total : LKR.{total}</div>
 
         <div class="pay-now-button-container">
           <button class="pay-now-button">Pay Now</button>
         </div>
-
+        <button class="coupon">Looking for DISCOUNT?</button>
       </div>
       
     </div>

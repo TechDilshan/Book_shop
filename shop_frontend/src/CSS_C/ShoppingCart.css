@@ -105,6 +105,7 @@
   
 
   .pdf-download-button {
+    margin-top: 10px;
     display: inline-block;
     padding: 10px 20px;
     background: linear-gradient(45deg, #007bff, #00bcd4);
@@ -115,6 +116,7 @@
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
+    
   }
   
   .pdf-download-button:hover {
@@ -163,4 +165,21 @@
 
 .pay-now-button:hover {
   background: linear-gradient(45deg, #0056b3, #0097a7);
+}
+
+.coupon{
+  font-weight: bold;
+}
+
+
+.update{
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #007bff, #00bcd4);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
