@@ -9,7 +9,7 @@
     "react-router-dom": "^6.22.0"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
