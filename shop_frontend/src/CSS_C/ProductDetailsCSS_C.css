@@ -14,7 +14,9 @@
     box-sizing: border-box; /* Ensure border width is included in width calculation */
     margin: 20px;
   }
-  
+ 
+
+
   .product-image img {
     width: 600px; /* Set the width */
     height: 500px; /* Set the height */

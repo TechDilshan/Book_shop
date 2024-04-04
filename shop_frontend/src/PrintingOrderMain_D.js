@@ -3,11 +3,14 @@ import axios from 'axios';
 import './PrintDocStyles_D.css';
 import Navi from './Navi';
 import Foot from './footer';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "./firebase";
+import { v4 } from "uuid";
 
 function PriceTable() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    uEmail: '',
+    uEmail: '', // Assuming you'll fetch userEmail from session storage
     document: null,
     colour: 'blackWhite',
     copies: 1,
@@ -19,60 +22,43 @@ function PriceTable() {
     otherOptions: '',
     documentID: '',
   });
-
-  //Deleting a paper size
-  const handleDelete = (printOrderID) => {
-    const confirmation = window.confirm("Are you sure you want to delete your printing order?");
-    if (confirmation) {
-        axios.delete(`http://localhost:3003/printorders/delete/${printOrderID}`)
-            .then(() => {
-                alert("Print Order Deleted Successfully");
-            })
-            .catch((err) => {
-                alert(err.message);
-            });
-    } else {
-        // User clicked cancel, do nothing
-    }
-};
+  const [allPaperSizes, setAllPaperSizes] = useState([]);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+    const { name, value, type, checked } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,
       doubleSided: name === 'doubleSided' ? checked : false,
       singleSide: name === 'singleSide' ? checked : false,
-      [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); 
 
-     // Add userEmail to formData
-     const formDataWithUserEmail = {
+    // Upload document to Firebase
+    const documentID = await uploadFile(formData.document);
+    if (!documentID) {
+      alert("Error in uploading document");
+      return;
+    }
+
+    // Add userEmail to formData
+    const formDataWithUserEmail = {
       ...formData,
-      uEmail: userEmail  // Add userEmail here
+      documentID: documentID,
     };
 
-    console.log(formData);
     axios.post('http://localhost:3003/printorders/add', formDataWithUserEmail)
       .then((response) => {
         console.log(response.data);
         alert("Printing Order Placed Successfully");
         // Reset form data
         setFormData({
-          document: null,
-          colour: 'blackWhite',
-          copies: 1,
-          slides: 1,
-          orientation: 'portrait',
-          doubleSided: false,
-          singleSide: false,
-          paperSize: 'A4',
-          otherOptions: '',
-          documentID: '',
+          ...formDataWithUserEmail,
+          document: null, // Reset document after successful upload
         });
       })
       .catch((error) => {
@@ -81,10 +67,36 @@ function PriceTable() {
       });
   };
 
-  const [allPaperSizes, setAllPaperSizes] = useState([]);
+  const uploadFile = async (file) => {
+    if (!file) return null;
+    const fileID = v4();
+    const fileRef = ref(storage, `files/${fileID}`);
 
-  // Get data from the database
+    try {
+      await uploadBytes(fileRef, file);
+      return fileID;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const handleInputChangeFile = (event) => {
+    const file = event.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      document: file,
+    }));
+  };
+
   useEffect(() => {
+    const userEmail = sessionStorage.getItem('userEmail');
+    setFormData((prevData) => ({
+      ...prevData,
+      uEmail: userEmail,
+    }));
+
+    // Fetch paper sizes data
     axios.get("http://localhost:3003/printprice/")
       .then((response) => {
         // Group data by paper size
@@ -126,27 +138,6 @@ function PriceTable() {
   const handleFormToggle = () => {
     setShowForm(!showForm);
   };
-
-  const userEmail = sessionStorage.getItem('userEmail');
-  console.log(userEmail);
-
-
-  //fetching the most recent entry of a users order
-  const [orderDetails, setOrderDetails] = useState(null);
-
-  useEffect(() => {
-    const userEmail = sessionStorage.getItem('userEmail');
-    if (userEmail) {
-      axios.get(`http://localhost:3003/printorders/latest/${userEmail}`)
-        .then((response) => {
-          setOrderDetails(response.data.printOrder);
-        })
-        .catch((error) => {
-          console.error('Error fetching order details:', error);
-        });
-    }
-  }, []);
-
   return (
     <div>
       <div>
@@ -163,8 +154,8 @@ function PriceTable() {
                       id="document"
                       name="document"
                       accept=".pdf, .jpg"
-                      onChange={handleInputChange}
-                      
+                      onChange={handleInputChangeFile}
+                      required
                     />
                     <br/>
 
@@ -220,29 +211,31 @@ function PriceTable() {
                     </select>
                     <br/>
 
-                    <label>
-                    Double-Sided
-                      <input
-                        type="checkbox"
-                        className='doubleS'
-                        id="doubleSided"
-                        name="doubleSided"
-                        checked={formData.doubleSided}
-                        onChange={handleInputChange}
-                      />
-                    </label>
+            <label>
+              Double-Sided
+              <input
+                type="radio"
+                className='doubleS'
+                id="doubleSided"
+                name="doubleSided"
+                checked={!formData.doubleSided} // Set to true if doubleSided is true
+                onChange={handleInputChange}
+                
+              />
+            </label>
 
-                    <label>
-                    Single-Sided
-                      <input
-                        type="checkbox"
-                        className='singleS'
-                        id="singleSide"
-                        name="singleSide"
-                        checked={formData.singleSide}
-                        onChange={handleInputChange}
-                      />
-                    </label>
+            <label>
+              Single-Sided
+              <input
+                type="radio"
+                className='singleS'
+                id="singleSide"
+                name="singleSide"
+                checked={formData.doubleSided} // Set to true if doubleSided is false
+                onChange={handleInputChange}
+              />
+            </label> 
+
                     <br/>
 
                     <label htmlFor="paperSize" className='topicSubs'>Paper Size: </label>

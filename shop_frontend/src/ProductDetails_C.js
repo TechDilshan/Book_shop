@@ -7,6 +7,9 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
 import { FaShoppingCart } from 'react-icons/fa';
 import StockUpdate_C from './StockUpdate_C';
+import Navi from './Navi';
+import Foot from './footer';
+import createCart from './createCart';
 
 const ProductDetails_C = () => {
   const location = useLocation();
@@ -40,7 +43,11 @@ const ProductDetails_C = () => {
   }, [row]);
 
   return (
-<div class="product-container1" className='flex'>
+    <div>
+    <Navi/>
+  
+<div class="product-container1" className='flex' >
+    
   <div class="product-image">
     {imageUrl && (
       <img class="product-size" src={imageUrl} alt={`Photo-${row.id}`} />
@@ -57,10 +64,20 @@ const ProductDetails_C = () => {
            <input type="number" className="quantity-input" value={quantity} min="1" />
           <button className="increment" onClick={handleIncrement}>+</button>
       </div>
-        <button className="add-to-cart" onClick={() => StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add" })}>
-          <span className="cart-icon">+</span>
-          <span className="add-text">Add</span>
-        </button>
+            <button 
+                    className={`add-to-cart ${row.stock === 0 ? '' : 'disabled'}`}
+                    onClick={() => {
+                      if (row.stock === 0) {
+                        alert("Stock is zero. Cannot add to cart.");
+                      } else {
+                        StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
+                        createCart({ productId: row.id, qty: quantity, stk: row.stock });
+                      }
+                    }}
+                  >
+                    <span className="cart-icon">+</span>
+                    <span className="add-text">Add</span>
+           </button>
     </div>
     <div class="stock-info">
       <div class="stock-indicator"></div>
@@ -84,7 +101,7 @@ const ProductDetails_C = () => {
 
 
 
-
+</div>
 
   );
 };
