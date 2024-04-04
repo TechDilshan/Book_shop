@@ -45,9 +45,24 @@
     text-align: center;
   }
 
+  /*Print req form topic*/
   .topicMain {
     text-align: center;
     color: #333;
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: 'Bahnschrift'
+  }
+
+  /*Printing price chart topic of user view*/
+  .priceChartTopic {
+    text-align: center;
+    color: #333;
+    font-size: 25px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-family: 'Bahnschrift'
   }
   
   form {

@@ -196,7 +196,7 @@ export default function AllPapers() {
                         />
                         <br /><br />
 
-                        <button type="submit" className='btn'>{selectedPaper ? "Update Price" : "Submit Paper Size"}</button>
+                        <button type="submit" className='btn1'>{selectedPaper ? "Update Price" : "Submit Paper Size"}</button>
                     </form>
                 </div>
             )}

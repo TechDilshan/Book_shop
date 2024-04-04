@@ -274,7 +274,7 @@ function PriceTable() {
         </div>
       ) : (
         <div id="pricetble">
-          <h1 style={{marginBottom: "30px" }}><center>Printing Price Chart</center></h1>
+          <h1 className='priceChartTopic'>Printing Price Chart</h1>
           <table className="userchart">
             <thead>
               <tr>
