@@ -17,7 +17,7 @@ const ShoppingCart = () => {
   const [carts2, setCarts2] = useState([]);
   const [total, setTotal] = useState(0); // Initialize total to 0
   const [imageUrls, setImageUrls] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     getCartDetails();
@@ -98,6 +98,10 @@ const ShoppingCart = () => {
   const userEmail = sessionStorage.getItem('userEmail');
   const filteredCarts = carts.filter(cart => cart.email === userEmail);
 
+    // Function to filter carts based on search query
+    const filteredCartItems = carts2.filter(cart => cart.email === userEmail && 
+      (carts.find(c => c.id === cart.id)?.name.toLowerCase().includes(searchQuery.toLowerCase())));
+
   return (
     <div>
       <div>
@@ -105,8 +109,16 @@ const ShoppingCart = () => {
       </div>
       <div className='shopping-cart'>
         <h2 className='cart-title'>Shopping Cart</h2>
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          value={searchQuery} 
+          onChange={(e) => setSearchQuery(e.target.value)} 
+        />
+         
         {carts2
-  .filter(cart => cart.email === userEmail)
+  .filter(cart => cart.email === userEmail && 
+    (carts.find(c => c.id === cart.id)?.name.toLowerCase().includes(searchQuery.toLowerCase())))
   .map((cart) => {
     const imageUrlObj = imageUrls.find(urlObj => urlObj.id === cart.id);
     const imageUrl = imageUrlObj ? imageUrlObj.url : null;
