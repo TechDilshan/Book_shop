@@ -70,10 +70,6 @@ Thank you..!`,
                 alert('The product was successfully added to the cart..!');
                 window.location.reload();
             }
-
-        else{
-            alert('Stock Exceeded!');
-        }
         
     }
     else if(type=="remove"){

@@ -83,7 +83,7 @@ const ProductItem_C = ({ rows }) => {
                         alert("Stock is zero. Cannot add to cart.");
                       } else {
                         StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
-                        createCart({ productId: row.id, qty: quantity });
+                        createCart({ productId: row.id, qty: quantity, stk: row.stock });
                       }
                     }}
                   >
