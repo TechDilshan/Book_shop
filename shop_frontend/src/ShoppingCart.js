@@ -11,27 +11,46 @@ import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
-    padding: 10,
+    backgroundColor: '#def0f0',
+    padding: 20,
   },
   section: {
     margin: 10,
     padding: 10,
-    flexGrow: 1,
+    border: '1px solid #ccc',
+    borderRadius: 10,
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 24,
-    marginBottom: 10,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    textDecoration: 'underline',
   },
   item: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 5,
+  },
+  itemName: {
+    fontSize: 18,
+    fontWeight: 'bold',
     marginBottom: 5,
   },
+  itemDetail: {
+    fontSize: 14,
+    marginBottom: 3,
+  },
   total: {
-    marginTop: 10,
-    alignSelf: 'flex-end',
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    textAlign: 'center',
   },
 });
+
 
 
 
@@ -39,19 +58,19 @@ const BillGenerator = ({ items, total, carts }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.title}>Bill</Text>
+        <Text style={styles.title}>RATHI INTEC SHOPPING CART BILL</Text>
         {items.map(item => {
           const filteredCart = carts.find(c => c.id === item.id);
           return (
             <View key={item.id} style={styles.item}>
-              <Text>Name: {filteredCart ? filteredCart.name : 'Name not available'}</Text>
-              <Text>Quantity: {item.quantity}</Text>
-              <Text>Price per one: {filteredCart ? filteredCart.price  : 'Price not available'}</Text>
-              <Text>sub tot: {filteredCart ? filteredCart.price * item.quantity : 'Price not available'}</Text>
+              <Text>Name                     : {filteredCart ? filteredCart.name : 'Name not available'}</Text>
+              <Text>Quantity                 : {item.quantity} qty.</Text>
+              <Text>Price per one item : {filteredCart ? filteredCart.price  : 'Price not available'} /=</Text>
+              <Text>sub total                 : {filteredCart ? filteredCart.price * item.quantity : 'Price not available'} /=</Text>
             </View>
           );
         })}
-        <Text style={styles.total}>Total: {total}</Text>
+        <Text style={styles.total}>Total Amount :  LKR. {total} /=</Text>
       </View>
     </Page>
   </Document>
