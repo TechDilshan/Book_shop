@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './PrintDocStyles_D.css';
-import NaviPrintManager_D from './NaviPrintManager_D';
-import Foot from './footer';
+import '../components_D/PrintDocStyles_D.css';
+import NaviPrintManager_D from '../components_D/NaviPrintManager_D';
+import Foot from '../footer';
 
 function PriceTable() {
   const [allPaperSizes, setAllPaperSizes] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AdminStyle_D.css';
+import '../components_D/AdminStyle_D.css';
 
 const AddPaperSize = () => {
   
@@ -34,7 +34,7 @@ const AddPaperSize = () => {
       });
   }
 
-  // Mapping function to transform database values to display values
+  // mapping db vals into display vals
   function mapValue(value) {
     switch(value) {
       case "blackAndWhite":

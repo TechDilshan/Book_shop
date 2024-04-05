@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './PrintDocStyles_D.css';
-import './AdminStyle_D.css';
-import Foot from './footer';
-import NaviPrintManager_D from './NaviPrintManager_D';
+import '../components_D/PrintDocStyles_D.css';
+import '../components_D/AdminStyle_D.css';
+import Foot from '../footer';
+import NaviPrintManager_D from '../components_D/NaviPrintManager_D';
 
 export default function AllPapers() {
     const [allpaperSizes, setAllPaperSizes] = useState([]);

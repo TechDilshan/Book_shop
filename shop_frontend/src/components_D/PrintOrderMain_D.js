@@ -1,6 +1,6 @@
 import React from 'react';
-import PriceChartDisplay_D from './PriceChartDisplay_D';
-import PrintOrderForm_D from './PrintOrderForm_D';
+import PriceChartDisplay_D from '../components_D/PriceChartDisplay_D';
+import PrintOrderForm_D from '../components_D/PrintOrderForm_D';
 
 function PrintRequestPage() {
   return (

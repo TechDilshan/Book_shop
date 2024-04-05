@@ -19,13 +19,14 @@ import UpdateCoupon from './component_DSP/UpdateCoupon'
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
 
-import PrintingOrderDisplayAdmin_D from './PrintingOrderDisplayAdmin_D';
-import PrintDocCreate_D from './PrintDocCreate_D';
-import PrintingOrderMain_D from './PrintingOrderMain_D';
-import AdminPriceChartCreate_D from './AdminPriceChartCreate_D';
-import AdminMain_D from './AdminMain_D';
-import PriceChartDisplay_D from './PriceChartDisplay_D';
-import PrintOrderMain_D from './PrintOrderMain_D';
+import PrintingOrderDisplayAdmin_D from './components_D/PrintingOrderDisplayAdmin_D';
+import PrintDocCreate_D from './components_D/PrintDocCreate_D';
+import PrintingOrderMain_D from './components_D/PrintingOrderMain_D';
+import AdminPriceChartCreate_D from './components_D/AdminPriceChartCreate_D';
+import AdminMain_D from './components_D/AdminMain_D';
+import PriceChartDisplay_D from './components_D/PriceChartDisplay_D';
+import PrintOrderMain_D from './components_D/PrintOrderMain_D';
+
 import CouponView from './component_DSP/CouponView';
 
 // Add the FontAwesome CDN link dynamically

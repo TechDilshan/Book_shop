@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './PrintDocStyles_D.css';
-import Navi from './Navi';
-import Foot from './footer';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase";
-import { v4 } from "uuid";
+import React, { useState } from 'react';
+import '../components_D/PrintDocStyles_D.css';
 
-function PriceTable() {
+function PrintRequestForm() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    uEmail: '', // Assuming you'll fetch userEmail from session storage
     document: null,
     colour: 'blackWhite',
     copies: 1,
@@ -20,141 +13,41 @@ function PriceTable() {
     singleSide: false,
     paperSize: 'A4',
     otherOptions: '',
-    documentID: '',
   });
-  const [allPaperSizes, setAllPaperSizes] = useState([]);
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,
       doubleSided: name === 'doubleSided' ? checked : false,
       singleSide: name === 'singleSide' ? checked : false,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(); 
-
-    // Upload document to Firebase
-    const documentID = await uploadFile(formData.document);
-    if (!documentID) {
-      alert("Error in uploading document");
-      return;
-    }
-
-    // Add userEmail to formData
-    const formDataWithUserEmail = {
-      ...formData,
-      documentID: documentID,
-    };
-
-    axios.post('http://localhost:3003/printorders/add', formDataWithUserEmail)
-      .then((response) => {
-        console.log(response.data);
-        alert("Printing Order Placed Successfully");
-        // Reset form data
-        setFormData({
-          ...formDataWithUserEmail,
-          document: null, // Reset document after successful upload
-        });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert("Error in placing print order");
-      });
-  };
-
-  const uploadFile = async (file) => {
-    if (!file) return null;
-    const fileID = v4();
-    const fileRef = ref(storage, `files/${fileID}`);
-
-    try {
-      await uploadBytes(fileRef, file);
-      return fileID;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
-  const handleInputChangeFile = (event) => {
-    const file = event.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      document: file,
-    }));
-  };
-
-  useEffect(() => {
-    const userEmail = sessionStorage.getItem('userEmail');
-    setFormData((prevData) => ({
-      ...prevData,
-      uEmail: userEmail,
-    }));
-
-    // Fetch paper sizes data
-    axios.get("http://localhost:3003/printprice/")
-      .then((response) => {
-        // Group data by paper size
-        const groupedData = groupData(response.data);
-        setAllPaperSizes(groupedData);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  }, []);
-
-  // Function to group data by paper size
-  const groupData = (data) => {
-    const groupedData = {};
-    data.forEach((item) => {
-      if (!groupedData[item.paperSize]) {
-        groupedData[item.paperSize] = {
-          blackAndWhite_single: '-',
-          blackAndWhite_double: '-',
-          coloured_single: '-',
-          coloured_double: '-',
-        };
-      }
-      const { colour, side, price } = item;
-      // Update the corresponding price based on colour and side
-      if (colour === 'Black and White' && side === 'Single-Sided') {
-        groupedData[item.paperSize].blackAndWhite_single = `Rs.${price}`;
-      } else if (colour === 'Black and White' && side === 'Double-Sided') {
-        groupedData[item.paperSize].blackAndWhite_double = `Rs.${price}`;
-      } else if (colour === 'Coloured' && side === 'Single-Sided') {
-        groupedData[item.paperSize].coloured_single = `Rs.${price}`;
-      } else if (colour === 'Coloured' && side === 'Double-Sided') {
-        groupedData[item.paperSize].coloured_double = `Rs.${price}`;
-      }
-    });
-    return groupedData;
   };
 
   const handleFormToggle = () => {
     setShowForm(!showForm);
   };
+
   return (
     <div>
-      <div>
-        <Navi/>
-      </div>
       {showForm ? (
         <div id="form1">
           <h2 className='topicMain'>Print Request Form</h2>
           <button onClick={handleFormToggle} className='btnViewChart' >View Price Chart</button>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="document" className='topicSubs'>Upload Document (PDF/JPG): </label>
+              <label htmlFor="document" className='topicSubs'>Upload Document (PDF/JPG): </label>
                     <input
                       type="file"
                       id="document"
                       name="document"
                       accept=".pdf, .jpg"
-                      onChange={handleInputChangeFile}
+                      onChange={handleInputChange}
                       required
                     />
                     <br/>
@@ -234,7 +127,7 @@ function PriceTable() {
                         onChange={handleInputChange}
                       />
                     </label>
-                    <br/> 
+                    <br/>
 
                     <label htmlFor="paperSize" className='topicSubs'>Paper Size: </label>
                     <select
@@ -262,42 +155,17 @@ function PriceTable() {
                         onChange={handleInputChange}
                     />
                     <br/>
-              <button type="submit" className='btnSub'>Submit Print Request</button>
-          </form>
-        </div>
+
+                    <button type="submit" className='btnSub'>Submit Print Request</button>
+        </form>
+      </div>
       ) : (
-        <div id="pricetble">
-          <h1 className='priceChartTopic'>Printing Price Chart</h1>
-          <table className="userchart">
-            <thead>
-              <tr>
-                <th>Paper Size</th>
-                <th>Black & White - Single-Sided</th>
-                <th>Black & White - Double-Sided</th>
-                <th>Coloured - Single-Sided</th>
-                <th>Coloured - Double-Sided</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(allPaperSizes).map(([paperSize, prices], index) => (
-                <tr key={index}>
-                  <td>{paperSize}</td>
-                  <td>{prices.blackAndWhite_single}</td>
-                  <td>{prices.blackAndWhite_double}</td>
-                  <td>{prices.coloured_single}</td>
-                  <td>{prices.coloured_double}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>
+        <div>
+          <button onClick={handleFormToggle} className='btnPlace2' >Place Order</button>
         </div>
       )}
-      <div>
-        <Foot/>
-      </div>
     </div>
   );
 }
 
-export default PriceTable;
+export default PrintRequestForm;

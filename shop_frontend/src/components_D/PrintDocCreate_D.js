@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './PrintDocStyles_D.css';
+import '../components_D/PrintDocStyles_D.css';
 
 const PrintRequestForm = () => {
   const [formData, setFormData] = useState({
