@@ -67,6 +67,7 @@
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .action-button:hover {
@@ -173,13 +174,18 @@
 
 
 .update{
+  padding: 8px 15px;
+  margin-right: 8px;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
   background: linear-gradient(45deg, #007bff, #00bcd4);
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.update:hover {
+  background: linear-gradient(45deg, #0056b3, #0097a7);
 }

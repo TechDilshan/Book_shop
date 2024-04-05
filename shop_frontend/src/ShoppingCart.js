@@ -203,13 +203,14 @@ const ShoppingCart = () => {
                 <button className="action-button">-</button>
                 <span className="item-quantity">{cart.quantity}</span>
                 <button className="action-button">+</button>
+                <button class="update">UPDATE</button>
                 <button className="action-button delete-button" onClick={() => {deleteCart(cart.id); handleButtonClick();}}>Delete</button>
               </div>
             </div>   
           );
         })}
         <div>
-           <button class="update">UPDATE</button>
+           
            </div>
         
         <div className="pdf-download-button">
