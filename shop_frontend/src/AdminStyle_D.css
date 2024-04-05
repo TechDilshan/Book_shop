@@ -17,6 +17,16 @@
     font-family: 'Bahnschrift';
   }
 
+  /*All printing orders topic*/
+  .AllprintTop {
+    margin-top: 60px;
+    text-align: center;
+    color: #333;
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Bahnschrift';
+  }
+
   .mainTopic {
     text-align: center;
     color: #333;
@@ -81,6 +91,22 @@
   .btnadd:hover {
     background-color: #0056b3;
   }
+
+    /* Generate Report */
+    .btngeneraterep_D {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      margin-bottom: 20px;
+      margin-left: 1085px;
+    }
+    
+    .btngeneraterep_D:hover {
+      background-color: #0056b3;
+    }
 
   /* Button to view user's view table */
   .btnviewuser {

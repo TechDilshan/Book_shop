@@ -211,32 +211,30 @@ function PriceTable() {
                     </select>
                     <br/>
 
-            <label>
-              Double-Sided
-              <input
-                type="radio"
-                className='doubleS'
-                id="doubleSided"
-                name="doubleSided"
-                checked={!formData.doubleSided} // Set to true if doubleSided is true
-                onChange={handleInputChange}
-                
-              />
-            </label>
+                    <label>
+                    Double-Sided
+                      <input
+                        type="checkbox"
+                        className='doubleS'
+                        id="doubleSided"
+                        name="doubleSided"
+                        checked={formData.doubleSided}
+                        onChange={handleInputChange}
+                      />
+                    </label>
 
-            <label>
-              Single-Sided
-              <input
-                type="radio"
-                className='singleS'
-                id="singleSide"
-                name="singleSide"
-                checked={formData.doubleSided} // Set to true if doubleSided is false
-                onChange={handleInputChange}
-              />
-            </label> 
-
-                    <br/>
+                    <label>
+                    Single-Sided
+                      <input
+                        type="checkbox"
+                        className='singleS'
+                        id="singleSide"
+                        name="singleSide"
+                        checked={formData.singleSide}
+                        onChange={handleInputChange}
+                      />
+                    </label>
+                    <br/> 
 
                     <label htmlFor="paperSize" className='topicSubs'>Paper Size: </label>
                     <select

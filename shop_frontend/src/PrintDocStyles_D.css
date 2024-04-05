@@ -7,22 +7,13 @@
     border: 1px solid #ccc;
   }
   
-  /* User's view table */
-  #pricetble {
-    width: 80%;
-    margin: 50px auto;
-    padding: 50px;
-    background-color: #fff;
-  }
 
-  #pricetble table {
-    margin: 0 auto;
-  }
 
   /* User's view table */
   .userchart {
-    width: 100%;
-    margin: 0 auto;
+    width: 80%;
+    margin: 50px auto;
+    padding: 50px;
     border-collapse: collapse;
   }
 
@@ -75,6 +66,8 @@
     color: #333;
     font-size: 25px;
     margin-bottom: 30px;
+    margin-top: 60px;
+    font-size: 35px;
     font-weight: bold;
     font-family: 'Bahnschrift'
   }
@@ -151,8 +144,8 @@
     border: none;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 30px;
-    margin-left: 808px;
+    margin-bottom: 50px;
+    margin-left: 130px;
   }
   
   .btnPlace:hover {

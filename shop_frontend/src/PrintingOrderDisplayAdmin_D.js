@@ -36,7 +36,8 @@ export default function OrderDisplayAdmin(){
                 <NaviPrintManager_D/>
             </div>
             <div>
-                <h1 className='Allpapertop'>All Printing Orders</h1>
+                <h1 className='AllprintTop'>All Printing Orders</h1>
+                <button className='btngeneraterep_D'>Generate Report</button>
                 <table className="allPrintingOrders">
                     <thead>
                         <tr>

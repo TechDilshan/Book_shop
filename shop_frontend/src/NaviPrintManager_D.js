@@ -30,7 +30,6 @@ const NaviBar = () => {
 
 
       <div className="flex items-center mr-10 ">
-        <a href="/shopping-cart" className="mr-10 hover:text-gray-300"><i className="fa-solid fa-cart-shopping"></i></a>
         <a href="#" className="mr-10 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
         <a href="/" className="hover:text-gray-300">Logout</a>
       </div>
