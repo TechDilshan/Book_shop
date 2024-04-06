@@ -88,7 +88,7 @@ const UserHome_C = () => {
 
   return (
     
-    <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8" style={{ backgroundColor: "#e0f2fe" }}>
+    <div class="w-calc(100% - 100px) mx-auto mt-2 lg:ml-2 lg:mr-2" style={{ backgroundColor: "#e0f2fe" }}>
       <div>
         <Navi/>
       </div>

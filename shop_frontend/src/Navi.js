@@ -29,6 +29,7 @@ const NaviBar = () => {
           <li class='logo'><a href='/UserHome_C'><img src={logo}/></a></li>
           <input type='checkbox' id='check' />
           <span class="menu">
+              <li><a href="/UserHome_C" class="phone-logo"><img src={logo}/></a></li>
               <li><a href="/UserHome_C">Home</a></li>
               <li><a href="">About Us</a></li>
               <li><a href="/PrintingOrderMain_D">Printing</a></li>
