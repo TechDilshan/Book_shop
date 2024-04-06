@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import './index.css';
-import './CSS_C/ProductDetailsCSS_C.css';
+import '../index.css';
+import '../CSS_C/ProductDetailsCSS_C.css';
 import 'tailwindcss/tailwind.css';
 import { ref, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase";
+import { storage } from "../firebase";
 import { FaShoppingCart } from 'react-icons/fa';
 import StockUpdate_C from './StockUpdate_C';
-import Navi from './Navi';
-import Foot from './footer';
-import createCart from './createCart';
-import Feedbackchamu from './components_chamu/FeedbackDisplay';
+import Navi from '../Navi';
+import Foot from '../footer';
+import createCart from '../createCart';
+import Feedbackchamu from '../components_chamu/FeedbackDisplay';
 
 const ProductDetails_C = () => {
   const location = useLocation();

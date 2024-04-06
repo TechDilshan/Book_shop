@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Paper } from "@mui/material";
 import { ref, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase";
+import { storage } from "../firebase";
 import { useNavigate } from 'react-router-dom';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 

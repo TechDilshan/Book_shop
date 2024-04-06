@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Input, Typography } from "@mui/material";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase";
+import { storage } from "../firebase";
 import { v4 } from "uuid";
 import Axios from 'axios';
 

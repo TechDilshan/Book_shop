@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
-import { storage } from "./firebase";
+import { storage } from "../firebase";
 import { v4 } from "uuid";
 
 function Uploadpic() {

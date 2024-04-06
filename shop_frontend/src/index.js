@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart'
-import Users from './Users';
-import AdminDisplay from './AdminDisplay';
-import UserHome_C from './UserHome_C';
-import ProductDetails_C from './ProductDetails_C';
+import Users from './component_Dila/Users';
+import AdminDisplay from './component_Dila/AdminDisplay';
+import UserHome_C from './component_Dila/UserHome_C';
+import ProductDetails_C from './component_Dila/ProductDetails_C';
 
 
 import PromoPage from './component_DSP/PromoPage'

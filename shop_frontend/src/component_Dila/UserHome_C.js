@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField} from '@mui/material';
 import ProductItem_C from './ProductItem_C';
-import Navi from './Navi';
-import Foot from './footer';
+import Navi from '../Navi';
+import Foot from '../footer';
 import Axios from 'axios';
 import { AiOutlinePlus ,AiOutlineSearch } from 'react-icons/ai';
-import './CSS_C/ProductHomeCSS_C.css';
+import '../CSS_C/ProductHomeCSS_C.css';
 
 
 

@@ -4,7 +4,7 @@ import UserForm from './UserForm';
 import AdminDisplay from './AdminDisplay';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Foot from './footer';
+import Foot from '../footer';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
