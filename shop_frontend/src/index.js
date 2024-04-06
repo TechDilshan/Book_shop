@@ -18,6 +18,7 @@ import UpdateCoupon from './component_DSP/UpdateCoupon'
 
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
+import FeedbackUpdate from './components_chamu/FeedbackUpdate';
 
 import PrintingOrderDisplayAdmin_D from './components_D/PrintingOrderDisplayAdmin_D';
 import PrintDocCreate_D from './components_D/PrintDocCreate_D';
@@ -56,7 +57,7 @@ root.render(
         {/*  Routes Reviews Management - Chamu */}
         <Route path='/feedbackpage' element={<FeedbackDisplay />} />
         <Route path='/feedbackadmin' element={<AdminFeedbackPage />} />
-
+        <Route path='/feedbackupdate/:UID' element={<FeedbackUpdate />} />
 
         
         <Route path='/PrintDocCreate_D' element={<PrintDocCreate_D />} />
