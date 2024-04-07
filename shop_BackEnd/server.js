@@ -14,7 +14,8 @@ app.use(bodyPaeser.json());
 
 const port = 3001;
 const port_U = 3002;
-const host = 'https://book-shop-nine-jet.vercel.app';
+const host = 'https://book-shop-back.vercel.app';
+//const host = 'localhost';
 
 const router = require('./router');
 const router_U = require('./router_U');
