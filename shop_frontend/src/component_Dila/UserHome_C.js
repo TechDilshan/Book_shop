@@ -24,7 +24,7 @@ const UserHome_C = () => {
   }, []);
 
   const getUsers = () => {
-    Axios.get('https://book-shop-back.vercel.app:3001/api/users')
+    axios.get('https://book-shop-back.vercel.app/api/users')
       .then((response) => {
         setUsers(response.data?.response || []);
       })
@@ -32,6 +32,7 @@ const UserHome_C = () => {
         console.error('Axios Error: ', error);
       });
   };
+  
 
    // Filtered items based on search term
    const filteredUsers = users.filter(user => {
