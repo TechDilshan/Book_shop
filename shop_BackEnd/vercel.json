@@ -5,10 +5,7 @@
       {
         "src": "/api/users",
         "dest": "app.js",
-        "methods": ["GET"],
-        "headers": {
-          "x-vercel-idle-timeout": 30
-        }
+        "methods": ["GET"]
       }
     ]
   }
