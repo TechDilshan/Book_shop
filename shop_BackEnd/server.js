@@ -92,6 +92,7 @@ const server_U = app_U.listen(port_U, host, () => {
     console.log(`Node server is listening to ${server_U.address().port}`)
 });
 
+app.use('/', router);
 app.use('/api', router,couponRouter,feedbackRouter);
 app_U.use('/api_U', router_U);
 //ABI
