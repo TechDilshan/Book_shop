@@ -50,6 +50,7 @@ const PrintRequestForm = () => {
         <select
           id="colour"
           name="colour"
+          className='boxesforInSe'
           value={formData.colour}
           onChange={handleInputChange}
           required
@@ -64,6 +65,7 @@ const PrintRequestForm = () => {
           type="number"
           id="copies"
           name="copies"
+          className='boxesforInSe'
           value={formData.copies}
           onChange={handleInputChange}
           min="1"
@@ -76,6 +78,7 @@ const PrintRequestForm = () => {
           type="number"
           id="slides"
           name="slides"
+          className='boxesforInSe'
           value={formData.slides}
           onChange={handleInputChange}
           min="1"
@@ -87,6 +90,7 @@ const PrintRequestForm = () => {
         <select
           id="orientation"
           name="orientation"
+          className='boxesforInSe'
           value={formData.orientation}
           onChange={handleInputChange}
           required
@@ -125,6 +129,7 @@ const PrintRequestForm = () => {
         <select
           id="paperSize"
           name="paperSize"
+          className='boxesforInSe'
           value={formData.paperSize}
           onChange={handleInputChange}
           required
@@ -144,6 +149,7 @@ const PrintRequestForm = () => {
           < textarea rows="10" cols="12"
             id="otherOptions"
             name="otherOptions"
+            className='boxesforInSe'
             value={formData.otherOptions}
             onChange={handleInputChange}
         />

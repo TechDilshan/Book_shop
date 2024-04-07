@@ -168,6 +168,7 @@ function PriceTable() {
                       type="file"
                       id="document"
                       name="document"
+                      className='style4filechoosing'
                       accept=".pdf, .jpg"
                       onChange={handleInputChangeFile}
                       required
@@ -178,6 +179,7 @@ function PriceTable() {
                     <select
                       id="colour"
                       name="colour"
+                      className='boxesforInSe_D'
                       value={formData.colour}
                       onChange={handleInputChange}
                       required
@@ -193,6 +195,7 @@ function PriceTable() {
                       type="number"
                       id="copies"
                       name="copies"
+                      className='boxesforInSe_D'
                       value={formData.copies}
                       onChange={handleInputChange}
                       min="1"
@@ -205,6 +208,7 @@ function PriceTable() {
                       type="number"
                       id="slides"
                       name="slides"
+                      className='boxesforInSe_D'
                       value={formData.slides}
                       onChange={handleInputChange}
                       min="1"
@@ -216,6 +220,7 @@ function PriceTable() {
                     <select
                       id="orientation"
                       name="orientation"
+                      className='boxesforInSe_D'
                       value={formData.orientation}
                       onChange={handleInputChange}
                       required
@@ -255,6 +260,7 @@ function PriceTable() {
                     <select
                       id="paperSize"
                       name="paperSize"
+                      className='boxesforInSe_D'
                       value={formData.paperSize}
                       onChange={handleInputChange}
                       required
@@ -273,6 +279,7 @@ function PriceTable() {
                       < textarea rows="10" cols="12"
                         id="otherOptions"
                         name="otherOptions"
+                        className='boxesforInSe_D'
                         value={formData.otherOptions}
                         onChange={handleInputChange}
                     />

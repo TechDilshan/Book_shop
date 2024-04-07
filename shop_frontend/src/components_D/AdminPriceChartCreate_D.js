@@ -59,6 +59,7 @@ const AddPaperSize = () => {
         <input
           type="text"
           name="paperSize"
+          className='boxoutSeInput_D'
           value={paperSize}
           onChange={(e) => {
             setPaperSize(e.target.value)
@@ -70,6 +71,7 @@ const AddPaperSize = () => {
         <label htmlFor="colour" className='subtopics'> Colour: </label>
         <select
           name="colour"
+          className='boxoutSeInput_D'
           value={colour}
           onChange={(e) => {
             setColour(e.target.value)
@@ -85,6 +87,7 @@ const AddPaperSize = () => {
         <label htmlFor="side" className='subtopics'> Double/Single Sided: </label>
         <select
           name="side"
+          className='boxoutSeInput_D'
           value={side}
           onChange={(e) => {
             setSide(e.target.value)
@@ -101,6 +104,7 @@ const AddPaperSize = () => {
         <input
           type="number"
           name="price"
+          className='boxoutSeInput_D'
           value={price}
           onChange={(e) => {
             setPrice(e.target.value)

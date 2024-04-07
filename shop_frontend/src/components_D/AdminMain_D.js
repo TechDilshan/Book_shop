@@ -150,6 +150,7 @@ export default function AllPapers() {
                         <input
                             type="text"
                             name="paperSize"
+                            className='boxesforInSe_D'
                             value={paperSize}
                             onChange={(e) => setPaperSize(e.target.value)}
                             required
@@ -160,6 +161,7 @@ export default function AllPapers() {
                         <label htmlFor="colour" className='subtopics'> Colour: </label>
                         <select
                             name="colour"
+                            className='boxesforInSe_D'
                             value={colour}
                             onChange={(e) => setColour(e.target.value)}
                             required
@@ -174,6 +176,7 @@ export default function AllPapers() {
                         <label htmlFor="side" className='subtopics'> Double/Single Sided: </label>
                         <select
                             name="side"
+                            className='boxesforInSe_D'
                             value={side}
                             onChange={(e) => setSide(e.target.value)}
                             required
@@ -189,6 +192,7 @@ export default function AllPapers() {
                         <input
                             type="number"
                             name="price"
+                            className='boxesforInSe_D'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             required

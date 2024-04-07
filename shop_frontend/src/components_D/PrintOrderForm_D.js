@@ -56,6 +56,7 @@ function PrintRequestForm() {
                     <select
                       id="colour"
                       name="colour"
+                      className='boxesforInSe_D'
                       value={formData.colour}
                       onChange={handleInputChange}
                       required
@@ -71,6 +72,7 @@ function PrintRequestForm() {
                       type="number"
                       id="copies"
                       name="copies"
+                      className='boxesforInSe_D'
                       value={formData.copies}
                       onChange={handleInputChange}
                       min="1"
@@ -83,6 +85,7 @@ function PrintRequestForm() {
                       type="number"
                       id="slides"
                       name="slides"
+                      className='boxesforInSe_D'
                       value={formData.slides}
                       onChange={handleInputChange}
                       min="1"
@@ -94,6 +97,7 @@ function PrintRequestForm() {
                     <select
                       id="orientation"
                       name="orientation"
+                      className='boxesforInSe_D'
                       value={formData.orientation}
                       onChange={handleInputChange}
                       required
@@ -133,6 +137,7 @@ function PrintRequestForm() {
                     <select
                       id="paperSize"
                       name="paperSize"
+                      className='boxesforInSe_D'
                       value={formData.paperSize}
                       onChange={handleInputChange}
                       required

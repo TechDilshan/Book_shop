@@ -81,12 +81,16 @@
     margin-bottom: 8px;
   }
   
-  input,
-  select {
+  .boxesforInSe_D {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    border: 1px solid #000000;
+  }
+
+  .style4filechoosing{
+    margin-bottom: 16px;
   }
 
   .boxoutlines_D {
@@ -96,8 +100,8 @@
     margin-top: 16px;
     margin-left: 60px;
     box-sizing: border-box;
-    border: 1px solid #000000; /* Add a border */
-    color: #333; /* Change text color */
+    border: 1px solid #000000;
+    color: #333;
   }
 
   label {
