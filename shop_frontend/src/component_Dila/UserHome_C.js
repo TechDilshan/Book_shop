@@ -24,7 +24,7 @@ const UserHome_C = () => {
   }, []);
 
   const getUsers = () => {
-    Axios.get('http://localhost:3001/api/users')
+    Axios.get('https://book-shop-back.vercel.app:3001/api/users')
       .then((response) => {
         setUsers(response.data?.response || []);
       })
