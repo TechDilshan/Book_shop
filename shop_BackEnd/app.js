@@ -14,10 +14,13 @@ app.use(
 
 app.use(express.json());
 
-app.get('/users',(req,res) => {
-    controller.getUsers((req, res, next) => {
-        res.send();
-    });
+app.get('/api/users', async (req, res) => {
+    try {
+        const users = await controller.getUsers();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 app.post('/createuser',(req,res) => {
