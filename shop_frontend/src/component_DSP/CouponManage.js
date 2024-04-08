@@ -159,7 +159,7 @@ function CouponManage() {
         getCouponsDB();
         console.log("Get data From DB");
       }
-    },)
+    },[])
   
   
     const handleDiscountTypeChange = (event) => {
@@ -321,7 +321,7 @@ function CouponManage() {
           value={discountType}
           onChange={ handleDiscountTypeChange}
         >
-          <option value="Free_Deliver">Free Deliver</option>
+          
           <option value="Percentage_Discount">Percentage Discount</option>
           <option value="fixedAmount">Fixed Amount</option>
         </select>
