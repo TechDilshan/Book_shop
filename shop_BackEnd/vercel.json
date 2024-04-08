@@ -1,16 +1,10 @@
 {
     "version": 2,
-    "builds": [{ "src": "server.js", "use": "@vercel/node" }],
+    "name": "shop_backend",
+    "builds": [
+       { "src": "app.js", "use": "@vercel/node" }
+    ],
     "routes": [
-      {
-        "src": "/api/users",
-        "dest": "/server.js",
-        "methods": ["GET"]
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/server.js"
-      }
+       { "src": "/(.*)", "dest": "/app.js" }
     ]
-  }
-  
+ }
