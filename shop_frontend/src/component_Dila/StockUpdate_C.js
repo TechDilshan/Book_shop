@@ -14,7 +14,7 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
                 stock: newstk,
               };
 
-              Axios.post('http://localhost:3001/api/updateuser', payload)
+              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
@@ -33,7 +33,7 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
                 stock: newstk,
               };
 
-              Axios.post('http://localhost:3001/api/updateuser', payload)
+              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
@@ -58,7 +58,7 @@ ___________________________________
 Thank you..!`,
             };
 
-            Axios.post('http://localhost:3001/api/send-email', emailPayload)
+            Axios.post('https://book-shop-dep.vercel.app/api/send-email', emailPayload)//http://localhost:3001/api/send-email
                 .then((response) => {
                     console.log('Email sent!');
                 })
@@ -80,7 +80,7 @@ Thank you..!`,
                 stock: newstk,
               };
 
-              Axios.post('http://localhost:3001/api/updateuser', payload)
+              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
