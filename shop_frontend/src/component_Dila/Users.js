@@ -18,7 +18,7 @@ const Users = () => {
   }, []);
 
   const getUsers = () => {
-    Axios.get('http://localhost:3001/api/users')
+    Axios.get('https://book-shop-dep.vercel.app/api/users')//http://localhost:3001/api/users
       .then((response) => {
         setUsers(response.data?.response || []);
       })
@@ -42,7 +42,7 @@ const Users = () => {
       stock: data.stock,
     };
 
-    Axios.post('http://localhost:3001/api/createuser', payload)
+    Axios.post('https://book-shop-dep.vercel.app/api/createuser', payload)//http://localhost:3001/api/createuser
       .then((response) => {
         getUsers();
         setSubmitted(false);
@@ -68,7 +68,7 @@ const Users = () => {
       stock: data.stock,
     };
 
-    Axios.post('http://localhost:3001/api/updateuser', payload)
+    Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
       .then((response) => {
         getUsers();
         setSubmitted(false);
@@ -80,7 +80,7 @@ const Users = () => {
   };
 
   const deleteUser = (data) => {
-    Axios.post('http://localhost:3001/api/deleteuser', data)
+    Axios.post('https://book-shop-dep.vercel.app/api/deleteuser', data)//http://localhost:3001/api/deleteuser
       .then((response) => {
         getUsers();
       })

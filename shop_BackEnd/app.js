@@ -1,6 +1,3 @@
-
-
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -26,19 +23,20 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(error => console.error('MongoDB connection error:', error));
 
+//________________________________________________________________________________________________________
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
+        user: 'chamikadilshan1123@gmail.com', // Your email address
+        pass: 'rebamsneqyhhwcsh' // Your email password
     }
 });
 
 // Function to send email
 const sendEmail = (email, subject, body) => {
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: 'chamikadilshan1123@gmail.com', // Sender address
         to: email,
         subject: subject,
         text: body
@@ -59,6 +57,8 @@ app.post('/api/send-email', (req, res) => {
     sendEmail(email, subject, body);
     res.send('Email sent successfully');
 });
+
+//________________________________________________________________________________________________________
 
 // Routes
 const router = require('./router');
