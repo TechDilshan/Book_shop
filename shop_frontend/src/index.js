@@ -12,6 +12,7 @@ import ProductDetails_C from './component_Dila/ProductDetails_C';
 
 
 import PromoPage from './component_DSP/PromoPage'
+import PromoPageTest from './component_DSP/PromoPageTest'
 import CouponManage from './component_DSP/CouponManage'
 import Dashboard from './component_DSP/PromoDashboard'
 import UpdateCoupon from './component_DSP/UpdateCoupon'
@@ -29,6 +30,7 @@ import PriceChartDisplay_D from './components_D/PriceChartDisplay_D';
 import PrintOrderMain_D from './components_D/PrintOrderMain_D';
 
 import CouponView from './component_DSP/CouponView';
+import ViewReport from './component_DSP/ViewReport';
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -49,15 +51,19 @@ root.render(
         <Route path='/shopping-cart' element={<ShoppingCart />} />
 
         {/*  Routes Promotion Management - DILINA */}
-        <Route path='/promopage' element={<PromoPage />} />
+       <Route path='/promopagetest' element={<PromoPageTest />} />
+        <Route path='/promopage/:tot' element={<PromoPage />} />
         <Route path='/couponpage' element={<CouponManage />} />
         <Route path='/cmdashboard' element={<Dashboard />} />
+        <Route path='/viwerepo' element={<ViewReport />} />
         <Route  path='/update/:UID' element={<UpdateCoupon />}/>
+        
 
         {/*  Routes Reviews Management - Chamu */}
         <Route path='/feedbackpage' element={<FeedbackDisplay />} />
         <Route path='/feedbackadmin' element={<AdminFeedbackPage />} />
         <Route path='/feedbackupdate/:UID' element={<FeedbackUpdate />} />
+
 
         
         <Route path='/PrintDocCreate_D' element={<PrintDocCreate_D />} />
@@ -68,7 +74,6 @@ root.render(
         <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin_D />} />
         <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
         <Route  path='/couponview' element={<CouponView />}/>
-        CouponView
 
 
 

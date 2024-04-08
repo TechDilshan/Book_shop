@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';  // Import useEffect
 import { useLocation , useParams} from 'react-router-dom';
 import axios from 'axios';
-import Navi from '../Navi';
-import Foot from '../footer';
+
 
 
 const PromoPage = () => {
-  const { tot} = useParams(); 
+  const tot = 100;
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [coupons , setCoupons] = useState([])
   const [couponCode , setcouponCode]=useState()
@@ -105,13 +104,9 @@ useEffect(()=>{
 
 
   return (
-    <div>
-    <div class="flex justify-center my-0">
-          <div className='fixed w-[100%]' >
-    <Navi/>
- </div>
    
-      <div class="flex flex-col w-full p-8 my-24 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+    <div class="flex justify-center my-6">
+      <div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
         <div class="flex-1">
 
      
@@ -229,11 +224,7 @@ useEffect(()=>{
           </div>
         </div>
       </div>
-      
     </div>
-
-        <Foot/>
-      </div> 
   );
 }
 
