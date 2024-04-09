@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CircularProgress} from '@mui/material';
 import { Link } from 'react-router-dom'; 
 import '../index.css';
 import '../CSS_C/ProductItemCSS_C.css';
@@ -11,6 +12,7 @@ import createCart from '../createCart';
 const ProductItem_C = ({ rows }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -30,6 +32,7 @@ const ProductItem_C = ({ rows }) => {
       const urls = await Promise.all(rows.map(async (row) => {
         try {
           const url = await getDownloadURL(ref(storage, `images/${row.imgId}`));
+         
           return { id: row.id, url };
         } catch (error) {
           console.error('Error fetching image URL:', error);
@@ -37,6 +40,7 @@ const ProductItem_C = ({ rows }) => {
         }
       }));
       setImageUrls(urls.filter(url => url !== null));
+      setLoading(false); 
     };
     fetchImageUrls();
   }, [rows]);
@@ -52,13 +56,22 @@ const ProductItem_C = ({ rows }) => {
           <div className="flex" key={row.id}>
             <div className="product-container">
                 <Link to={`/ProductDetails_C`} state={{ row }}>
-                <div className="image-container">
-                  {imageUrl ? (
-                    <img src={imageUrl} alt={`Photo-${row.id}`} />
+                <div className="image-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  {loading ? (
+                    <div>
+                      <CircularProgress size={70} />
+                    </div>
                   ) : (
-                    <img src="https://t4.ftcdn.net/jpg/05/07/58/41/360_F_507584110_KNIfe7d3hUAEpraq10J7MCPmtny8EH7A.jpg" alt="Placeholder" />
+                    <>
+                      {imageUrl ? (
+                        <img src={imageUrl} alt={`Photo-${row.id}`} />
+                      ) : (
+                        <img src="https://t4.ftcdn.net/jpg/05/07/58/41/360_F_507584110_KNIfe7d3hUAEpraq10J7MCPmtny8EH7A.jpg" alt="Placeholder" />
+                      )}
+                    </>
                   )}
                 </div>
+
               </Link>
               <div className="product-details">
                 <div className="product-name">

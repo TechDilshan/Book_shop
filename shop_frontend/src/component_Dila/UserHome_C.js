@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, TextField} from '@mui/material';
+import { Box, Button, CircularProgress, TextField} from '@mui/material';
 import ProductItem_C from './ProductItem_C';
 import Navi from '../Navi';
 import Foot from '../footer';
@@ -18,6 +18,7 @@ const UserHome_C = () => {
   const [showAllMobile, setShowAllMobile] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchBarFocused, setSearchBarFocused] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getUsers();
@@ -27,6 +28,7 @@ const UserHome_C = () => {
     Axios.get('https://book-shop-dep.vercel.app/api/users') //'http://localhost:3001/api/users'
       .then((response) => {
         setUsers(response.data?.response || []);
+        setLoading(false); 
       })
       .catch((error) => {
         console.error('Axios Error: ', error);
@@ -92,7 +94,13 @@ const UserHome_C = () => {
       <div>
         <Navi/>
       </div>
-
+      
+      {loading ? (
+           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+           <CircularProgress size={300} />
+         </div>
+      ) : (
+        <>
 
       <div class="flex justify-end w-full px-2">
         <div class="flex space-x-4 w-full max-w-screen-lg items-center" >
@@ -263,18 +271,22 @@ const UserHome_C = () => {
       >
         See more
       </button>
+      
     )}
+    
   </div>
+  
 </div>
 
-      
+
 
       <div>
         <Foot/>
       </div>
-
+      </>
+      )}
     </div>
-    
+      
   );
 };
 
