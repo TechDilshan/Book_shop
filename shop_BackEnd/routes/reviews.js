@@ -8,6 +8,7 @@ router.route('/addreview').post((req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const rating = Number(req.body.rating);
+    const productId = Number(req.body.productId);
     const comment = req.body.comment;
 
     const newFeedback = new Feedback({
@@ -15,7 +16,8 @@ router.route('/addreview').post((req, res) => {
         email,
         name,
         rating,
-        comment
+        comment,
+        productId
 
     });
 

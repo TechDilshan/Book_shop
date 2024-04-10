@@ -7,10 +7,17 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { FaShoppingCart } from 'react-icons/fa';
 import StockUpdate_C from './StockUpdate_C';
+<<<<<<< Updated upstream:shop_frontend/src/component_Dila/ProductDetails_C.js
 import Navi from '../Navi';
 import Foot from '../footer';
 import createCart from '../createCart';
 import Feedbackchamu from '../components_chamu/FeedbackDisplay';
+=======
+import Navi from './Navi';
+import Foot from './footer';
+import createCart from './createCart';
+import Feedbackchamu from './components_chamu/FeedbackDisNew';
+>>>>>>> Stashed changes:shop_frontend/src/ProductDetails_C.js
 
 const ProductDetails_C = () => {
   const location = useLocation();
@@ -99,7 +106,7 @@ const ProductDetails_C = () => {
 
 
 <div>
-  <Feedbackchamu/>
+  <Feedbackchamu productId={row.id}/>
 </div>
 
 

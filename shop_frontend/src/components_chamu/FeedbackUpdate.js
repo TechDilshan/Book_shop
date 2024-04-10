@@ -89,6 +89,7 @@ const FeedbackUpdate = () => {
         placeholder="Email"
         value={updatedInfo.email}
         onChange={handleChange}
+        disabled
       />
       <textarea
         className='revtextarea'
