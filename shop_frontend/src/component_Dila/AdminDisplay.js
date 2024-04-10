@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, CircularProgress } from "@mui/material";
 import { Paper } from "@mui/material";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
@@ -41,6 +41,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
+  const [loadingcy, setLoadingcy] = useState(true);
 
   const handleButtonClick = () => {
     navigate('/users');
@@ -52,6 +53,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
       const urls = await Promise.all(rows.map(async (row) => {
         try {
           const url = await getDownloadURL(ref(storage, `images/${row.imgId}`));
+          
           return { id: row.id, url };
         } catch (error) {
           console.error('Error fetching image URL:', error);
@@ -59,6 +61,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
         }
       }));
       setImageUrls(urls.filter(url => url !== null));
+      setLoadingcy(false); 
     };
     fetchImageUrls();
   }, [rows]);
@@ -95,6 +98,13 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
 
   return (
     <div>
+
+      {loadingcy ? (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress size={150} />
+              </div>
+            ) : (
+              <>
 
       <Button onClick={() => handleCategoryButtonClick('All')}>All Items</Button>
       <Button onClick={() => handleCategoryButtonClick('bookitem')}>Book Items</Button>
@@ -153,7 +163,8 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      
+      </>
+      )}
     </div>
   );
 };

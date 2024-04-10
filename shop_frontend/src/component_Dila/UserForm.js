@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Input, Typography, LinearProgress } from "@mui/material";
+import { Button, Grid, Input, Typography, LinearProgress, CircularProgress } from "@mui/material";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid";
 import Axios from 'axios';
 import { useMediaQuery } from '@mui/material';
+import '../components_D/PrintDocStyles_D.css';
 
 const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) => {
   const [id, setId] = useState(0);
@@ -20,6 +21,7 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingcy, setLoadingcy] = useState(true);
 
   useEffect(() => {
     if (!submitted || isEdit) {
@@ -53,6 +55,7 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
       const response = await Axios.get('https://book-shop-dep.vercel.app/api/getmaxid'); //http://localhost:3001/api/getmaxid
       const maxId = response.data?.maxId || 0; 
       isEdit ? setId(data.id) : setId(maxId + 1);
+      setLoadingcy(false); 
     } catch (error) {
       console.error('Axios Error (getMaxId): ', error);
     }
@@ -124,417 +127,330 @@ const isMobile = useMediaQuery('(max-width:600px)');
 
   return (
    < div style={{ color: "#000000" }}>
-    <Grid
-      container
-      spacing={2}
-      sx={{
-        backgroundColor: "#ffffff",
-        marginBottom: "30px",
-        marginTop: "30px",
-        display: "block",
-      }}
-    >
-
-<div style={{ color: "#000000" }}>
-      {loading && <LinearProgress />}
-</div>
-
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="id"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          ID
-        </Typography>
-        <Input
-          type="number"
-          id="id"
-          name="id"
-          sx={{
-            width: "400px",
-          }}
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          readOnly  
-        />
-      </Grid>
-
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="id"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          Name
-        </Typography>
-        <Input
-          type="text"
-          id="name"
-          name="name"
-          sx={{
-            width: "400px",
-          }}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </Grid>
 
 
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="id"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          Price
-        </Typography>
-        <Input
-          type="number"
-          id="price"
-          name="price"
-          sx={{
-            width: "400px",
-          }}
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-      </Grid>
-
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="sdes"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          Short Description
-        </Typography>
-        <Input
-          type="text"
-          id="sdes"
-          name="sdes"
-          sx={{
-            width: "400px",
-          }}
-          value={sdes}
-          onChange={(e) => setSdes(e.target.value)}
-        />
-      </Grid>
-
-
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="id"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          Description
-        </Typography>
-        <Input
-          type="text"
-          id="des"
-          name="des"
-          sx={{
-            width: "400px",
-          }}
-          value={des}
-          onChange={(e) => setDes(e.target.value)}
-        />
-      </Grid>
-
-    <Grid item xs={12} sm={6}>
-      <Typography
-        component={"label"}
-        htmlFor="id"
-        sx={{
-          color: "#000000",
-          marginRight: "20px",
-          fontSize: "16px",
-          width: "100px",
-          display: "block",
-        }}
-      >
-        Categories
-      </Typography>
-
-      <table style={{ marginLeft: "50px", borderSpacing: "0" }}>
-      <tr>
-        <td>
-          <label htmlFor="bookitem" style={{ marginRight: "10px", display: "block" }}>
-            Book Item
-          </label>
-        </td>
-        <td>
-          <Input
-            type="radio"
-            id="bookitem"
-            name="item"
-            value="bookitem"
-            onChange={(e) => setItem(e.target.value)}
-          />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="schoolitem" style={{ marginRight: "10px" }}>
-            School Item
-          </label>
-        </td>
-        <td>
-          <Input
-            type="radio"
-            id="schoolitem"
-            name="item"
-            value="schoolitem"
-            onChange={(e) => setItem(e.target.value)}
-          />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="techitem" style={{ marginRight: "10px" }}>
-            Tech Item
-          </label>
-        </td>
-        <td>
-          <Input
-            type="radio"
-            id="techitem"
-            name="item"
-            value="techitem"
-            onChange={(e) => setItem(e.target.value)}
-          />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="mobileitem" style={{ marginRight: "10px" }}>
-            Mobile Item
-          </label>
-        </td>
-        <td>
-          <Input
-            type="radio"
-            id="mobileitem"
-            name="item"
-            value="mobileitem"
-            onChange={(e) => setItem(e.target.value)}
-          />
-        </td>
-      </tr>
-      </table>
-
-      </Grid>
-
-
-
-      <Grid item xs={12} sm={6} sx={{ display: "flex" }}>
-        <Typography
-          component={"label"}
-          htmlFor="stock"
-          sx={{
-            color: "#000000",
-            marginRight: "20px",
-            fontSize: "16px",
-            width: "100px",
-            display: "block",
-          }}
-        >
-          Available stock
-        </Typography>
-        <Input
-          type="number"
-          id="stock"
-          name="stock"
-          sx={{
-            width: "400px",
-          }}
-          value={stock}
-          defaultValue={0}
-          onChange={(e) => setStock(e.target.value)}
-        />
-      </Grid>
-      
-    </Grid>
     
-    {isMobile && (
-  <Grid
-    item
-    xs={12} // Take up full width on extra small screens
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center", // Center align on mobile
-      marginTop: "20px", // Adjust top margin for better spacing
-    }}
-  >
-    <div
-      className="App"
-      style={{
-        width: "80%", // Adjust width for better fit on mobile
-        height: "250px",
-        border: "2px dashed #ccc",
-        borderRadius: "5px",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#9B9B9B",
-      }}
-    >
-      <p>Drag & Drop</p>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileInputChange}
-        style={{ display: "none" }}
-      />
-      {imagePreview && (
-        <img
-          src={imagePreview}
-          alt="Preview"
-          style={{ width: "80%", height: "180px", marginTop: "10px" }} // Adjust width for better fit
-        />
+
+    {loadingcy ? (
+           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+           <CircularProgress size={150} />
+         </div>
+      ) : (
+        <>
+
+      <div id="formPorder">
+          <h2 className='topicMain'>{isEdit ? "Update Product Item" : "Add New Product Item"}</h2>
+          <form>
+
+            <label htmlFor="id" className='topicSubs'>Product ID: </label>
+            <input
+              type="number"
+              id="id"
+              name="id"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              readOnly  
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+            <label htmlFor="id" className='topicSubs'>Product Name: </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+            <label htmlFor="id" className='topicSubs'>Product Price: </label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+            <label htmlFor="id" className='topicSubs'>Short Description: </label>
+            <input
+              type="text"
+              id="sdes"
+              name="sdes"
+              value={sdes}
+              onChange={(e) => setSdes(e.target.value)}
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+            <label htmlFor="id" className='topicSubs'>Long Description: </label>
+            <input
+              type="text"
+              id="des"
+              name="des"
+              value={des}
+              onChange={(e) => setDes(e.target.value)}
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+           
+
+            <label htmlFor="id" className='topicSubs'>Product Category: </label>
+            <table style={{ marginLeft: "50px", borderSpacing: "0" }}>
+              <tr>
+                <td>
+                  <label htmlFor="bookitem" style={{ marginRight: "10px", display: "block" }}>
+                    Book Item
+                  </label>
+                </td>
+                <td>
+                  <input
+                    type="radio"
+                    id="bookitem"
+                    name="item"
+                    value="bookitem"
+                    onChange={(e) => setItem(e.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label htmlFor="schoolitem" style={{ marginRight: "10px" }}>
+                    School Item
+                  </label>
+                </td>
+                <td>
+                  <input
+                    type="radio"
+                    id="schoolitem"
+                    name="item"
+                    value="schoolitem"
+                    onChange={(e) => setItem(e.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label htmlFor="techitem" style={{ marginRight: "10px" }}>
+                    Tech Item
+                  </label>
+                </td>
+                <td>
+                  <input
+                    type="radio"
+                    id="techitem"
+                    name="item"
+                    value="techitem"
+                    onChange={(e) => setItem(e.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label htmlFor="mobileitem" style={{ marginRight: "10px" }}>
+                    Mobile Item
+                  </label>
+                </td>
+                <td>
+                  <input
+                    type="radio"
+                    id="mobileitem"
+                    name="item"
+                    value="mobileitem"
+                    onChange={(e) => setItem(e.target.value)}
+                  />
+                </td>
+              </tr>
+              </table>
+            <br/>
+
+
+            {isMobile && (
+                <Grid
+                  item
+                  xs={12} // Take up full width on extra small screens
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center", // Center align on mobile
+                    marginTop: "20px", // Adjust top margin for better spacing
+                  }}
+                >
+                  <div
+                    className="App"
+                    style={{
+                      width: "80%", // Adjust width for better fit on mobile
+                      height: "250px",
+                      border: "2px dashed #ccc",
+                      borderRadius: "5px",
+                      textAlign: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#9B9B9B",
+                    }}
+                  >
+                    <p>Drag & Drop</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileInputChange}
+                      style={{ display: "none" }}
+                    />
+                    {imagePreview && (
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        style={{ width: "80%", height: "180px", marginTop: "10px" }} // Adjust width for better fit
+                      />
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileInputChange}
+                    style={{
+                      width: "80%", // Adjust width for better fit
+                      marginTop: "10px",
+                      backgroundColor: "#404040",
+                      color: "white",
+                      border: "1px solid darkblue",
+                      borderRadius: "5px",
+                      padding: "10px 15px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Grid>
+              )}
+
+              {!isMobile && (
+                <Grid
+                item
+                xs={12}
+                sm={6}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "300px", // Maximizes the drop-down box size
+                  marginBottom: "20px",
+                  marginLeft: "20px",
+                }}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                >
+                <div
+                  className="App"
+                  style={{
+                    
+                    width: "500px", 
+                    height: "250px",
+                    border: "2px dashed #ccc",
+                    borderRadius: "5px",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#9B9B9B",
+                  }}
+                >
+                  <p>Drag & Drop</p>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileInputChange}
+                        style={{ display: "none" }}
+                      />
+                      {imagePreview && (
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          style={{ width: "180px", height: "180px", marginTop: "10px" }}
+                        />
+                      )}
+                    </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileInputChange}
+                        style={{
+                          width: "500px",
+                          marginTop: "10px",
+                          backgroundColor: "#404040", 
+                          color: "white", 
+                          border: "1px solid darkblue", 
+                          borderRadius: "5px",
+                          padding: "10px 15px",
+                          cursor: "pointer", 
+                      }}
+                      />
+
+
+                </Grid>
+              )}
+
+
+            <label htmlFor="copies" className='topicSubs'>Availabl Stock: </label>
+            <input
+              type="number"
+              id="stock"
+              name="stock"
+              value={stock}
+              defaultValue={0}
+              onChange={(e) => setStock(e.target.value)}
+              className='boxesforInSe_D'
+            />
+            <br/>
+
+            <div style={{ color: "#000000" }}>
+                {loading && <LinearProgress />}
+            </div>
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+                <Button
+                  sx={{
+                    margin: "auto",
+                    marginBottom: "20px",
+                    backgroundColor: "#0047ab",
+                    color: "#ffffff",
+                    padding: "10px 50px",
+                    "&:hover": {
+                      opacity: "0.7",
+                      backgroundColor: "#0047ab",
+                    },
+                  }}
+                  onClick={handleSaveButtonClick}
+                >
+                  {isEdit ? "Update Product" : "Add Product"}
+                </Button>
+                
+              </div>
+                    
+                    
+          </form>
+
+          
+        </div>
+
+
+
+
+
+
+
+
+
+
+        </>
       )}
-    </div>
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleFileInputChange}
-      style={{
-        width: "80%", // Adjust width for better fit
-        marginTop: "10px",
-        backgroundColor: "#404040",
-        color: "white",
-        border: "1px solid darkblue",
-        borderRadius: "5px",
-        padding: "10px 15px",
-        cursor: "pointer",
-      }}
-    />
-  </Grid>
-)}
-
-{!isMobile && (
-  <Grid
-  item
-  xs={12}
-  sm={6}
-  sx={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end", // Aligns the drop-down box to the right
-    position: "absolute",
-    top: "250px", // Adjust as needed
-    right: "200px",
-    width: "300px", // Maximizes the drop-down box size
-    
-  }}
-  onDrop={handleDrop}
-  onDragOver={handleDragOver}
-  >
-  <div
-    className="App"
-    style={{
-      
-      width: "500px", // Utilizes full width of the grid item
-      height: "250px",
-      border: "2px dashed #ccc",
-      borderRadius: "5px",
-      textAlign: "center",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#9B9B9B",
-    }}
-  >
-    <p>Drag & Drop</p>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileInputChange}
-          style={{ display: "none" }}
-        />
-        {imagePreview && (
-          <img
-            src={imagePreview}
-            alt="Preview"
-            style={{ width: "180px", height: "180px", marginTop: "10px" }}
-          />
-        )}
-      </div>
-        <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileInputChange}
-        style={{
-          width: "500px",
-          marginTop: "10px",
-          backgroundColor: "#404040", // Change the background color to dark blue
-          color: "white", // Change the text color to white for better visibility
-          border: "1px solid darkblue", // Add border to match the background color
-          borderRadius: "5px", // Add border radius for rounded corners
-          padding: "10px 15px", // Add padding for better appearance
-          cursor: "pointer", // Change cursor to pointer when hovering over
-        }}
-        />
 
 
-  </Grid>
-)}
 
-
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
-        <Button
-          sx={{
-            margin: "auto",
-            marginBottom: "20px",
-            backgroundColor: "#0047ab",
-            color: "#ffffff",
-            padding: "10px 50px",
-            "&:hover": {
-              opacity: "0.7",
-              backgroundColor: "#0047ab",
-            },
-          }}
-          onClick={handleSaveButtonClick}
-        >
-          {isEdit ? "Update Product" : "Add Product"}
-        </Button>
-        
-      </div>
     </div>
   );
 };

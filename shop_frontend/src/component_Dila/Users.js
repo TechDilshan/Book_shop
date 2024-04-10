@@ -5,6 +5,8 @@ import AdminDisplay from './AdminDisplay';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Foot from '../footer';
+import '../CSS_C/navi.css';
+import logo from '../image/logo.jpg';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -97,17 +99,24 @@ const Users = () => {
 
   return (
     <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8" style={{ backgroundColor: '#c3ddec' }}>
-        
-        <nav className="bg-gray-800 text-white p-4 flex justify-between items-center mb-4">
-          <div className="flex items-center ml-10 ">
-            <a href="/users" className="mr-10 hover:text-gray-300">Add Product</a>
-            <a href="#" className="mr-10 hover:text-gray-300" onClick={handleDisplayButtonClick}>Display Product</a> 
-          </div>
-          <div className="flex items-center mr-10 ">
-            <a href="#" className="mr-10 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
-            <a href="/" className="hover:text-gray-300">Logout</a>
-          </div>
-        </nav>
+
+    <div class="menu-body">
+      <nav>
+      <ul class='nav-bar'>
+          <li class='logo'><a href='/users'><img src={logo}/></a></li>
+          <input type='checkbox' id='check' />
+          <span class="menu">
+              <li><a href="/users" class="phone-logo"><img src={logo}/></a></li>
+              <li><a href="/users">Add Product</a></li>
+              <li><a href="#" onClick={handleDisplayButtonClick}>Display Product</a></li>
+              <li><a href="#">My Account <i className="fas fa-user"></i></a></li>
+              <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+              <li><a href="/">Logout</a></li>
+          </span>
+          <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+      </ul>
+      </nav>
+    </div>
       
     <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '100px' }}>
       
