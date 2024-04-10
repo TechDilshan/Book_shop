@@ -45,21 +45,36 @@ export default function AllPapers() {
     // Function to handle both adding new data and updating existing data
     function handleSubmit(e) {
         e.preventDefault();
-
+    
         const newPaperSize = {
             paperSize,
             colour,
             side,
             price
         };
-
+    
+        if (!selectedPaper) {
+            // Check if a paper size with the same characteristics already exists in the chart
+            const paperExists = allpaperSizes.some(paper => 
+                paper.paperSize === paperSize &&
+                paper.colour === colour &&
+                paper.side === side
+            );
+    
+            if (paperExists) {
+                alert("A paper size with the same characteristics already exists in the chart. You can only update the price for existing paper sizes.");
+                window.location.reload();
+                return;
+            }
+        }
+    
         if (selectedPaper) {
             // If selectedPaper exists, update
             axios.put(`http://localhost:3003/printprice/update/${selectedPaper._id}`, newPaperSize)
                 .then(() => {
                     alert("Price Of The Paper Updated Successfully");
                     setAddSection(false);
-                    getAllPaperSizes(); // Refresh the paper sizes list
+                    getAllPaperSizes(); // Refresh paper list
                     setSelectedPaper(null); // Reset selectedPaper after updating
                 })
                 .catch((err) => {
@@ -73,13 +88,14 @@ export default function AllPapers() {
                     // Clear the form after successful submission
                     resetForm();
                     getAllPaperSizes(); // Refresh the paper sizes list
+                    window.location.reload();
                 })
                 .catch((err) => {
                     alert(err.message);
                 });
         }
     }
-
+    
     // Function to reset add form & update form
     function resetForm() {
         setPaperSize("");
@@ -142,7 +158,7 @@ export default function AllPapers() {
             )}
 
             {addSection && (
-                <div id="form1">
+                <div id="formAdmin">
                     <h2 className='mainTopic'>Printing Price Chart Form</h2>
                     <button type="button" onClick={() => { setAddSection(false); resetForm(); }} className='btnViewChart'>View Chart</button>
                     <form onSubmit={handleSubmit}>
@@ -165,7 +181,7 @@ export default function AllPapers() {
                             value={colour}
                             onChange={(e) => setColour(e.target.value)}
                             required
-                            disabled={selectedPaper ? true : false} // Disable if selectedPaper is working
+                            disabled={selectedPaper ? true : false}
                         >
                             <option value="">Select Color</option>
                             <option value="Black and White">Black and White</option>
@@ -180,7 +196,7 @@ export default function AllPapers() {
                             value={side}
                             onChange={(e) => setSide(e.target.value)}
                             required
-                            disabled={selectedPaper ? true : false} // Disable if selectedPaper is working
+                            disabled={selectedPaper ? true : false}
                         >
                             <option value="">Select Sidedness</option>
                             <option value="Double-Sided">Double-Sided</option>

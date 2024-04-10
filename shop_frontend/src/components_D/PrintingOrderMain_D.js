@@ -6,6 +6,8 @@ import Foot from '../footer';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid";
+import PrintOrderForm from '../components_D/PrintOrderRead_D';
+import UpdateForm from '../components_D/PrintOrderUpdate_D';
 
 function PriceTable() {
   const [showForm, setShowForm] = useState(false);
@@ -23,16 +25,35 @@ function PriceTable() {
     documentID: '',
   });
   const [allPaperSizes, setAllPaperSizes] = useState([]);
+  const [allPrintOrders, setAllPrintOrders] = useState([]);
+  const [latestPrintOrder, setLatestPrintOrder] = useState(null);
+  const [dataFetched, setDataFetched] = useState(false);
+  const [updatePrintOrder, setUpdatePrintOrder] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
   
-    // ceckbos handling
+    // If checkbox is clicked
     if (type === 'checkbox') {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: checked,
-      }));
+      // If the clicked checkbox is singleS, uncheck doubleS and other way arround
+      if (name === 'singleSide' && checked) {
+        setFormData((prevData) => ({
+          ...prevData,
+          singleSide: true,
+          doubleSided: false,
+        }));
+      } else if (name === 'doubleSided' && checked) {
+        setFormData((prevData) => ({
+          ...prevData,
+          singleSide: false,
+          doubleSided: true,
+        }));
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: checked,
+        }));
+      }
     } else {
       setFormData((prevData) => ({
         ...prevData,
@@ -40,7 +61,7 @@ function PriceTable() {
       }));
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
   
@@ -75,6 +96,8 @@ function PriceTable() {
           otherOptions: '',
           documentID: '',
         });
+        // Fetch latest printing order data after successful submission
+        fetchLatestPrintOrder();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -136,7 +159,7 @@ function PriceTable() {
         };
       }
       const { colour, side, price } = item;
-      // Update the corresponding price based on colour and side
+      // Update the relavent price based on colour and side
       if (colour === 'Black and White' && side === 'Single-Sided') {
         groupedData[item.paperSize].blackAndWhite_single = `Rs.${price}`;
       } else if (colour === 'Black and White' && side === 'Double-Sided') {
@@ -153,13 +176,78 @@ function PriceTable() {
   const handleFormToggle = () => {
     setShowForm(!showForm);
   };
+
+  const fetchLatestPrintOrder = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3003/printorders/latest/${sessionStorage.getItem('userEmail')}`);
+      setLatestPrintOrder(response.data.printOrder);
+      setDataFetched(true);
+    } catch (error) {
+      console.error('Error fetching latest print order:', error);
+    }
+  };
+
+  const handleViewOrderClick = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3003/printorders/latest/${sessionStorage.getItem('userEmail')}`
+      );
+      const latestPrintOrderData = response.data.printOrder;
+      setLatestPrintOrder(latestPrintOrderData);
+      setDataFetched(true);
+    } catch (error) {
+      console.error('Error fetching latest print order:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch all print orders
+    axios.get("http://localhost:3003/printorders")
+      .then(response => {
+        setAllPrintOrders(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching print orders:', error);
+      });
+  }, []);
+  
+    // Function to handle update button click
+    const handleUpdateClick = (printOrder) => {
+        setShowForm(true);
+        setUpdatePrintOrder(printOrder);
+    };
+
+    // Function to handle update form submission
+    const handleUpdateSubmit = (updatedData) => {
+        axios.put(`http://localhost:3003/printorders/update/${updatePrintOrder._id}`, updatedData)
+            .then(response => {
+                console.log(response.data);
+                alert("Print Order Updated Successfully");
+                // Hide the update form after successful update
+                setShowForm(false);
+                // Fetch latest printing order data after successful update
+                fetchLatestPrintOrder();
+            })
+            .catch(error => {
+                console.error('Error updating order:', error);
+                alert("Error updating order");
+            });
+    };
+
+    // show the update form if showForm is true
+    if (showForm && updatePrintOrder) {
+        return (
+            <UpdateForm printOrder={updatePrintOrder} onUpdate={handleUpdateSubmit} />
+        );
+    }
+
   return (
     <div>
       <div>
         <Navi/>
       </div>
       {showForm ? (
-        <div id="form1">
+        <div id="formPorder">
           <h2 className='topicMain'>Print Request Form</h2>
           <button onClick={handleFormToggle} className='btnViewChart' >View Price Chart</button>
           <form onSubmit={handleSubmit}>
@@ -230,30 +318,34 @@ function PriceTable() {
                       <option value="Landscape">Landscape</option>
                     </select>
                     <br/>
-
-                    <label>
-                    Double-Sided
-                      <input
-                        type="checkbox"
-                        className='doubleS'
-                        id="doubleSided"
-                        name="doubleSided"
-                        checked={formData.doubleSided}
-                        onChange={handleInputChange}
-                      />
-                    </label>
-
-                    <label>
-                    Single-Sided
-                      <input
-                        type="checkbox"
-                        className='singleS'
-                        id="singleSide"
-                        name="singleSide"
-                        checked={formData.singleSide}
-                        onChange={handleInputChange}
-                      />
-                    </label>
+                    <table>
+                      <td>
+                        <label>
+                          Double-Sided
+                          <input
+                            type="checkbox"
+                            className='dSide'
+                            id="doubleSided"
+                            name="doubleSided"
+                            checked={formData.doubleSided}
+                            onChange={handleInputChange}
+                          />
+                      </label>
+                      </td>
+                      <td>
+                        <label>
+                          Single-Sided
+                            <input
+                              type="checkbox"
+                              className='singleS'
+                              id="singleSide"
+                              name="singleSide"
+                              checked={formData.singleSide}
+                              onChange={handleInputChange}
+                            />
+                      </label>
+                      </td>
+                    </table>
                     <br/> 
 
                     <label htmlFor="paperSize" className='topicSubs'>Paper Size: </label>
@@ -315,6 +407,14 @@ function PriceTable() {
           <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>
         </div>
       )}
+      {latestPrintOrder && (
+        <div>
+          <PrintOrderForm printOrder={latestPrintOrder} onUpdate={handleUpdateSubmit} allPaperSizes={allPaperSizes} />
+          {/* Render the update button only for the latest print order */}
+          <button className='btnPlace2' onClick={() => handleUpdateClick(latestPrintOrder)}>Update</button>
+        </div>
+      )}
+      <br/><br/>
       <div>
         <Foot/>
       </div>

@@ -1,39 +1,29 @@
 import React, { useState } from 'react';
+import '../CSS_C/navi.css';
+import logo from '../image/logo.jpg';
 
 const NaviBar = () => {
   const [showSubCategories, setShowSubCategories] = useState(false);
 
-  const handleMouseEnter = () => {
-    setShowSubCategories(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowSubCategories(false);
-  };
-
-  const handleSubCategoryMouseEnter = () => {
-    setShowSubCategories(true);
-  };
-
-  const handleSubCategoryMouseLeave = () => {
-    setShowSubCategories(false);
-  };
-
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center mb-4">
-      <div className="flex items-center ml-10 ">
-      <a href="/AdminMain_D" className="mr-10 hover:text-gray-300">Home</a>
-        <a href="/PrintingOrderDisplayAdmin_D" className="mr-10 hover:text-gray-300">All Printing Orders</a>
-        <a href="/PriceChartDisplay_D" className="mr-10 hover:text-gray-300">Price Chart</a>
-      </div>
-     
-
-
-      <div className="flex items-center mr-10 ">
-        <a href="#" className="mr-10 hover:text-gray-300">My Account <i className="fas fa-user"></i></a>
-        <a href="/" className="hover:text-gray-300">Logout</a>
-      </div>
-    </nav>
+    <div class="menu-body">
+      <nav>
+      <ul class='nav-bar'>
+          <li class='logo'><a href='/UserHome_C'><img src={logo}/></a></li>
+          <input type='checkbox' id='check' />
+          <span class="menu">
+              <li><a href="/UserHome_C" class="phone-logo"><img src={logo}/></a></li>
+              <li><a href="/AdminMain_D">Home</a></li>
+              <li><a href="/PrintingOrderDisplayAdmin_D">All Printing Orders</a></li>
+              <li><a href="/PriceChartDisplay_D">Price Chart</a></li>
+              <li><a href="#">My Account <i className="fas fa-user"></i></a></li>
+              <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+              <li><a href="/">Logout</a></li>
+          </span>
+          <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+      </ul>
+      </nav>
+    </div>
   );
 };
 
