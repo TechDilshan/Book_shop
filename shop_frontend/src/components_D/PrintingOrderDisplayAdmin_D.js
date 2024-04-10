@@ -5,10 +5,31 @@ import '../components_D/AdminStyle_D.css';
 import Foot from '../footer';
 import NaviPrintManager_D from '../components_D/NaviPrintManager_D';
 import { jsPDF } from 'jspdf';
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 export default function OrderDisplayAdmin() {
     const [allprintingorders, setAllPrintingOrders] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [fileUrls, setFileUrls] = useState([]);
+
+    useEffect(() => {
+        const fetchFileUrls = async () => {
+            const urls = await Promise.all(allprintingorders.map(async (order) => {
+                try {
+                    const url = await getDownloadURL(ref(storage, `files/${order.documentID}`));
+                    return { id: order.documentID, url };
+                } catch (error) {
+                    console.error('Error fetching file URL:', error);
+                    return null;
+                }
+            }));
+            setFileUrls(urls.filter(url => url !== null));
+        };
+        fetchFileUrls();
+    }, [allprintingorders]);
 
     // Getting the data from the DB
     const getAllPrintingOrders = () => {
@@ -83,6 +104,10 @@ export default function OrderDisplayAdmin() {
         paper.uEmail.toLowerCase().includes(searchQuery.toLowerCase())
     ) : allprintingorders;
 
+    const handleDownloadPDF = (url) => {
+        window.open(url, '_blank');
+    };
+
     return (
         <div>
             <div>
@@ -111,7 +136,7 @@ export default function OrderDisplayAdmin() {
                             <th>Double/Single-Sided</th>
                             <th>Paper Size</th>
                             <th>Other Requirements</th>
-                            <th>DocumentID</th>
+                            <th>PDF Download</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,7 +150,21 @@ export default function OrderDisplayAdmin() {
                                 <td>{formatDoubleSided(paper.doubleSided)}</td>
                                 <td>{paper.paperSize}</td>
                                 <td>{paper.otherOptions}</td>
-                                <td>{paper.documentID}</td>
+                                <td>
+                                    {fileUrls.map((file) => (
+                                        file.id === paper.documentID ?
+                                        <FontAwesomeIcon
+                                            key={file.id}
+                                            icon={faFilePdf}
+                                            size="2x"
+                                            color="red" 
+                                            onClick={() => handleDownloadPDF(file.url)}
+                                            style={{ cursor: 'pointer' }}
+                                        />
+
+                                        : null
+                                    ))}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

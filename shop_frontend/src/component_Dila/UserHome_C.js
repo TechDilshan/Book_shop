@@ -97,7 +97,7 @@ const UserHome_C = () => {
       
       {loading ? (
            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-           <CircularProgress size={300} />
+           <CircularProgress size={150} />
          </div>
       ) : (
         <>
