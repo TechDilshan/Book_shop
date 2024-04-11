@@ -36,24 +36,19 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
   const [loadingcy, setLoadingcy] = useState(true);
-
-  const handleButtonClick = () => {
-    navigate('/users');
-    window.location.reload();
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchBarFocused, setSearchBarFocused] = useState(false);
 
   useEffect(() => {
     const fetchImageUrls = async () => {
       const urls = await Promise.all(rows.map(async (row) => {
         try {
           const url = await getDownloadURL(ref(storage, `images/${row.imgId}`));
-          
           return { id: row.id, url };
         } catch (error) {
           console.error('Error fetching image URL:', error);
@@ -91,79 +86,130 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
       </Page>
     </Document>
   );
-  
-  
 
-  const filteredRows = selectedCategory === 'All' ? rows : rows.filter(row => row.item === selectedCategory);
+  const filteredRows = selectedCategory === 'All' ? rows : 
+    selectedCategory === 'outstock' ? rows.filter(row => row.stock === 0) :
+    rows.filter(row => row.item === selectedCategory);
 
+    const visibleRows = searchTerm.trim() === '' ? [] : filteredRows.filter(row => {
+      const searchTermLowerCase = searchTerm.toLowerCase();
+      return row.name.toLowerCase().includes(searchTermLowerCase) || row.id.toString().includes(searchTermLowerCase);
+    });
+    
+    
+  
   return (
     <div>
-
       {loadingcy ? (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <CircularProgress size={150} />
-              </div>
-            ) : (
-              <>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress size={150} />
+        </div>
+      ) : (
+        <>
 
-      <Button onClick={() => handleCategoryButtonClick('All')}>All Items</Button>
-      <Button onClick={() => handleCategoryButtonClick('bookitem')}>Book Items</Button>
-      <Button onClick={() => handleCategoryButtonClick('schoolitem')}>School Items</Button>
-      <Button onClick={() => handleCategoryButtonClick('mobileitem')}>Mobile Items</Button>
-      <Button onClick={() => handleCategoryButtonClick('techitem')}>Tech Items</Button>
+          <div className="mb-25">
+          
 
-      {selectedCategory && (
-        <PDFDownloadLink document={<MyDocument data={filteredRows} />} fileName={`${selectedCategory}Products.pdf`}>
-          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
-        </PDFDownloadLink>
-      )}
+            <button onClick={() => handleCategoryButtonClick('All')} className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2">All Items</button>
+            <button onClick={() => handleCategoryButtonClick('bookitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">Book Items</button>
+            <button onClick={() => handleCategoryButtonClick('schoolitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">School Items</button>
+            <button onClick={() => handleCategoryButtonClick('mobileitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">Mobile Items</button>
+            <button onClick={() => handleCategoryButtonClick('techitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">Tech Items</button>
+            <button onClick={() => handleCategoryButtonClick('outstock')} className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2">Out Of Stock</button>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Photo</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Short Description</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Stock</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredRows.map((row) => {
-              const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
-              const imageUrl = imageUrlObj ? imageUrlObj.url : null;
-              return (
-                <TableRow key={row.id}>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>
-                    {imageUrl ? (
-                      <img src={imageUrl} alt={`Photo-${row.id}`} style={{ width: '50px', height: '50px' }} />
-                    ) : (
-                      <div>No Image</div>
-                    )}
-                  </TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>{row.sdes}</TableCell>
-                  <TableCell>{row.des}</TableCell>
-                  <TableCell>{row.item}</TableCell>
-                  <TableCell>{row.stock}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
-                    <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>
-                  </TableCell>
+          {selectedCategory && (
+            <PDFDownloadLink document={<MyDocument data={filteredRows} />} fileName={`${selectedCategory}Products.pdf`} className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 ml-32">
+              {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+            </PDFDownloadLink>
+          )}
+        </div>
+
+        <input
+            type="text"
+            className="block flex-grow px-2 py-1 mb-4 text-blue-900 bg-white border border-blue-900 rounded-full focus:border-blue-900 focus:ring-blue-900 focus:outline-none focus:ring focus:ring-opacity-40 sm:px-4 sm:py-2 sm:text-base"
+            placeholder="Search items..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => setSearchBarFocused(true)}
+            onBlur={() => setSearchBarFocused(false)}
+          />
+
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Photo</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Short Description</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Stock</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      </>
+              </TableHead>
+              <TableBody>
+
+              {visibleRows.map((row) => {
+                    const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
+                    const imageUrl = imageUrlObj ? imageUrlObj.url : null;
+                    return (
+                      <TableRow key={row.id}>
+                        <TableCell>{row.id}</TableCell>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>
+                          {imageUrl ? (
+                            <img src={imageUrl} alt={`Photo-${row.id}`} style={{ width: '50px', height: '50px' }} />
+                          ) : (
+                            <div>No Image</div>
+                          )}
+                        </TableCell>
+                        <TableCell>{row.price}</TableCell>
+                        <TableCell>{row.sdes}</TableCell>
+                        <TableCell>{row.des}</TableCell>
+                        <TableCell>{row.item}</TableCell>
+                        <TableCell>{row.stock}</TableCell>
+                        <TableCell>
+                          <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
+                          <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+
+
+                {filteredRows.map((row) => {
+                  const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
+                  const imageUrl = imageUrlObj ? imageUrlObj.url : null;
+                  return (
+                    <TableRow key={row.id}>
+                      <TableCell>{row.id}</TableCell>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell>
+                        {imageUrl ? (
+                          <img src={imageUrl} alt={`Photo-${row.id}`} style={{ width: '50px', height: '50px' }} />
+                        ) : (
+                          <div>No Image</div>
+                        )}
+                      </TableCell>
+                      <TableCell>{row.price}</TableCell>
+                      <TableCell>{row.sdes}</TableCell>
+                      <TableCell>{row.des}</TableCell>
+                      <TableCell>{row.item}</TableCell>
+                      <TableCell>{row.stock}</TableCell>
+                      <TableCell>
+                        <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
+                        <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
       )}
     </div>
   );
