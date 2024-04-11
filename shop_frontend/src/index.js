@@ -32,6 +32,16 @@ import PrintOrderMain_D from './components_D/PrintOrderMain_D';
 import CouponView from './component_DSP/CouponView';
 import ViewReport from './component_DSP/ViewReport';
 
+
+
+import Register from './Components_S/Register';
+import Login from './Components_S/Login';
+import Home from './Components_S/Home';
+import FrogotPasswor from './Components_S/FrogotPasswor';
+import ResetPassword from './Components_S/ResetPassword';
+import Dashboard_S from './Components_S/Dashboard';
+import EmpRegister from './Components_S/EmpRegister';
+
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
 fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
@@ -77,6 +87,15 @@ root.render(
 
 
 
+       {/*  Routes User Profile Management - Sathu */}
+
+        <Route path="/registor" element={<Register/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/homes" element={<Home/>} />
+        <Route path="/forgotPassword" element={<FrogotPasswor/>} />
+        <Route path="/resetPassword/:token" element={<ResetPassword/>} />
+        <Route path="/eregistor" element={<EmpRegister/>} />
+        <Route path="/dashboard" element={<Dashboard_S/>} />
   
     </Routes>
   </BrowserRouter>

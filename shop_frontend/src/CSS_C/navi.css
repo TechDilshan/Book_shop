@@ -18,13 +18,25 @@
     background-color: var(--color2);
     padding: 12px 20px;
 }
+
 .logo img {
     width: 40px;
-    border-radius:50%;
+    border-radius: 50%;
 }
-.menu {display: flex;}
-.menu li {padding-left: 30px;}
-.menu li a {
+
+.menu, .user-links {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li, .user-links li {
+    padding-left: 30px;
+    list-style: none;
+}
+
+.menu li a, .user-links li a {
     display: inline-block;
     text-decoration: none;
     color: var(--color1);
@@ -33,7 +45,8 @@
     position: relative;
     text-transform: uppercase;
 }
-.menu li a::after {
+
+.menu li a::after, .user-links li a::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -43,7 +56,10 @@
     background-color: var(--color1);
     transition: 0.15s ease-in-out;
 }
-.menu li a:hover:after {width: 100%;}
+
+.menu li a:hover::after, .user-links li a:hover::after {
+    width: 100%;
+}
 .open-menu , .close-menu {
     position: absolute;
     color: var(--color1);

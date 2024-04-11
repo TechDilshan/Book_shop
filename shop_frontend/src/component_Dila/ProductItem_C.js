@@ -13,6 +13,7 @@ const ProductItem_C = ({ rows }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState('');
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -24,7 +25,10 @@ const ProductItem_C = ({ rows }) => {
     }
   };
 
-
+  useEffect(() => {
+    const email = sessionStorage.getItem('userEmail');
+    setUserEmail(email);
+  }, []);
 
   useEffect(() => {
     
@@ -91,13 +95,21 @@ const ProductItem_C = ({ rows }) => {
                     <button className="increment" onClick={handleIncrement}>+</button>
                 </div>
                 <button 
-                    className={`add-to-cart ${row.stock === 0 ? '' : 'disabled'}`}
+                    className={`add-to-cart ${row.stock === 0 ? 'disabled' : ''}`}
                     onClick={() => {
-                      if (row.stock === 0) {
-                        alert("Stock is zero. Cannot add to cart.");
+                      if (userEmail) {
+                        if (row.stock === 0) {
+                          alert("Stock is zero. Cannot add to cart.");
+                        } else {
+                          StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
+                          createCart({ productId: row.id, qty: quantity });
+                        }
                       } else {
-                        StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
-                        createCart({ productId: row.id, qty: quantity });
+                        
+                        const confirmLogin = window.confirm("Please login to add to cart. Do you want to login now?");
+                        if (confirmLogin) {
+                          window.location.href = "/login";
+                        }
                       }
                     }}
                   >
