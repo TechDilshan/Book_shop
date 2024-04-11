@@ -23,9 +23,8 @@ const Login = () =>{
     }).then(response => {
       if (response.data.status){
         sessionStorage.setItem('userEmail', email);
-        console.log(response.data.status)
-        console.log(email)
         navigate('/UserHome_C');
+        window.location.reload();
       }
     }).catch(err =>{
       console.log(err)

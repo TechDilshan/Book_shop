@@ -79,14 +79,6 @@ const UserHome_C = () => {
     }
   };
 
-  const [userEmail, setUserEmail] = useState('');
-  useEffect(() => {
-    // Retrieve the email from sessionStorage
-    const email = sessionStorage.getItem('userEmail');
-    setUserEmail(email);
-  }, []);
-
-  console.log(userEmail)
 
   return (
     

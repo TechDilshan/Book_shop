@@ -165,7 +165,6 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <p>Email: {userEmail}</p>
       <div>
         <Navi />
       </div>
