@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import '../components_D/PrintDocStyles_D.css';
 import Navi from '../Navi';
 import Foot from '../footer';
@@ -10,6 +11,7 @@ import PrintOrderForm from '../components_D/PrintOrderRead_D';
 import UpdateForm from '../components_D/PrintOrderUpdate_D';
 
 function PriceTable() {
+  const [userEmail, setUserEmail] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     uEmail: '', // fetch user email from the storage
@@ -29,6 +31,7 @@ function PriceTable() {
   const [latestPrintOrder, setLatestPrintOrder] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
   const [updatePrintOrder, setUpdatePrintOrder] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -64,10 +67,12 @@ function PriceTable() {
   
   const handleSubmit = async (e) => {
     e.preventDefault(); 
-  
+    setLoading(true); // Set loading to true when submission starts
+
     // Upload document to Firebase
     const documentID = await uploadFile(formData.document);
     if (!documentID) {
+      setLoading(false); // Reset loading state
       alert("Error in uploading document");
       return;
     }
@@ -81,6 +86,7 @@ function PriceTable() {
     axios.post('http://localhost:3003/printorders/add', formDataWithUserEmail)
       .then((response) => {
         console.log(response.data);
+        setLoading(false); // Reset loading state
         alert("Printing Order Placed Successfully");
         // Reset form data
         setFormData({
@@ -100,6 +106,7 @@ function PriceTable() {
         fetchLatestPrintOrder();
       })
       .catch((error) => {
+        setLoading(false); // Reset loading state
         console.error('Error:', error);
         alert("Error in placing print order");
       });
@@ -129,10 +136,11 @@ function PriceTable() {
 
   useEffect(() => {
     const userEmail = sessionStorage.getItem('userEmail');
+    setUserEmail(userEmail);
     setFormData((prevData) => ({
       ...prevData,
       uEmail: userEmail,
-    }));
+  }));
 
     // Fetch paper sizes data
     axios.get("http://localhost:3003/printprice/")
@@ -145,6 +153,14 @@ function PriceTable() {
         alert(err.message);
       });
   }, []);
+
+  const handleFormToggle = () => {
+    if (userEmail) {
+      setShowForm(!showForm);
+    } else {
+      alert("You need to log in to place an order.");
+    }
+  };
 
   // Function to group data by paper size
   const groupData = (data) => {
@@ -171,10 +187,6 @@ function PriceTable() {
       }
     });
     return groupedData;
-  };
-
-  const handleFormToggle = () => {
-    setShowForm(!showForm);
   };
 
   const fetchLatestPrintOrder = async () => {
@@ -223,10 +235,8 @@ function PriceTable() {
             .then(response => {
                 console.log(response.data);
                 alert("Print Order Updated Successfully");
-                // Hide the update form after successful update
-                setShowForm(false);
-                // Fetch latest printing order data after successful update
-                fetchLatestPrintOrder();
+                setShowForm(false);// Hide the update form after successful one
+                fetchLatestPrintOrder();// Fetch latest one after successful update
             })
             .catch(error => {
                 console.error('Error updating order:', error);
@@ -246,7 +256,39 @@ function PriceTable() {
       <div>
         <Navi/>
       </div>
-      {showForm ? (
+      {!showForm ? (
+        <div id="pricetble">
+          <h1 className='priceChartTopic'>Printing Price Chart</h1>
+          <table className="userchart">
+            <thead>
+              <tr>
+                <th>Paper Size</th>
+                <th>Black & White - Single-Sided</th>
+                <th>Black & White - Double-Sided</th>
+                <th>Coloured - Single-Sided</th>
+                <th>Coloured - Double-Sided</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(allPaperSizes).map(([paperSize, prices], index) => (
+                <tr key={index}>
+                  <td>{paperSize}</td>
+                  <td>{prices.blackAndWhite_single}</td>
+                  <td>{prices.blackAndWhite_double}</td>
+                  <td>{prices.coloured_single}</td>
+                  <td>{prices.coloured_double}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {userEmail && <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>}
+          {!userEmail && (
+            <center>
+            <p>You need to <Link to="/login" className='btnUpdate_D'>Sign Up</Link> to place an order.</p>
+            </center>
+          )}
+        </div>
+      ) : (
         <div id="formPorder">
           <h2 className='topicMain'>Print Request Form</h2>
           <button onClick={handleFormToggle} className='btnViewChart' >View Price Chart</button>
@@ -376,35 +418,10 @@ function PriceTable() {
                         onChange={handleInputChange}
                     />
                     <br/>
-              <button type="submit" className='btnSub'>Submit Print Request</button>
+                    <button type="submit" className='btnSub'>
+                      {loading ? <div className="spinner"></div> : "Submit Print Request"}
+                    </button>
           </form>
-        </div>
-      ) : (
-        <div id="pricetble">
-          <h1 className='priceChartTopic'>Printing Price Chart</h1>
-          <table className="userchart">
-            <thead>
-              <tr>
-                <th>Paper Size</th>
-                <th>Black & White - Single-Sided</th>
-                <th>Black & White - Double-Sided</th>
-                <th>Coloured - Single-Sided</th>
-                <th>Coloured - Double-Sided</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(allPaperSizes).map(([paperSize, prices], index) => (
-                <tr key={index}>
-                  <td>{paperSize}</td>
-                  <td>{prices.blackAndWhite_single}</td>
-                  <td>{prices.blackAndWhite_double}</td>
-                  <td>{prices.coloured_single}</td>
-                  <td>{prices.coloured_double}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>
         </div>
       )}
       {latestPrintOrder && (

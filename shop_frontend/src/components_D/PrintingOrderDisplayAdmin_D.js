@@ -55,13 +55,13 @@ export default function OrderDisplayAdmin() {
     // Function to generate PDF report
     const generatePDFReport = () => {
         const doc = new jsPDF();
-
-        // Initialize y position for content
+    
+        // y position for content
         let yPos = 10;
         let currentPage = 1;
-
+    
         allprintingorders.forEach((paper, index) => {
-            // Calculate space needed for the current order
+            // Calculate space needed for one order
             let orderContent = `Order ${index + 1}:\n`;
             orderContent += `User Email: ${paper.uEmail}\n`;
             orderContent += `Colour: ${paper.colour}\n`;
@@ -71,27 +71,25 @@ export default function OrderDisplayAdmin() {
             orderContent += `Double/Single-Sided: ${formatDoubleSided(paper.doubleSided)}\n`;
             orderContent += `Paper Size: ${paper.paperSize}\n`;
             orderContent += `Other Requirements: ${paper.otherOptions}\n`;
-            orderContent += `DocumentID: ${paper.documentID}\n\n`;
-
-            // Calculate height needed for the order
-            const orderHeight = doc.getTextDimensions(orderContent).h;
-
-            // Check if order fits on current page, if not, add a new page
-            if (yPos + orderHeight >= doc.internal.pageSize.height - 20) {
+            orderContent += `DocumentID: ${paper.documentID}\n`;
+    
+            // Check if there is enough space to print the order on the current page
+            const spaceNeeded = yPos + 85; // Height of one order + spacing
+            const spaceAvailable = doc.internal.pageSize.height - 10; // Height of the page - padding
+            if (spaceNeeded > spaceAvailable) {
                 doc.addPage();
                 currentPage++;
                 yPos = 10; // Reset yPos for the new page
             }
-
-            // Add the content to the PDF document
-            doc.text(10, yPos, orderContent);
-
-            // Increase yPos for next content
-            yPos += orderHeight + 70; // Add padding
+    
+            doc.rect(5, yPos - 5, 200, 80); // Add a frame around the content of each order
+    
+            doc.text(10, yPos, orderContent);   // Add the content to the PDF document
+    
+            yPos += 85; // Increase yPos for next content
         });
-
-        // Save PDF
-        doc.save(`printing_orders_report.pdf`);
+    
+        doc.save(`printing_orders_report.pdf`); // Save PDF
     };
 
     // Function to handle search input change
