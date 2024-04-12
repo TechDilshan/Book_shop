@@ -99,7 +99,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
     
   
   return (
-    <div>
+    <div className="mb-8">
       {loadingcy ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <CircularProgress size={150} />
@@ -126,7 +126,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
 
         <input
             type="text"
-            className="block flex-grow px-2 py-1 mb-4 text-blue-900 bg-white border border-blue-900 rounded-full focus:border-blue-900 focus:ring-blue-900 focus:outline-none focus:ring focus:ring-opacity-40 sm:px-4 sm:py-2 sm:text-base"
+            className="block flex-grow px-2 py-1 mb-8 mt-8 text-blue-900 bg-white border border-blue-900 rounded-full focus:border-blue-900 focus:ring-blue-900 focus:outline-none focus:ring focus:ring-opacity-40 sm:px-4 sm:py-2 sm:text-base"
             placeholder="Search items..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

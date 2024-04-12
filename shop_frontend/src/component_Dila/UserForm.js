@@ -5,7 +5,7 @@ import { storage } from "../firebase";
 import { v4 } from "uuid";
 import Axios from 'axios';
 import { useMediaQuery } from '@mui/material';
-import '../components_D/PrintDocStyles_D.css';
+import '../CSS_C/UserForm_C.css';
 
 const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) => {
   const [id, setId] = useState(0);
@@ -138,11 +138,11 @@ const isMobile = useMediaQuery('(max-width:600px)');
       ) : (
         <>
 
-      <div id="formPorder">
-          <h2 className='topicMain'>{isEdit ? "Update Product Item" : "Add New Product Item"}</h2>
+      <div id="formStart">
+          <h2 className='topicTitle'>{isEdit ? "Update Product Item" : "Add New Product Item"}</h2>
           <form>
 
-            <label htmlFor="id" className='topicSubs'>Product ID: </label>
+            <label htmlFor="id" className='itemRow'>Product ID: </label>
             <input
               type="number"
               id="id"
@@ -150,57 +150,57 @@ const isMobile = useMediaQuery('(max-width:600px)');
               value={id}
               onChange={(e) => setId(e.target.value)}
               readOnly  
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 
-            <label htmlFor="id" className='topicSubs'>Product Name: </label>
+            <label htmlFor="id" className='itemRow'>Product Name: </label>
             <input
               type="text"
               id="name"
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 
-            <label htmlFor="id" className='topicSubs'>Product Price: </label>
+            <label htmlFor="id" className='itemRow'>Product Price: </label>
             <input
               type="number"
               id="price"
               name="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 
-            <label htmlFor="id" className='topicSubs'>Short Description: </label>
+            <label htmlFor="id" className='itemRow'>Short Description: </label>
             <input
               type="text"
               id="sdes"
               name="sdes"
               value={sdes}
               onChange={(e) => setSdes(e.target.value)}
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 
-            <label htmlFor="id" className='topicSubs'>Long Description: </label>
+            <label htmlFor="id" className='itemRow'>Long Description: </label>
             <input
               type="text"
               id="des"
               name="des"
               value={des}
               onChange={(e) => setDes(e.target.value)}
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 
            
 
-            <label htmlFor="id" className='topicSubs'>Product Category: </label>
+            <label htmlFor="id" className='itemRow'>Product Category: </label>
             <table style={{ marginLeft: "50px", borderSpacing: "0" }}>
               <tr>
                 <td>
@@ -396,7 +396,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               )}
 
 
-            <label htmlFor="copies" className='topicSubs'>Availabl Stock: </label>
+            <label htmlFor="copies" className='itemRow'>Availabl Stock: </label>
             <input
               type="number"
               id="stock"
@@ -404,7 +404,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               value={stock}
               defaultValue={0}
               onChange={(e) => setStock(e.target.value)}
-              className='boxesforInSe_D'
+              className='GetItemDetails'
             />
             <br/>
 

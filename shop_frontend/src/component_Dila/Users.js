@@ -98,7 +98,7 @@ const Users = () => {
   };
 
   return (
-    <div class="w-calc(100% - 100px) mx-auto mt-10 lg:ml-10 lg:mr-8" style={{ backgroundColor: '#c3ddec' }}>
+    <div class="w-calc(100% - 100px) mx-auto mt-2 lg:ml-2 lg:mr-2" style={{ backgroundColor: '#c3ddec' }}>
 
     <div class="menu-body">
       <nav>
@@ -118,7 +118,7 @@ const Users = () => {
       </nav>
     </div>
       
-    <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '100px' }}>
+    <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '40px' }}>
       
       {displayTable ? (
         <AdminDisplay
