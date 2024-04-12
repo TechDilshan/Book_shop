@@ -8,7 +8,6 @@ import './CSS_C/ShoppingCart.css';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import PromoPage from './component_DSP/PromoPage';
 
 const styles = StyleSheet.create({
   page: {
@@ -262,9 +261,7 @@ const ShoppingCart = () => {
         <div class="pay-now-button-container">
           <button class="pay-now-button">Pay Now</button>
         </div>
-        <Link to={`/promopage/${total}`}>
-        <button className="coupon">Looking for DISCOUNT?</button>
-      </Link>
+        <button class="coupon">Looking for DISCOUNT?</button>
       </div>
       
     </div>
