@@ -5,28 +5,42 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart'
-import Users from './Users';
-import AdminDisplay from './AdminDisplay';
-import UserHome_C from './UserHome_C';
-import ProductDetails_C from './ProductDetails_C';
+import Users from './component_Dila/Users';
+import AdminDisplay from './component_Dila/AdminDisplay';
+import UserHome_C from './component_Dila/UserHome_C';
+import ProductDetails_C from './component_Dila/ProductDetails_C';
 
 
 import PromoPage from './component_DSP/PromoPage'
+import PromoPageTest from './component_DSP/PromoPageTest'
 import CouponManage from './component_DSP/CouponManage'
 import Dashboard from './component_DSP/PromoDashboard'
 import UpdateCoupon from './component_DSP/UpdateCoupon'
 
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
+import FeedbackUpdate from './components_chamu/FeedbackUpdate';
 
-import PrintingOrderDisplayAdmin_D from './PrintingOrderDisplayAdmin_D';
-import PrintDocCreate_D from './PrintDocCreate_D';
-import PrintingOrderMain_D from './PrintingOrderMain_D';
-import AdminPriceChartCreate_D from './AdminPriceChartCreate_D';
-import AdminMain_D from './AdminMain_D';
-import PriceChartDisplay_D from './PriceChartDisplay_D';
-import PrintOrderMain_D from './PrintOrderMain_D';
+import PrintingOrderDisplayAdmin_D from './components_D/PrintingOrderDisplayAdmin_D';
+import PrintDocCreate_D from './components_D/PrintDocCreate_D';
+import PrintingOrderMain_D from './components_D/PrintingOrderMain_D';
+import AdminPriceChartCreate_D from './components_D/AdminPriceChartCreate_D';
+import AdminMain_D from './components_D/AdminMain_D';
+import PriceChartDisplay_D from './components_D/PriceChartDisplay_D';
+import PrintOrderMain_D from './components_D/PrintOrderMain_D';
+
 import CouponView from './component_DSP/CouponView';
+import ViewReport from './component_DSP/ViewReport';
+
+
+
+import Register from './Components_S/Register';
+import Login from './Components_S/Login';
+import Home from './Components_S/Home';
+import FrogotPasswor from './Components_S/FrogotPasswor';
+import ResetPassword from './Components_S/ResetPassword';
+import Dashboard_S from './Components_S/Dashboard';
+import EmpRegister from './Components_S/EmpRegister';
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -47,14 +61,18 @@ root.render(
         <Route path='/shopping-cart' element={<ShoppingCart />} />
 
         {/*  Routes Promotion Management - DILINA */}
-        <Route path='/promopage' element={<PromoPage />} />
+       <Route path='/promopagetest' element={<PromoPageTest />} />
+        <Route path='/promopage/:tot' element={<PromoPage />} />
         <Route path='/couponpage' element={<CouponManage />} />
         <Route path='/cmdashboard' element={<Dashboard />} />
+        <Route path='/viwerepo' element={<ViewReport />} />
         <Route  path='/update/:UID' element={<UpdateCoupon />}/>
+        
 
         {/*  Routes Reviews Management - Chamu */}
         <Route path='/feedbackpage' element={<FeedbackDisplay />} />
         <Route path='/feedbackadmin' element={<AdminFeedbackPage />} />
+        <Route path='/feedbackupdate/:UID' element={<FeedbackUpdate />} />
 
 
         
@@ -66,10 +84,18 @@ root.render(
         <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin_D />} />
         <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
         <Route  path='/couponview' element={<CouponView />}/>
-        CouponView
 
 
 
+       {/*  Routes User Profile Management - Sathu */}
+
+        <Route path="/registor" element={<Register/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/homes" element={<Home/>} />
+        <Route path="/forgotPassword" element={<FrogotPasswor/>} />
+        <Route path="/resetPassword/:token" element={<ResetPassword/>} />
+        <Route path="/eregistor" element={<EmpRegister/>} />
+        <Route path="/dashboard" element={<Dashboard_S/>} />
   
     </Routes>
   </BrowserRouter>

@@ -8,6 +8,7 @@ router.route('/addreview').post((req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const rating = Number(req.body.rating);
+    const productId = Number(req.body.productId);
     const comment = req.body.comment;
 
     const newFeedback = new Feedback({
@@ -15,7 +16,8 @@ router.route('/addreview').post((req, res) => {
         email,
         name,
         rating,
-        comment
+        comment,
+        productId
 
     });
 
@@ -86,9 +88,9 @@ router.route('/deletereview/:id').delete(async(req, res) => {
     
 });
 
-// router.route('/product/:productId').get((req, res) => {
+// router.route('/getonereview/:productId').get((req, res) => {
 //     const productId = req.params.productId;
-//     Feedback.find({ productId })
+//     Feedback.findById({ productId })
 //         .then(feedback => {
 //             if (feedback.length === 0) {
 //                 res.json({ message: 'No reviews' });
@@ -98,5 +100,24 @@ router.route('/deletereview/:id').delete(async(req, res) => {
 //         })
 //         .catch(err => console.log(err));
 // });
+
+router.route("/getonereview/:id").get(async(req,res)=>{
+    const revId = req.params.id;
+
+    const user = await Feedback.findById(revId).then((Feedback)=>{
+        res.status(200).send({
+            status:"data Fetched",
+            user:Feedback
+        })
+            
+        }).catch((err)=>{
+            console.log(err.message);
+            res.status(500).send({
+                status:"Error with get data",
+                error:err.message
+            })
+    })
+})
+
 
 module.exports = router;

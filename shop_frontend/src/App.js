@@ -29,7 +29,7 @@ function App() {
           onChange={handleEmailChange} 
           style={{ color: 'black' }}
         />
-        <button className='Admin-button' onClick={() => { navigate('/UserHome_C'); saveSession(); }}>Customer</button>
+        <button className='Admin-button' onClick={() => { navigate('/UserHome_C'); saveSession(); }}>Customers</button>
         <button className='user-button' onClick={() => { navigate('/users'); }}>Product Manager "Dilshan"</button>
         <button className='Admin-button' onClick={() => { navigate('/cmdashboard'); saveSession(); }}>Promotion Manager "Dilina"</button>
         <button className='Admin-button' onClick={() => { navigate('/AdminMain_D'); saveSession(); }}>Printing Manager "Sayumi"</button>

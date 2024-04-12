@@ -3,9 +3,10 @@ import { FaStar } from 'react-icons/fa';
 import  axios  from 'axios';
 import '../F_CSS/Form.css';
 
-const StarRating = () => {
+const StarRating = ({ productId , email }) => {
     
-    const email = "1234@gmail.com";
+    
+    const [proId, setProId] = useState(productId);
     const [name, setName] = useState("");
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(null);
@@ -26,7 +27,7 @@ const StarRating = () => {
         if (rating) {
 
             const newRating ={
-                rating,comment,email,name
+                rating,comment,email,name,productId
 
         }
 
@@ -100,7 +101,7 @@ const StarRating = () => {
             {showAlert && <p className = "revalert-message">Please select a rating.</p>}
 
             <p>{rating} stars rating..</p>
-            
+            <text type='number' values='productId' hidden></text>
             <textarea className='revtextarea' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
             <textarea className='revtextarea' placeholder="Email" value={email} />
             <textarea  className='revtextarea'placeholder="Write your feedback here..." value={comment} onChange={(e) => setComment(e.target.value)} />
