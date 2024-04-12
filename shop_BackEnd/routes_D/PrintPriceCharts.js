@@ -19,7 +19,7 @@ router.route("/add").post((req,res)=>{
 
     //pass the object to the DB as a doc
     newPaperSize.save().then(()=>{
-        res.json("New Paper Size Added To The Chart")    //pass the message to the frontend in json format
+        res.json("New Paper Size Added To The Chart")
     }).catch((err)=>{
         console.log(err);   //unsuccess msg
         res.status(500).json({ error: "Error with adding a new paper size", Details: err.message });

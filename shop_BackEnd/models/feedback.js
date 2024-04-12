@@ -17,6 +17,10 @@ const feedbackSchema = new Schema({
     comment: {
         type: String,
         required: true
+    },
+    productId: {
+        type: Number,
+        required: true
     }
 
 }, {
