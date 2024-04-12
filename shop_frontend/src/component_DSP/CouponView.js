@@ -23,22 +23,18 @@ function CouponView(){
         });
       }
 
+
       const handleInputChange = (e) => {
         const query = e.target.value.toLowerCase();
         setSearchQuery(query);
-      
-        // If query is empty, reset coupons to the original list fetched from the database
-        if (query === '') {
-          getCouponsDB();
-        } else {
-          // Filter coupons based on the search query as you type
-          const filteredCoupons = coupons.filter(coupon =>
-            coupon.couponId.toLowerCase().includes(query) || coupon.ExpDate.toLowerCase().includes(query)
-          );
-          setCoupons(filteredCoupons);
-        }
+    
+        // Filter students based on the search query as you type
+        const filteredCoupons = coupons.filter(coupon =>
+          coupon.couponId.toLowerCase().includes(query) || coupon.ExpDate.toLowerCase().includes(query)
+        );
+        setCoupons(filteredCoupons);
       };
-      
+
 
       
     useEffect(()=>{
@@ -47,7 +43,7 @@ function CouponView(){
           console.log("Get data From DB");
           console.log(date)
         }
-      },[])
+      },)
 
     return (
       <div>
@@ -75,12 +71,7 @@ function CouponView(){
   </div>
         <div className=" grid justify-center mt-10 ml-[-50%]">
           
-        {
-        coupons.length === 0 ? (
-          <p>No coupons available</p>
-        ) :
-        
-        (coupons.map((cpn) => (
+        {coupons.map((cpn) => (
             <div key={cpn._id}>
             <div className="w-[00px] h-[200px] relative">
                 <div className="w-[870px] h-[159px] left-0 top-0 content-center">
@@ -160,8 +151,7 @@ function CouponView(){
 
 
 
-          ))
-          )}
+          ))}
 
            
         </div>   

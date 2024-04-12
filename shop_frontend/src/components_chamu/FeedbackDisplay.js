@@ -4,7 +4,6 @@ import '../F_CSS/Form.css';
 import { FaStar } from 'react-icons/fa';
 import '../F_CSS/FeedbackDisplay.css';
 import StarRating from '../components_chamu/StarRating';
-import { Link } from 'react-router-dom';
 
 
 const FeedbackDisplay = () => {
@@ -182,15 +181,11 @@ const FeedbackDisplay = () => {
 
                                 {item.email === loggedInUserEmail && (
                                     <div>
-                                        <button className='p-3'>
-                                            <Link to={`/feedbackupdate/${item._id}`}>Edit</Link>
-                                        </button>
+                                        <button className='p-3'>Edit</button>
                                         <button
-                                            className="btnrev btn-review-delete p-3"
-                                            onClick={() => handleDelete(item._id)}
-                                        >
-                                            Delete
-                                        </button>
+                                           className="btnrev btn-review-delete p-3"
+                                           onClick={() => handleDelete(item._id)}
+                                           > Delete</button>
                                     </div>
                                 )}
                             </div>

@@ -159,27 +159,22 @@ function CouponManage() {
         getCouponsDB();
         console.log("Get data From DB");
       }
-    },[])
+    },)
   
   
     const handleDiscountTypeChange = (event) => {
       setDiscountType(event.target.value);
-
-      if (discountType === "Percentage_Discount") {
-        setDiscountPercentage('0');
-        setFixedAmount('');
-      } else if (discountType === "fixedAmount") {
-        setFixedAmount('0');
-        setDiscountPercentage('');
-      }
-
       
+      if(discountType == "fixedAmount"){
+        setDiscountPercentage(0)
+      }
+      else{
+        setFixedAmount(0);
+      }
     };
   
     const handleCouponVisibilityChange = (event) => {
       setCouponVisibility(event.target.value);
-
-        setCustomerId('');
     };
 
 
@@ -321,7 +316,7 @@ function CouponManage() {
           value={discountType}
           onChange={ handleDiscountTypeChange}
         >
-          
+          <option value="Free_Deliver">Free Deliver</option>
           <option value="Percentage_Discount">Percentage Discount</option>
           <option value="fixedAmount">Fixed Amount</option>
         </select>
@@ -388,7 +383,7 @@ function CouponManage() {
           name="couponVisibility"
           className="mt-1 p-2 w-full border rounded-md"
           value={couponVisibility}
-          onChange={handleCouponVisibilityChange} >
+          onChange={handleCouponVisibilityChange } >
        
           <option value="All_Users">All Users</option>
           <option value="One_User">One User</option>

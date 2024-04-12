@@ -7,7 +7,7 @@ function UpdateCoupon() {
   const [uuid , setuuid] = useState(null);
   const { UID } = useParams();
   const [couponInfo, setCouponInfo] = useState(null);
-  
+
   const [updatedInfo, setUpdatedInfo] = useState({
     couponId: '',
     discountType: '',

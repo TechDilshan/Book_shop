@@ -8,7 +8,7 @@ const PrintOrderSchema = new Schema({
     },
     document: {
         data: Buffer, // Store the doc as binary data
-        contentType: String // Store the content type (eg - application/pdf, image/jpg)
+        contentType: String // Store the content type (eg - application/pdf, image/jpeg)
     },
     colour: {
         type: String,
@@ -42,7 +42,7 @@ const PrintOrderSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now // Automatically set the current timestamp when a document is created
     }
 });
 
