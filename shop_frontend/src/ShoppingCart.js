@@ -162,39 +162,6 @@ const ShoppingCart = () => {
   const filteredCartItems = carts2.filter(cart => cart.email === userEmail && 
     (carts.find(c => c.id === cart.id)?.name.toLowerCase().includes(searchQuery.toLowerCase())));
 
-
-    const updateCart = (id, quantity) => {
-      // Update quantity in backend
-      Axios.post('http://localhost:3002/api_U/updateCart', { id: id, quantity: quantity })
-        .then((response) => {
-          // Update quantity in local state
-          setCarts2((prevCarts) =>
-            prevCarts.map((cart) => (cart.id === id ? { ...cart, quantity: quantity } : cart))
-          );
-        })
-        .catch((error) => {
-          console.error('Axios Error: ', error);
-        });
-    };
-
-    
-  const handleIncrement = (id) => {
-    const cartItem = filteredCartItems.find((cart) => cart.id === id);
-    if (cartItem) {
-      const newQuantity = cartItem.quantity + 1;
-      updateCart(id, newQuantity);
-    }
-  };
-
-  const handleDecrement = (id) => {
-    const cartItem = filteredCartItems.find((cart) => cart.id === id);
-    if (cartItem && cartItem.quantity > 1) {
-      const newQuantity = cartItem.quantity - 1;
-      updateCart(id, newQuantity);
-    }
-  };
-
-
   return (
     <div>
       <div>
@@ -233,20 +200,17 @@ const ShoppingCart = () => {
                 <p className="item-price">Price : LKR. {filteredCart ? filteredCart.price * cart.quantity : 'Price not available'}/=</p>
               </div>
               <div className="item-actions">
-              <button className="action-button" onClick={() => handleDecrement(cart.id)}>
-                  -
-                </button>
+                <button className="action-button">-</button>
                 <span className="item-quantity">{cart.quantity}</span>
-                <button className="action-button" onClick={() => handleIncrement(cart.id)}>
-                  +
-                </button>
+                <button className="action-button">+</button>
+                <button class="update">UPDATE</button>
                 <button className="action-button delete-button" onClick={() => {deleteCart(cart.id); handleButtonClick();}}>Delete</button>
               </div>
             </div>   
           );
         })}
         <div>
-           <button class="update">UPDATE</button>
+           
            </div>
         
         <div className="pdf-download-button">
