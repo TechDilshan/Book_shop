@@ -2,7 +2,6 @@ import React from 'react';
 import Axios from 'axios';
 
 const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
-    // Display the log message
     
 
     if(type=="add"){
@@ -21,8 +20,8 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
                 console.error('Axios Error: ', error);
               });
 
-              alert('The product was successfully added to the cart..!');
-              window.location.reload();
+              alert('The product cart successfully updated..!');
+             // window.location.reload();
         }
         else if(stk==qty){
 
@@ -86,6 +85,8 @@ Thank you..!`,
               .catch((error) => {
                 console.error('Axios Error: ', error);
               });
+
+              alert('The product cart successfully updated..!');
     }
     return null;
 };

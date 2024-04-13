@@ -7,6 +7,7 @@ import './index.css';
 import './CSS_C/ShoppingCart.css';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
+import StockUpdate_C from './component_Dila/StockUpdate_C';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -123,18 +124,25 @@ const ShoppingCart = () => {
     setTotal(calculatedTotal);
   }, [carts, carts2]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (id, stock, quantity, name, sdes, price) => {
+    StockUpdate_C({ productId: id, qty: quantity , stk: stock, type: "remove", name: name, sdes: sdes, price: price });
     window.location.reload();
   };
 
   const getCartDetails = () => {
-    Axios.get('http://localhost:3001/api/users')
-      .then((response) => {
-        setCarts(response.data?.response || []);
-      })
-      .catch((error) => {
-        console.error('Axios Error: ', error);
-      });
+    const FetchDetails = () => {
+      Axios.get('http://localhost:3001/api/users')
+        .then((response) => {
+          setCarts(response.data?.response || []);
+        })
+        .catch((error) => {
+          console.error('Axios Error: ', error);
+        });
+    };
+
+    FetchDetails();
+    const intervalId = setInterval(FetchDetails, 1000);
+    return () => clearInterval(intervalId);
   };
 
   const deleteCart = (id) => {
@@ -178,19 +186,28 @@ const ShoppingCart = () => {
     };
 
     
-  const handleIncrement = (id) => {
+  const handleIncrement = (id, stock, name, sdes, price) => {
     const cartItem = filteredCartItems.find((cart) => cart.id === id);
+
     if (cartItem) {
       const newQuantity = cartItem.quantity + 1;
-      updateCart(id, newQuantity);
+      if(stock >= cartItem.quantity -1 ){
+        updateCart(id, newQuantity);
+        StockUpdate_C({ productId: id, qty: 1, stk: stock, type: "add", name: name, sdes: sdes, price: price });
+      }
+      else{
+        alert("Stock is zero. Cannot add to cart.");
+      }
+      
     }
   };
 
-  const handleDecrement = (id) => {
+  const handleDecrement = (id, stock, name, sdes, price) => {
     const cartItem = filteredCartItems.find((cart) => cart.id === id);
     if (cartItem && cartItem.quantity > 1) {
       const newQuantity = cartItem.quantity - 1;
-      updateCart(id, newQuantity);
+        updateCart(id, newQuantity);
+        StockUpdate_C({ productId: id, qty: 1 , stk: stock, type: "remove", name: name, sdes: sdes, price: price });
     }
   };
 
@@ -231,16 +248,19 @@ const ShoppingCart = () => {
                 <h3 className="item-name">Name : {filteredCart ? filteredCart.name : 'Name not available'}</h3>
                 <h3 className="item-price">Quantity : {cart.quantity}</h3>
                 <p className="item-price">Price : LKR. {filteredCart ? filteredCart.price * cart.quantity : 'Price not available'}/=</p>
+                <div className={`stock-text ${filteredCart.stock === 0 ? 'text-red-500' : ''}`}>
+                  <p className="item-price">stock : {filteredCart.stock === 0 ? 'The stock is over' : filteredCart.stock}</p>
+                </div>
               </div>
               <div className="item-actions">
-              <button className="action-button" onClick={() => handleDecrement(cart.id)}>
+              <button className="action-button" onClick={() => handleDecrement(cart.id, filteredCart.stock, filteredCart.name, filteredCart.sdes, filteredCart.price)}>
                   -
                 </button>
                 <span className="item-quantity">{cart.quantity}</span>
-                <button className="action-button" onClick={() => handleIncrement(cart.id)}>
+                <button className="action-button" onClick={() => handleIncrement(cart.id, filteredCart.stock, filteredCart.name, filteredCart.sdes, filteredCart.price)}>
                   +
                 </button>
-                <button className="action-button delete-button" onClick={() => {deleteCart(cart.id); handleButtonClick();}}>Delete</button>
+                <button className="action-button delete-button" onClick={() => {deleteCart(cart.id); handleButtonClick(cart.id, filteredCart.stock, cart.quantity, filteredCart.name, filteredCart.sdes, filteredCart.price);}}>Delete</button>
               </div>
             </div>   
           );
@@ -261,7 +281,9 @@ const ShoppingCart = () => {
         <div class="pay-now-button-container">
           <button class="pay-now-button">Pay Now</button>
         </div>
-        <button class="coupon">Looking for DISCOUNT?</button>
+        <Link to={`/promopage/${total}`}>
+          <button className="coupon">Looking for DISCOUNT?</button>
+        </Link>
       </div>
       
     </div>

@@ -24,16 +24,22 @@ const UserHome_C = () => {
     getUsers();
   }, []);
 
-  const getUsers = () => {
-    Axios.get('https://book-shop-dep.vercel.app/api/users') //'http://localhost:3001/api/users'
-      .then((response) => {
-        setUsers(response.data?.response || []);
-        setLoading(false); 
-      })
-      .catch((error) => {
-        console.error('Axios Error: ', error);
-      });
-  };
+    const getUsers = () => {
+      const fetchUsers = () => {
+        Axios.get('https://book-shop-dep.vercel.app/api/users')//'http://localhost:3001/api/users'
+          .then((response) => {
+            setUsers(response.data?.response || []);
+            setLoading(false); 
+          })
+          .catch((error) => {
+            console.error('Axios Error: ', error);
+          });
+      };
+
+      fetchUsers();
+      const intervalId = setInterval(fetchUsers, 1000);
+      return () => clearInterval(intervalId);
+    };
 
    // Filtered items based on search term
    const filteredUsers = users.filter(user => {
