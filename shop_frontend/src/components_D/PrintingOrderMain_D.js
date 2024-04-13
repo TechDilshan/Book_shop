@@ -284,7 +284,7 @@ function PriceTable() {
           {userEmail && <button onClick={handleFormToggle} className= 'btnPlace' >Place Order</button>}
           {!userEmail && (
             <center>
-            <p>You need to <Link to="/login" className='btnUpdate_D'>Sign Up</Link> to place an order.</p>
+            <p>You need to <Link to="/login" className='btnUpdate_D'>LOGIN</Link> to place an order.</p>
             </center>
           )}
         </div>

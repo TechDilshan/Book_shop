@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const pricechartrouter = require('./routes_D/PrintPriceCharts.js');
 const printorderrouter = require('./routes_D/PrintOrders.js');
-
+const notificationRouter = require('./routes_D/Notifications.js'); 
 
 const port = 3003;
 const host = 'localhost';
@@ -27,7 +27,7 @@ connect();
 
 app.use('/printprice', pricechartrouter);
 app.use('/printorders', printorderrouter);
-
+app.use('/notifications', notificationRouter);
 
 const server = app.listen(port, host, () => {
     console.log(`Node server is listening to ${server.address().port}`);

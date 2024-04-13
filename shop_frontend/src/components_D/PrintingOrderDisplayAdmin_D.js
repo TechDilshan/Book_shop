@@ -14,6 +14,7 @@ export default function OrderDisplayAdmin() {
     const [allprintingorders, setAllPrintingOrders] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [fileUrls, setFileUrls] = useState([]);
+    const [notificationsSent, setNotificationsSent] = useState([]);
 
     useEffect(() => {
         const fetchFileUrls = async () => {
@@ -55,11 +56,11 @@ export default function OrderDisplayAdmin() {
     // Function to generate PDF report
     const generatePDFReport = () => {
         const doc = new jsPDF();
-    
+
         // y position for content
         let yPos = 10;
         let currentPage = 1;
-    
+
         allprintingorders.forEach((paper, index) => {
             // Calculate space needed for one order
             let orderContent = `Order ${index + 1}:\n`;
@@ -72,24 +73,21 @@ export default function OrderDisplayAdmin() {
             orderContent += `Paper Size: ${paper.paperSize}\n`;
             orderContent += `Other Requirements: ${paper.otherOptions}\n`;
             orderContent += `DocumentID: ${paper.documentID}\n`;
-    
+
             // Check if there is enough space to print the order on the current page
             const spaceNeeded = yPos + 85; // Height of one order + spacing
             const spaceAvailable = doc.internal.pageSize.height - 10; // Height of the page - padding
             if (spaceNeeded > spaceAvailable) {
                 doc.addPage();
                 currentPage++;
-                yPos = 10; // Reset yPos for the new page
+                yPos = 10;
             }
-    
-            doc.rect(5, yPos - 5, 200, 80); // Add a frame around the content of each order
-    
-            doc.text(10, yPos, orderContent);   // Add the content to the PDF document
-    
-            yPos += 85; // Increase yPos for next content
+            doc.rect(5, yPos - 5, 200, 80);
+            doc.text(10, yPos, orderContent);
+            yPos += 85;
         });
-    
-        doc.save(`printing_orders_report.pdf`); // Save PDF
+
+        doc.save(`printing_orders_report.pdf`);
     };
 
     // Function to handle search input change
@@ -105,6 +103,36 @@ export default function OrderDisplayAdmin() {
     const handleDownloadPDF = (url) => {
         window.open(url, '_blank');
     };
+
+    // Function to handle sending notification to user
+    const sendNotification = (index) => {
+        const orderDetails = filteredPrintingOrders[index]; // Get the order details
+        const userEmail = orderDetails.uEmail; // Extract the user email from orderDetails
+        if (!notificationsSent.includes(userEmail)) {
+            axios.post('http://localhost:3003/notifications/sendNotification', { orderDetails })
+                .then(response => {
+                    if (response && response.data && response.data.message) {
+                        // Success case
+                        alert(response.data.message);
+                        setNotificationsSent([...notificationsSent, userEmail]);
+                    } else {
+                        // If response data is not as expected
+                        throw new Error('Unexpected response format');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending notification:', error);
+                    // Error case
+                    alert('Failed to send notification. Please try again.');
+                });
+            
+            setNotificationsSent([...notificationsSent, userEmail]);
+
+        } else {
+            alert(`Notification already sent to ${userEmail}`);
+        }
+    };
+
 
     return (
         <div>
@@ -135,6 +163,7 @@ export default function OrderDisplayAdmin() {
                             <th>Paper Size</th>
                             <th>Other Requirements</th>
                             <th>PDF Download</th>
+                            <th>Status</th> {/* New column for Status */}
                         </tr>
                     </thead>
                     <tbody>
@@ -151,17 +180,19 @@ export default function OrderDisplayAdmin() {
                                 <td>
                                     {fileUrls.map((file) => (
                                         file.id === paper.documentID ?
-                                        <FontAwesomeIcon
-                                            key={file.id}
-                                            icon={faFilePdf}
-                                            size="2x"
-                                            color="red" 
-                                            onClick={() => handleDownloadPDF(file.url)}
-                                            style={{ cursor: 'pointer' }}
-                                        />
-
-                                        : null
+                                            <FontAwesomeIcon
+                                                key={file.id}
+                                                icon={faFilePdf}
+                                                size="2x"
+                                                color="red"
+                                                onClick={() => handleDownloadPDF(file.url)}
+                                                style={{ cursor: 'pointer' }}
+                                            />
+                                            : null
                                     ))}
+                                </td>
+                                <td>
+                                    <button className='btnAction' onClick={() => sendNotification(index)}>Completed</button>
                                 </td>
                             </tr>
                         ))}
