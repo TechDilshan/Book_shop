@@ -15,6 +15,7 @@ export default function OrderDisplayAdmin() {
     const [searchQuery, setSearchQuery] = useState('');
     const [fileUrls, setFileUrls] = useState([]);
     const [notificationsSent, setNotificationsSent] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchFileUrls = async () => {
@@ -106,32 +107,34 @@ export default function OrderDisplayAdmin() {
 
     // Function to handle sending notification to user
     const sendNotification = (index) => {
-        const orderDetails = filteredPrintingOrders[index]; // Get the order details
-        const userEmail = orderDetails.uEmail; // Extract the user email from orderDetails
-        if (!notificationsSent.includes(userEmail)) {
+        const orderDetails = filteredPrintingOrders[index];
+        const documentID = orderDetails.documentID;
+        if (!notificationsSent.includes(documentID)) {
+            setLoading(true);
+        
             axios.post('http://localhost:3003/notifications/sendNotification', { orderDetails })
                 .then(response => {
+                    setLoading(false);
                     if (response && response.data && response.data.message) {
                         // Success case
                         alert(response.data.message);
-                        setNotificationsSent([...notificationsSent, userEmail]);
+                        setNotificationsSent([...notificationsSent, documentID]);
                     } else {
                         // If response data is not as expected
                         throw new Error('Unexpected response format');
                     }
                 })
                 .catch(error => {
+                    setLoading(false);
                     console.error('Error sending notification:', error);
                     // Error case
                     alert('Failed to send notification. Please try again.');
                 });
-            
-            setNotificationsSent([...notificationsSent, userEmail]);
-
         } else {
-            alert(`Notification already sent to ${userEmail}`);
+            alert(`Notification already sent for order ${documentID}`);
         }
     };
+
 
 
     return (
@@ -163,7 +166,7 @@ export default function OrderDisplayAdmin() {
                             <th>Paper Size</th>
                             <th>Other Requirements</th>
                             <th>PDF Download</th>
-                            <th>Status</th> {/* New column for Status */}
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -192,7 +195,9 @@ export default function OrderDisplayAdmin() {
                                     ))}
                                 </td>
                                 <td>
-                                    <button className='btnAction' onClick={() => sendNotification(index)}>Completed</button>
+                                    <button className='btnAction' onClick={() => sendNotification(index)}>
+                                        {loading ? <div className="spinner"></div> : "Completed"}
+                                    </button>
                                 </td>
                             </tr>
                         ))}

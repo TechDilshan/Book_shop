@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link } from 'react-router-dom';
 import '../components_D/PrintDocStyles_D.css';
 import Navi from '../Navi';
 import Foot from '../footer';

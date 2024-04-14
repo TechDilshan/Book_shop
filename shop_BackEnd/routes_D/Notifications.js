@@ -16,14 +16,14 @@ router.post("/sendNotification", async (req, res) => {
             Hello, ${uEmail}
             Your printing order has been completed with the following details:
             
-                Colour: ${colour}
-                No of copies: ${copies}
-                No of slides: ${slides}
-                Orientation: ${orientation}
-                Double/Single-Sided: ${doubleSided ? 'Double-Sided' : 'Single-Sided'}
-                Paper Size: ${paperSize}
-                Other Requirements: ${otherOptions}
-                DocumentID: ${documentID}
+            Colour: ${colour}
+            No of copies: ${copies}
+            No of slides: ${slides}
+            Orientation: ${orientation}
+            Double/Single-Sided: ${doubleSided ? 'Double-Sided' : 'Single-Sided'}
+            Paper Size: ${paperSize}
+            Other Requirements: ${otherOptions}
+            DocumentID: ${documentID}
  
             Thank you for using our service!
         `;
