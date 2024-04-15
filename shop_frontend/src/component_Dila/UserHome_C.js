@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, CircularProgress, TextField} from '@mui/material';
+import { Box, Button, CircularProgress, TextField,  Dialog, DialogContent } from '@mui/material';
 import ProductItem_C from './ProductItem_C';
 import Navi from '../Navi';
 import Foot from '../footer';
@@ -19,6 +19,11 @@ const UserHome_C = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchBarFocused, setSearchBarFocused] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     getUsers();
@@ -85,6 +90,29 @@ const UserHome_C = () => {
     }
   };
 
+  const toggleFormVisibility = () => {
+    setShowForm(!showForm);
+  };
+
+  const handleOkButtonClick = () => {
+   
+    console.log(minPrice,maxPrice);
+    const filtered = users.filter(user => {
+      const isInPriceRange = (user.price >= minPrice && user.price <= maxPrice);
+      const isMatchingCategory = (user.item === category);
+      return isInPriceRange && isMatchingCategory;
+    });
+    // Update the state variable with filtered items
+    setFilteredItems(filtered);
+    console.log(filteredItems);
+    // Close the form
+    setShowForm(false);
+  };
+
+  const clearFilteredItems = () => {
+    setFilteredItems([]);
+    setSearchTerm('');
+  };
 
   return (
     
@@ -102,6 +130,85 @@ const UserHome_C = () => {
 
       <div class="flex justify-end w-full px-2">
         <div class="flex space-x-4 w-full max-w-screen-lg items-center" >
+
+        {(filteredItems.length > 0 || visibleUsers.length > 0) && (
+          <button onClick={clearFilteredItems} className="flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Clear
+          </button>
+        )}
+
+        
+
+        <button onClick={toggleFormVisibility} className="flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M2 4a1 1 0 011-1h14a1 1 0 011 1v1a1 1 0 01-1 1H3a1 1 0 01-1-1V4zm1 4a1 1 0 011-1h5a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm1 4a1 1 0 011-1h8a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-1z" clipRule="evenodd" />
+          </svg>
+          Filter
+        </button>
+
+          {showForm && (
+              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-300 w-96 h-82 shadow-lg rounded-lg border-4 border-black border-solid z-50">
+
+                <div className="relative flex flex-col h-full">
+                  <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onClick={toggleFormVisibility}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <DialogContent className="p-4">
+                  <form>
+                      <input 
+                        type="number" 
+                        placeholder="Max Price" 
+                        className="w-full mb-2 p-2 border rounded-md" 
+                        value={maxPrice} 
+                        onChange={(e) => setMaxPrice(e.target.value)} 
+                      />
+                      <input 
+                        type="number" 
+                        placeholder="Min Price" 
+                        className="w-full mb-2 p-2 border rounded-md" 
+                        value={minPrice} 
+                        onChange={(e) => setMinPrice(e.target.value)} 
+                      />
+                      <label htmlFor="category" className='itemRow'>Product Category: </label>
+                      <select
+                        id="category"
+                        className="w-full mb-4 p-2 border rounded-md"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                      >
+                        <option value="">Select Category</option>
+                        <option value="bookitem">Book Item</option>
+                        <option value="schoolitem">School Item</option>
+                        <option value="techitem">Tech Item</option>
+                        <option value="mobileitem">Mobile Item</option>
+                      </select>
+                      <div className="flex justify-end">
+                        <button 
+                          className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2" 
+                          type="button"
+                          onClick={handleOkButtonClick}
+                        >
+                          Filter
+                        </button>
+                        <button 
+                          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-gray-300" 
+                          type="button"
+                          onClick={toggleFormVisibility}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </div>
+              </div>
+            )}
+
+
+
+
           <div class="relative inline-block text-left">
             <button
               type="button"
@@ -142,6 +249,16 @@ const UserHome_C = () => {
         <div class="flex flex-wrap justify-center">
           {visibleUsers.map((user) => (
             <div key={user.id} class="flex-shrink-0 m-2 md:m-1">
+              <ProductItem_C rows={[user]} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-light-blue-50 p-2 flex flex-col" style={{ backgroundColor: "#e0f2fe" }}>
+        <div className="flex flex-wrap justify-center">
+          {filteredItems.map((user) => (
+            <div key={user.id} className="flex-shrink-0 m-2 md:m-1">
               <ProductItem_C rows={[user]} />
             </div>
           ))}
