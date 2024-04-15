@@ -88,6 +88,22 @@ Thank you..!`,
 
               alert('The product cart successfully updated..!');
     }
+    else if(type=="admin"){
+          const payload = {
+            id: productId,
+            stock: stk,
+          };
+
+          Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+          .then((response) => {
+          })
+          .catch((error) => {
+            console.error('Axios Error: ', error);
+          });
+
+          alert('Product Stock successfully updated..!');
+    }
+
     return null;
 };
 

@@ -172,6 +172,11 @@ const isMobile = useMediaQuery('(max-width:600px)');
               name="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                  e.preventDefault();
+                }
+              }}
               className='GetItemDetails'
             />
             <br/>
@@ -404,6 +409,11 @@ const isMobile = useMediaQuery('(max-width:600px)');
               value={stock}
               defaultValue={0}
               onChange={(e) => setStock(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                  e.preventDefault();
+                }
+              }}
               className='GetItemDetails'
             />
             <br/>

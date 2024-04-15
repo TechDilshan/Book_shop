@@ -5,6 +5,8 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { useNavigate } from 'react-router-dom';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import StockUpdate_C from './StockUpdate_C';
+
 
 const styles = StyleSheet.create({
   page: {
@@ -43,6 +45,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
   const [loadingcy, setLoadingcy] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchBarFocused, setSearchBarFocused] = useState(false);
+  const [stockup, setStockUp] = useState(0);
 
   useEffect(() => {
     const fetchImageUrls = async () => {
@@ -96,7 +99,12 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
       return row.name.toLowerCase().includes(searchTermLowerCase) || row.id.toString().includes(searchTermLowerCase);
     });
     
-    
+    const handleStockButtonClick = (id) => {
+      // Use the 'stock' state value when the button is clicked
+      console.log("Stock Value:", stockup, "id is:", id);
+      StockUpdate_C({ productId: id, stk: stockup, type: "admin" });
+    };
+
   
   return (
     <div className="mb-8">
@@ -119,7 +127,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
 
           {selectedCategory && (
             <PDFDownloadLink document={<MyDocument data={filteredRows} />} fileName={`${selectedCategory}Products.pdf`} className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 ml-32">
-              {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+              {({ blob, url, loading, error }) => (loading ? 'Download PDF' : 'Download PDF')}
             </PDFDownloadLink>
           )}
         </div>
@@ -147,6 +155,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                   <TableCell>Description</TableCell>
                   <TableCell>Category</TableCell>
                   <TableCell>Stock</TableCell>
+                  <TableCell>Stock Update</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -170,7 +179,33 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                         <TableCell>{row.sdes}</TableCell>
                         <TableCell>{row.des}</TableCell>
                         <TableCell>{row.item}</TableCell>
-                        <TableCell>{row.stock}</TableCell>
+                        <TableCell>{row.stock} </TableCell>
+                        <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <input 
+                            type="number"
+                            id="stockup"
+                            name="stockup"
+                            value={row.stockup}
+                            defaultValue={0}
+                            min={0}
+                            onChange={(e) => setStockUp(e.target.value)}
+                            onKeyPress={(e) => {
+                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                                e.preventDefault();
+                              }
+                            }}
+
+                            className="border border-blue-500 px-2 py-1 rounded w-24"
+                          />
+                          <button 
+                            onClick={handleStockButtonClick.bind(null, row.id)}
+                            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                          >
+                            Update Stock
+                          </button>
+                        </div>
+                      </TableCell>
                         <TableCell>
                           <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
                           <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>
@@ -199,6 +234,34 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                       <TableCell>{row.des}</TableCell>
                       <TableCell>{row.item}</TableCell>
                       <TableCell>{row.stock}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <input 
+                            type="number"
+                            id="stockup"
+                            name="stockup"
+                            value={row.stockup}
+                            defaultValue={0}
+                            min={0}
+                            onChange={(e) => setStockUp(e.target.value)}
+                            onKeyPress={(e) => {
+                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                                e.preventDefault();
+                              }
+                            }}
+
+                            className="border border-blue-500 px-2 py-1 rounded w-24"
+                          />
+                          <button 
+                            onClick={handleStockButtonClick.bind(null, row.id)}
+                            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                          >
+                            Update Stock
+                          </button>
+                        </div>
+                      </TableCell>
+
+
                       <TableCell>
                         <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
                         <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>

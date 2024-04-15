@@ -20,13 +20,18 @@ const Users = () => {
   }, []);
 
   const getUsers = () => {
-    Axios.get('https://book-shop-dep.vercel.app/api/users')//http://localhost:3001/api/users
-      .then((response) => {
-        setUsers(response.data?.response || []);
-      })
-      .catch((error) => {
-        console.error('Axios Error: ', error);
-      });
+      const getAdminDetails = () => {
+        Axios.get('https://book-shop-dep.vercel.app/api/users')//http://localhost:3001/api/users
+          .then((response) => {
+            setUsers(response.data?.response || []);
+          })
+          .catch((error) => {
+            console.error('Axios Error: ', error);
+          });
+      };
+      getAdminDetails();
+      const intervalId = setInterval(getAdminDetails, 1000);
+      return () => clearInterval(intervalId);
   };
 
   const addUser = (data) => {
