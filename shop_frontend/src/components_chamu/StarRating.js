@@ -20,8 +20,10 @@ const StarRating = ({ productId , email }) => {
 
         if (!name || name.trim().split(/\s+/).length < 2) {
            
-            setNameError("Please enter your full name.");
+            setNameError("Please enter your full name (Atleast 2 names).");
             return;
+            
+        
         }
 
         if (rating) {
@@ -29,26 +31,28 @@ const StarRating = ({ productId , email }) => {
             const newRating ={
                 rating,comment,email,name,productId
 
+            }
+
+            console.log(newRating);
+            axios.post("http://localhost:3001/api/addreview",newRating)
+            
+            .then(()=>{
+                alert("Review added successfully");
+                window.location.reload();
+
+                
+    
+            }).catch((err)=>{
+            alert(err.message); 
+            })
+        
+
+        } else {
+            setShowAlert(true);
         }
 
-        console.log(newRating);
-        axios.post("http://localhost:3001/api/addreview",newRating).then(()=>{
-            
-           
-  
-        alert("Review added successfully");
 
-            
-  
-        }).catch((err)=>{
-           
-            alert(err.message); 
-        })
-        
-    } else {
-        
-        setShowAlert(true);
-    }
+       
 }
 
     
@@ -101,8 +105,13 @@ const StarRating = ({ productId , email }) => {
             {showAlert && <p className = "revalert-message">Please select a rating.</p>}
 
             <p>{rating} stars rating..</p>
+
             <text type='number' values='productId' hidden></text>
+            
+
             <textarea className='revtextarea' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            {nameError && <p className="revalert-message">{nameError}</p>}
+            
             <textarea className='revtextarea' placeholder="Email" value={email} />
             <textarea  className='revtextarea'placeholder="Write your feedback here..." value={comment} onChange={(e) => setComment(e.target.value)} />
             <form onSubmit={sendData}>

@@ -1,0 +1,160 @@
+
+.feedback-containers {
+    margin: 20px auto;
+    max-width: 1500px;
+  }
+  
+
+  .feedback-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  
+  .searchrev-input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #e3e2e2;
+    border-radius: 4px;
+    width: 50%; 
+  }
+
+  
+.searchrev-input:focus {
+    border-color: #ccc; 
+}
+  
+ 
+  .revloading-message {
+    font-style: italic;
+  }
+  
+  
+  .no-feedback-message {
+    font-style: italic;
+  }
+
+  .feedback-count {
+    font-style: italic;
+  }
+  
+  
+  .feedback-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .feedback-name {
+    font-weight: bold;
+  }
+  
+  /* Feedback item - Email */
+  .feedback-email {
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+  /* Feedback item - Rating */
+  .feedback-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .feedback-rating .star-icon {
+    margin-right: 5px;
+  }
+  
+  /* Feedback item - User actions */
+  .revuser-actions {
+    margin-top: 10px;
+  }
+  
+  .revuser-actions button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  
+
+    /* Edit button */
+    .revedit-button {
+        background-color: #2170e7;
+    }
+
+    /* Delete button */
+    .revdelete-button {
+        background-color: #dc3545;
+    }
+  
+  /* Star counts */
+  .star-counts {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+
+.total-average-stars,
+.star-count-bars {
+    display: inline-block;
+}
+
+.star-count-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.star-count-text {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.revbar {
+    background-color: #ffc107;
+    height: 12px; 
+    border-radius: 10px; 
+}
+
+
+
+
+  
+ 
+  .star-count {
+    font-weight: bold;
+  }
+  
+  
+  .revtotal-average {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 50px;
+    margin-right: 20px;
+  }
+
+  
+
+
+  
+
+
+
+.revtotal-average {
+  margin-right: 20px; 
+}
+
+.star-icon {
+  margin-right: 2px; 
+}
+
+  

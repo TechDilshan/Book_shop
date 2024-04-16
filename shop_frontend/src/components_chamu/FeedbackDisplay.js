@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../F_CSS/Form.css';
 import { FaStar } from 'react-icons/fa';
-import '../F_CSS/FeedbackDisplay.css';
+
 import StarRating from '../components_chamu/StarRating';
 import { Link } from 'react-router-dom';
 

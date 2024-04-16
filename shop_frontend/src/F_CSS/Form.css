@@ -26,7 +26,8 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: #f0f0f0;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
     transition: background-color 200ms;
   }
@@ -40,5 +41,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .feedback-container h2 {
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
   
