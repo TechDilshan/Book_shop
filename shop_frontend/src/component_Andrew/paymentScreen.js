@@ -1,58 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from './FormContainer';
-//import CheckoutSteps from '../components/CheckoutSteps';
 
 const PaymentScreen = () => {
   const navigate = useNavigate();
-  const [shippingAddress, setShippingAddress] = useState({});
-
-  /*useEffect(() => {
-    // Assuming you have a way to fetch the shipping address
-    const fetchedShippingAddress = fetchShippingAddress(); // Implement this method
-    if (!fetchedShippingAddress) {
-      navigate('/shipping');
-    } else {
-      setShippingAddress(fetchedShippingAddress);
-    }
-  }, [navigate]);*/
-
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // You can save payment method to localStorage or a state management solution like Context API
-    // For simplicity, I'll save it to localStorage
     localStorage.setItem('paymentMethod', paymentMethod);
     navigate('/place');
   };
 
   return (
-    <FormContainer>
-      <h1>Payment Method</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label as='legend'>Select Method</Form.Label>
-          <Col>
-            <Form.Check
-              className='my-2'
-              type='radio'
-              label='PayPal or Credit Card'
-              id='PayPal'
-              name='paymentMethod'
-              value='PayPal'
-              checked={paymentMethod === 'PayPal'}
-              onChange={() => setPaymentMethod('PayPal')}
-            ></Form.Check>
-          </Col>
-        </Form.Group>
+    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+      <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-semibold mb-6">Payment Method</h1>
+        <Form onSubmit={submitHandler}>
+          <Form.Group>
+            <Form.Label className="block mb-2" as='legend'>Select Method</Form.Label>
+            <div className="space-y-2">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="PayPal"
+                  name="paymentMethod"
+                  value="PayPal"
+                  checked={paymentMethod === 'PayPal'}
+                  onChange={() => setPaymentMethod('PayPal')}
+                  className="mr-2"
+                />
+                <label htmlFor="PayPal">PayPal or Credit Card</label>
+              </div>
+            </div>
+          </Form.Group>
 
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+          <Button type='submit' variant='primary' className="mt-4 w-full bg-blue-600 hover:bg-blue-700">
+            Continue
+          </Button>
+        </Form>
+      </div>
+    </div>
   );
 };
 
