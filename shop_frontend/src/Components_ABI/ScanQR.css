@@ -1,0 +1,104 @@
+.ScanQR {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .ScanQR h1 {
+    margin-bottom: 20px;
+  }
+  
+  .ScanQR button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .ScanQR button:hover {
+    background-color: #0056b3;
+  }
+  
+  #reader {
+    margin-top: 20px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    width: 250px;
+    height: 250px;
+  }
+
+.EmpSalView,
+.EmpSalDelete {
+  padding: 8px 16px;
+  margin-right: 8px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.EmpSalView:hover,
+.EmpSalDelete:hover {
+  background-color: #0056b3;
+}
+
+.EmpSalForm {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.EmpSalEmail,
+.EmpSalPD,
+.EmpSalPH {
+  margin-bottom: 15px;
+}
+
+.EmpSalForm label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.EmpSalForm input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
+
+/* Styling for disabled input fields */
+.EmpSalForm input[type="text"]:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.EmpSalUpB {
+  background-color: #007bff; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-left: 150px;
+}
+
+.EmpSalUpB:hover {
+  background-color: #0056b3; 
+}
+
+.EmpSalDetails {
+  font-size: 24px; /* Font size */
+  font-weight: bold; /* Bold text */
+  color: #333; /* Text color */
+  margin-bottom: 20px; /* Bottom margin */
+}
+
+
+
+
+  

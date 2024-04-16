@@ -1,0 +1,131 @@
+.PO_Profile_Container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 450px;
+  }
+  
+  .PO_Profile_Container p {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .PO_Profile_Container ul {
+    list-style-type: none; 
+  }
+  
+  .viewPO {
+    color: blue; 
+    font-size: 20px; 
+    margin-right: 10px;
+  }
+  
+  .updatePO {
+    color: green;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .deletePO {
+    color: red;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  /* Button styles */
+.Po_PDf,
+.updatePO,
+.deletePO {
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.Po_PDf:hover,
+.updatePO:hover,
+.deletePO:hover {
+  background-color: #40a9ff;
+}
+
+/* View and update icons */
+.viewPO,
+.updatePO,
+.deletePO {
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Modal styles */
+.ant-modal {
+  font-size: 16px;
+}
+
+/* Input field styles */
+.viewModel input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Styles for disabled inputs */
+.viewModel input[disabled] {
+  background-color: #f0f0f0;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Button container styles */
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+}
+
+/* Button styles */
+.viewModel button {
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewModel button:hover {
+  background-color: #40a9ff;
+}
+
+.Po_PDf {
+  background-color: #1890ff; /* Background color */
+  color: #fff; /* Text color */
+  border: none; /* No border */
+  padding: 8px 16px; /* Padding */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Cursor style */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.Po_PDf:hover {
+  background-color: #40a9ff; /* Background color on hover */
+}
+
+.Po_PDf:disabled {
+  background-color: #ccc; /* Background color when disabled */
+  color: #666; /* Text color when disabled */
+  cursor: not-allowed; /* Cursor style when disabled */
+}
+
+
+
+

@@ -68,6 +68,12 @@ import ViewShipping from './component_Andrew/AllShipping';
 import AdminFrame from './components_chamu/AdminFrame';
 import FeedbackReport from './components_chamu/FeedbackReport';
 
+//Abishaan
+import FM_PO from './Pages_ABI/FM_PO'
+import  QR_Page from './Pages_ABI/QR_Page'
+import  ScanQR_Page from './Pages_ABI/ScanQR_Page'
+import PurchaseOrder from './Pages_ABI/PurchaseOrder'
+import PO_Profile from './Components_ABI/PO_Profile'
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -148,7 +154,12 @@ root.render(
         <Route path='/viewpayment'  element={<ViewPayments/> } />
         <Route path='/viewshipping'  element={<ViewShipping/> } />
 
-
+  {/* Abishaan */}
+  <Route path='/PurchaseOrder' element={<PurchaseOrder />} />
+        <Route path='/FM_PO' element={<FM_PO />} />
+        <Route path='/QR_Page' element={<QR_Page />} />
+        <Route path='/ScanQR_Page' element={<ScanQR_Page />} />
+        <Route path='/PO_Profile' element={<PO_Profile />} />
 
 
 

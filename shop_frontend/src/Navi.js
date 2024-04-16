@@ -43,6 +43,10 @@ const NaviBar = () => {
         {userEmail && (
             <li><a href="/shopping-cart"> Cart <i className="fa-solid fa-cart-shopping"></i></a></li>
           )}
+
+{userEmail && (
+            <li><a href="/PurchaseOrder"> Purchase Order</a></li>
+          )}
       </span>
       <label htmlFor="check" className="open-menu"><i className="fas fa-bars"></i></label>
       <div className="user-links">

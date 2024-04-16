@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
@@ -19,6 +20,7 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "firebase": "^10.8.0",
+    "html5-qrcode": "^2.3.8",
     "jspdf": "^2.5.1",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
@@ -26,6 +28,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-highlight-words": "^0.20.0",
     "react-icons": "^5.1.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
