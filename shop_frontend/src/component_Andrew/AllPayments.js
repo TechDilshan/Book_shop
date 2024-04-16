@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
+import {Table, Button, Modal, Form} from 'react-bootstrap';
 
 export default function ViewPayments() {
     const [values, setValues] = useState([]);
@@ -60,34 +60,34 @@ export default function ViewPayments() {
 
     return (
         <div>
-            <h1>All Payment</h1>
-            <Table striped bordered hover className="offers-table">
+            <h1 className="text-3xl font-semibold mb-4">All Payment</h1>
+            <table className="table-auto border-collapse w-full">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Card Holder Name</th>
-                        <th>Card Number</th>
-                        <th>Expiry Date</th>
-                        <th>CVV</th>
-                        <th>Actions</th>
+                        <th className="border px-4 py-2">ID</th>
+                        <th className="border px-4 py-2">Card Holder Name</th>
+                        <th className="border px-4 py-2">Card Number</th>
+                        <th className="border px-4 py-2">Expiry Date</th>
+                        <th className="border px-4 py-2">CVV</th>
+                        <th className="border px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {payments.map((val, key) => (
-                        <tr key={key}>
-                            <td>{val._id}</td>
-                            <td>{val.cardHolderName}</td>
-                            <td>{val.cardNumber}</td>
-                            <td>{val.expiryDate}</td>
-                            <td>{val.cvv}</td>
-                            <td>
-                                <Button variant="primary" onClick={() => updatePaymentDetails(val)}>Update</Button>
-                                <Button variant="danger" onClick={() => deletePayments(val._id)}>Delete</Button>
+                        <tr key={key} className="bg-gray-100">
+                            <td className="border px-4 py-2">{val._id}</td>
+                            <td className="border px-4 py-2">{val.cardHolderName}</td>
+                            <td className="border px-4 py-2">{val.cardNumber}</td>
+                            <td className="border px-4 py-2">{val.expiryDate}</td>
+                            <td className="border px-4 py-2">{val.cvv}</td>
+                            <td className="border px-4 py-2">
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => updatePaymentDetails(val)}>Update</button>
+                                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => deletePayments(val._id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </Table>
+            </table>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

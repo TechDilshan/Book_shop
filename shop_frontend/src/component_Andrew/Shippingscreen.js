@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import CheckoutSteps from './CheckoutSteps';
 import Navi from '../Navi';
 import axios from 'axios';
 
@@ -38,6 +39,7 @@ const Shippingscreen_Drew = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Navi />
+      <CheckoutSteps step1/>
       <Container className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-8">
         <h1 className="text-3xl font-semibold text-center py-6">Shipping Details</h1>
         <Form onSubmit={submitHandler} className="px-6 py-4">

@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Navi from '../Navi';
+import CheckoutSteps from "./CheckoutSteps";
 
 export default function PlaceOrder() {
   const [cardHolderName, setCardHolderName] = useState("");
@@ -25,7 +26,7 @@ export default function PlaceOrder() {
       .post("http://localhost:3004/payment/add", newPayment)
       .then(() => {
         alert("Payment Details were recorded.");
-        navigate('/UserHome_C');
+        navigate('/OrderReview');
       })
       .catch((err) => {
         alert(err);
@@ -35,7 +36,8 @@ export default function PlaceOrder() {
   return (
     <div>
       <Navi/>
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div className="bg-gray-100 min-h-screen flex-auto justify-center items-center">
+    <CheckoutSteps step1 step2 step3/>
   <div className="container max-w-xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-8">
     <h1 className="text-3xl font-semibold text-center py-6">Payment Details</h1>
     <Form onSubmit={sendData} className="form-box px-6 py-4">
