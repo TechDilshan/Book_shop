@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navi from '../Navi';
 import Foot from '../footer';
 import '../components_D/PrintOrderReadStyle_D.css';

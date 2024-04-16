@@ -7,8 +7,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart'
 import Users from './component_Dila/Users';
 import AdminDisplay from './component_Dila/AdminDisplay';
-import UserHome_C from './component_Dila/UserHome_C';
-import ProductDetails_C from './component_Dila/ProductDetails_C';
+import UserHome from './component_Dila/UserHome_C';
+import ProductDetails from './component_Dila/ProductDetails_C';
 
 
 import PromoPage from './component_DSP/PromoPage'
@@ -21,13 +21,13 @@ import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
 import FeedbackUpdate from './components_chamu/FeedbackUpdate';
 
-import PrintingOrderDisplayAdmin_D from './components_D/PrintingOrderDisplayAdmin_D';
-import PrintDocCreate_D from './components_D/PrintDocCreate_D';
-import PrintingOrderMain_D from './components_D/PrintingOrderMain_D';
-import AdminPriceChartCreate_D from './components_D/AdminPriceChartCreate_D';
-import AdminMain_D from './components_D/AdminMain_D';
-import PriceChartDisplay_D from './components_D/PriceChartDisplay_D';
-import PrintOrderMain_D from './components_D/PrintOrderMain_D';
+import PrintingOrderDisplayAdmin from './components_D/PrintingOrderDisplayAdmin_D';
+import PrintDocCreate from './components_D/PrintDocCreate_D';
+import PrintingOrderMain from './components_D/PrintingOrderMain_D';
+import AdminPriceChartCreate from './components_D/AdminPriceChartCreate_D';
+import AdminMain from './components_D/AdminMain_D';
+import PriceChartDisplay from './components_D/PriceChartDisplay_D';
+import PrintOrderMain from './components_D/PrintOrderMain_D';
 
 import CouponView from './component_DSP/CouponView';
 import ViewReport from './component_DSP/ViewReport';
@@ -64,8 +64,8 @@ root.render(
         <Route path='/ShoppingCart' element={<ShoppingCart />} />
         <Route path='/users' element={<Users />} />
         <Route path='/AdminDisplay' element={<AdminDisplay />} />
-        <Route path='/UserHome_C' element={<UserHome_C />} />
-        <Route path='/ProductDetails_C' element={<ProductDetails_C />} />
+        <Route path='/UserHome_C' element={<UserHome />} />
+        <Route path='/ProductDetails_C' element={<ProductDetails />} />
         <Route path='/shopping-cart' element={<ShoppingCart />} />
 
         {/*  Routes Promotion Management - DILINA */}
@@ -84,13 +84,13 @@ root.render(
 
 
         
-        <Route path='/PrintDocCreate_D' element={<PrintDocCreate_D />} />
-        <Route path='/PrintingOrderMain_D' element={<PrintingOrderMain_D />} />
-        <Route path='/AdminPriceChartCreate_D' element={<AdminPriceChartCreate_D />} />
-        <Route path='/AdminMain_D' element={<AdminMain_D />} />
-        <Route path='/PriceChartDisplay_D' element={<PriceChartDisplay_D />} />
-        <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin_D />} />
-        <Route path='/PrintOrderMain_D' element={<PrintOrderMain_D />} />
+        <Route path='/PrintDocCreate_D' element={<PrintDocCreate />} />
+        <Route path='/PrintingOrderMain_D' element={<PrintingOrderMain />} />
+        <Route path='/AdminPriceChartCreate_D' element={<AdminPriceChartCreate />} />
+        <Route path='/AdminMain_D' element={<AdminMain />} />
+        <Route path='/PriceChartDisplay_D' element={<PriceChartDisplay />} />
+        <Route path='/PrintingOrderDisplayAdmin_D' element={<PrintingOrderDisplayAdmin />} />
+        <Route path='/PrintOrderMain_D' element={<PrintOrderMain />} />
         <Route  path='/couponview' element={<CouponView />}/>
 
 

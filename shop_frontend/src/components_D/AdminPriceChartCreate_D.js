@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import '../components_D/AdminStyle_D.css';
 
@@ -32,22 +32,6 @@ const AddPaperSize = () => {
       .catch((err) => {
         alert(err);
       });
-  }
-
-  // mapping db vals into display vals
-  function mapValue(value) {
-    switch(value) {
-      case "blackAndWhite":
-        return "Black and White";
-      case "coloured":
-        return "Coloured";
-      case "double":
-        return "Double-sided";
-      case "single":
-        return "Single-sided";
-      default:
-        return value;
-    }
   }
 
   return (

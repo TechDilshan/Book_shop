@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../components_D/PrintDocStyles_D.css';
 import Navi from '../Navi';
 import Foot from '../footer';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid";
 import PrintOrderForm from '../components_D/PrintOrderRead_D';

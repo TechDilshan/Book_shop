@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../CSS_C/navi.css';
 import logo from '../image/logo.jpg';
 
 const NaviBar = () => {
-  const [showSubCategories, setShowSubCategories] = useState(false);
 
   return (
     <div class="menu-body">
@@ -12,7 +11,7 @@ const NaviBar = () => {
           <li class='logo'><a href='/UserHome_C'><img src={logo}/></a></li>
           <input type='checkbox' id='check' />
           <span class="menu">
-              <li><a href="/UserHome_C" class="phone-logo"><img src={logo}/></a></li>
+              <li><a href="/UserHome_C" class="phone-logo"><img src={logo} alt='company logo'/></a></li>
               <li><a href="/AdminMain_D">Home</a></li>
               <li><a href="/PrintingOrderDisplayAdmin_D">All Printing Orders</a></li>
               <li><a href="/PriceChartDisplay_D">Price Chart</a></li>

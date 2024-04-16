@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '../components_D/PrintDocStyles_D.css';
 
 const PrintRequestForm = () => {

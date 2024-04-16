@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './CSS_C/Footer.css';
 
 const footer = () => {
@@ -9,7 +9,7 @@ const footer = () => {
        <div class="frow">
 
             <div class="fcol">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcLcntdEXIthyj6S09kyTa_1OqjYG5A_U-kfz4TvO0lQ&s" class="flogo"/>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcLcntdEXIthyj6S09kyTa_1OqjYG5A_U-kfz4TvO0lQ&s" class="flogo" alt='company logo'/>
                 <p> A communication and stationary Shop is a retail establishment
 					 that specialization is selling a variety of products related
 					 to communication and stationary needs. </p>

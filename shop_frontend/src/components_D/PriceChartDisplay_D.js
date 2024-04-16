@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../components_D/PrintDocStyles_D.css';
-import NaviPrintManager_D from '../components_D/NaviPrintManager_D';
+import NaviPrintManager from '../components_D/NaviPrintManager_D';
 import Foot from '../footer';
 
 function PriceTable() {
@@ -51,7 +51,7 @@ function PriceTable() {
   return (
     <div>
       <div>
-        <NaviPrintManager_D/>
+        <NaviPrintManager/>
       </div>
         <div id="pricetble">
           <h1 className='priceChartTopic'>Printing Price Chart</h1>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../components_D/PrintDocStyles_D.css';
 import '../components_D/AdminStyle_D.css';
 import Foot from '../footer';
-import NaviPrintManager_D from '../components_D/NaviPrintManager_D';
+import NaviPrintManager from '../components_D/NaviPrintManager_D';
 import { jsPDF } from 'jspdf';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
@@ -140,7 +140,7 @@ export default function OrderDisplayAdmin() {
     return (
         <div>
             <div>
-                <NaviPrintManager_D />
+                <NaviPrintManager />
             </div>
             <div>
                 <h1 className='AllprintTop'>All Printing Orders</h1>
