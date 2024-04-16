@@ -1,6 +1,6 @@
 
 .feedback-containers {
-    margin: 20px auto;
+    margin: 30px;
     max-width: 1500px;
   }
   
@@ -85,15 +85,9 @@
 
   
 
-    /* Edit button */
-    .revedit-button {
-        background-color: #2170e7;
-    }
+    
 
-    /* Delete button */
-    .revdelete-button {
-        background-color: #dc3545;
-    }
+  
   
   /* Star counts */
   .star-counts {
@@ -109,6 +103,7 @@
 }
 
 .star-count-bar {
+    margin-left: 50px;
     display: flex;
     align-items: center;
     margin-bottom: 5px;

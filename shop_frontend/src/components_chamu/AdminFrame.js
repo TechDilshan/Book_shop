@@ -1,18 +1,25 @@
 
-import { useState } from 'react';
+import logo from  '../image/logo.jpg';
+import React, { useState } from 'react';
+import AdminFeedbackPage from './AdminFeedbackPage';
+import FeedbackReport from './FeedbackReport';
 
 
 
 
-function AdminFrame() {
+const AdminFrame = () => {
+    const [currentPage, setCurrentPage] = useState('feedback'); // Initial page is feedback
+  
+    const navigateToFeedbackPage = () => setCurrentPage('feedback');
+    const navigateToReportPage = () => setCurrentPage('report');
 
   const [adminName] = useState("Admin");
 
   return (
-<div class="container mx-auto">
-    <div class="flex items-center justify-between py-4">
+<div class="container m-auto p-5">
+    <div class="flex items-center justify-between">
         <div class="w-1/4">
-            <img src="" alt="Logo" class="w-32 h-auto"/>
+            <img src={logo} alt="Logo" class="w-32 h-auto"/>
         </div>
 
         <div class="w-1/2 text-center">
@@ -47,17 +54,23 @@ function AdminFrame() {
     <hr class="my-4 border-t-2 border-orange-500"/>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-        <div class="col-span-1 lg:col-span-1">
+    <div class="col-span-1 lg:col-span-1">
             
-            <a href="promopage" target="iframe_a" class="block text-center mt-4">
-                <button class="bg-indigo-700 text-white rounded-md py-4 w-full font-bold">Generate Report</button>
+            <a href="/feedbackadmin" target="iframe_a" class="block text-center mt-4">
+                <button class="bg-indigo-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToFeedbackPage}>Display Reviews</button>
+            </a>           
+            
+             <a href="/adminreport" target="iframe_a" class="block text-center mt-4">
+                <button class="bg-indigo-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToReportPage}>Generate Report</button>
             </a>
         </div>
 
         <div class="col-span-1 lg:col-span-4">
-            <iframe src="https://prepbytes-misc-images.s3.ap-south-1.amazonaws.com/assets/1695627565745-Topic%20%2862%29.jpg" name="iframe_a" height="700px" width="100%" title="Iframe Example"></iframe>
+            <iframe src="/feedbackadmin" name="iframe_a" height="550px" width="100%" title="Iframe Example"></iframe>
         </div>
     </div>
+
+    
 </div>
   );
 }

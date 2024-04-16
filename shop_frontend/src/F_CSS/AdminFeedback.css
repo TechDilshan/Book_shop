@@ -9,6 +9,7 @@
 }
 
 .admin-options button {
+  width: 200px;
   margin-right: 10px;
   background-color: #007bff;
   border: none;
@@ -83,7 +84,7 @@
   background-color: #ddd;
 }
 
-.feedback-table td button {
+/* .feedback-table td button {
   background-color: #dc3545;
   border: none;
   color: white;
@@ -93,4 +94,4 @@
 
 .feedback-table td button:hover {
   background-color: #c82333;
-}
+} */

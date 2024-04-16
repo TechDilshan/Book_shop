@@ -33,7 +33,7 @@ function App() {
         <button className='user-button' onClick={() => { navigate('/users'); }}>Product Manager "Dilshan"</button>
         <button className='Admin-button' onClick={() => { navigate('/cmdashboard'); saveSession(); }}>Promotion Manager "Dilina"</button>
         <button className='Admin-button' onClick={() => { navigate('/AdminMain_D'); saveSession(); }}>Printing Manager "Sayumi"</button>
-        <button className='Admin-button' onClick={() => { navigate('/feedbackadmin'); saveSession(); }}>Admin "Chamu"</button>
+        <button className='Admin-button' onClick={() => { navigate('/framechamu'); saveSession(); }}>Admin "Chamu"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Order Manager "Andrew"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Financial Manager "Abishan"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>User Profile Manager "Sathushan"</button>

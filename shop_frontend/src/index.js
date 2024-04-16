@@ -21,6 +21,7 @@ import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
 import FeedbackUpdate from './components_chamu/FeedbackUpdate';
 
+
 import PrintingOrderDisplayAdmin from './components_D/PrintingOrderDisplayAdmin_D';
 import PrintDocCreate from './components_D/PrintDocCreate_D';
 import PrintingOrderMain from './components_D/PrintingOrderMain_D';
@@ -28,6 +29,7 @@ import AdminPriceChartCreate from './components_D/AdminPriceChartCreate_D';
 import AdminMain from './components_D/AdminMain_D';
 import PriceChartDisplay from './components_D/PriceChartDisplay_D';
 import PrintOrderMain from './components_D/PrintOrderMain_D';
+
 
 import CouponView from './component_DSP/CouponView';
 import ViewReport from './component_DSP/ViewReport';
@@ -63,6 +65,8 @@ import PaymentScreen from './component_Andrew/paymentScreen';
 import PlaceOrder from './component_Andrew/placeOrder';
 import ViewPayments from './component_Andrew/AllPayments';
 import ViewShipping from './component_Andrew/AllShipping';
+import AdminFrame from './components_chamu/AdminFrame';
+import FeedbackReport from './components_chamu/FeedbackReport';
 
 
 // Add the FontAwesome CDN link dynamically
@@ -96,6 +100,10 @@ root.render(
         <Route path='/feedbackpage' element={<FeedbackDisplay />} />
         <Route path='/feedbackadmin' element={<AdminFeedbackPage />} />
         <Route path='/feedbackupdate/:UID' element={<FeedbackUpdate />} />
+        <Route path='/framechamu' element={<AdminFrame/>} />
+        <Route path='/adminreport' element={<FeedbackReport />} />
+
+        
 
 
         
