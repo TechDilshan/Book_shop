@@ -119,9 +119,7 @@ function CouponManage() {
         cusId,
         description
       }
-
-
-    
+      
       axios.put(`http://localhost:3001/api/updatecoupon/${IdSet}`,cpnup).then(()=>{
           
       alert("Coupon Updated successfully");

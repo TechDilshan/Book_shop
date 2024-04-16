@@ -15,7 +15,7 @@ import PromoPage from './component_DSP/PromoPage'
 import PromoPageTest from './component_DSP/PromoPageTest'
 import CouponManage from './component_DSP/CouponManage'
 import Dashboard from './component_DSP/PromoDashboard'
-import UpdateCoupon from './component_DSP/UpdateCoupon'
+
 
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
@@ -93,7 +93,7 @@ root.render(
         <Route path='/couponpage' element={<CouponManage />} />
         <Route path='/cmdashboard' element={<Dashboard />} />
         <Route path='/viwerepo' element={<ViewReport />} />
-        <Route  path='/update/:UID' element={<UpdateCoupon />}/>
+
         
 
         {/*  Routes Reviews Management - Chamu */}
