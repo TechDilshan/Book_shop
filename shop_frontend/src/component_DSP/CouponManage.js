@@ -45,6 +45,11 @@ function CouponManage() {
         });
     };
 
+    const handleCancelUpdate = () => {
+      if (window.confirm("Are you sure you want to cancel updating the coupon? Any unsaved changes will be lost.")) {
+        ClearData();
+      }
+    };
 
     const handleupdate = (cusId) => {
       ClearData();
@@ -67,6 +72,11 @@ function CouponManage() {
           alert(err.message);
         });
     };
+
+
+    
+
+
     const ClearData = () =>{
       setCouponId("");
       setDiscountType('');
@@ -92,6 +102,12 @@ function CouponManage() {
     }
 
     function sendUpdatedData(){
+
+      if (!couponId || !ExpDate || !description) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+    
       const cpnup ={
         couponId,
         discountType,
@@ -121,6 +137,12 @@ function CouponManage() {
     function sendData(e){
       e.preventDefault();      
 
+
+      if (!couponId || !ExpDate || !description) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+    
 
       const newCoupon ={
         couponId,
@@ -401,7 +423,7 @@ function CouponManage() {
             Customer ID
           </label>
           <input
-            type="text"
+            type="email"
             id="cusId"
             name="cusId"
             value={cusId}
@@ -448,7 +470,7 @@ function CouponManage() {
 
 
             {IdSet ?
-            <button class=" m-2 ml-10 select-none font-bold  text-xs py-2 px-4 rounded-lg bg-red-900 hover:bg-red-600 text-white shadow-red-900/10 hover:shadow-lg hover:shadow-gray-900" onClick={ClearData}>
+            <button class=" m-2 ml-10 select-none font-bold  text-xs py-2 px-4 rounded-lg bg-red-900 hover:bg-red-600 text-white shadow-red-900/10 hover:shadow-lg hover:shadow-gray-900" onClick={handleCancelUpdate}>
                             CANCEL
                         </button>:""
                         }

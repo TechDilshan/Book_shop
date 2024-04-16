@@ -77,6 +77,14 @@ const PromoPage = () => {
       console.log("handleApplyCoupon");
       console.log(matchingCoupon)
 
+      const today = new Date();
+      const expirationDate = new Date(matchingCoupon.ExpDate);
+  
+      if (expirationDate < today) {
+        alert("Coupon has expired and cannot be applied.");
+        return;
+      }
+
       setCpntype(matchingCoupon.discountType);
 
       if(matchingCoupon.discountType == "Percentage_Discount"){
@@ -101,15 +109,24 @@ const PromoPage = () => {
 
         const newSubtotal = subtotal - discountValue;
       
-      setDiscount(discountValue);
+        if (newSubtotal >= 0 ){
+                setDiscount(discountValue);
       setSubtotal(newSubtotal);
      // setTax(newSubtotal * 0.2);
       setTotal(newSubtotal );
       setIsCouponApplied(true);
+        }
+        else{
+          alert("This Coupon is not valid for this order");
+        }
+
+
       }
 
 
     
+    }else {
+      alert("Invalid coupon code.");
     }
 
   };

@@ -14,7 +14,7 @@ const couponSchema = new Schema({
     },
 
     cusId:{
-        type:Number,
+        type:String,
         required : false,
     },
     description:{

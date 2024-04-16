@@ -10,7 +10,8 @@ function CouponView(){
     const currentDate = new Date();
     const date = currentDate.toISOString().split('T')[0]; // Extracting date part only
     const [searchQuery, setSearchQuery] = useState('');
-
+    const currentUser =  sessionStorage.getItem('userEmail');
+    const [copiedCoupon, setCopiedCoupon] = useState(null);
 
     const getCouponsDB = () =>{
         axios.get("http://localhost:3001/api/getcoupon/")
@@ -49,6 +50,16 @@ function CouponView(){
         }
       },[])
 
+      const handleCopyCoupon = (couponId) => {
+        navigator.clipboard.writeText(couponId);
+        setCopiedCoupon(couponId);
+        setTimeout(() => {
+            setCopiedCoupon(null);
+        }, 1500); // Reset copiedCoupon after 1.5 seconds
+    };
+
+
+
     return (
       <div>
       <div className=' w-[100%]' >
@@ -80,7 +91,8 @@ function CouponView(){
           <p>No coupons available</p>
         ) :
         
-        (coupons.map((cpn) => (
+        (coupons
+          .filter(coupon => coupon.couponVisibility === "All_Users" || coupon.cusId === currentUser)          .map((cpn) => (
             <div key={cpn._id}>
             <div className="w-[00px] h-[200px] relative">
                 <div className="w-[870px] h-[159px] left-0 top-0 content-center">
@@ -130,9 +142,9 @@ function CouponView(){
                     </div>
 
                     <div className="w-[200px] h-10 left-[570px] top-[21px] absolute">
-                    <button onClick={() => navigator.clipboard.writeText(cpn.couponId)} className="w-[120px] h-10 left-[40px]  bg-gray-400 absolute text-center hover:bg-red-500 text-white text-[15px] rounded-[50px] font-semibold font-['Poppins']" > 
-                        Copy Code
-                     </button>
+                    <button onClick={() => handleCopyCoupon(cpn.couponId)} className={`w-[120px] h-10 left-[40px] bg-${copiedCoupon === cpn.couponId ? 'green-500' : 'gray-400'} absolute text-center text-white text-[15px] rounded-[50px] font-semibold font-['Poppins']`}>
+                                        {copiedCoupon === cpn.couponId ? 'Copied' : 'Copy Code'}
+                                    </button>
                    </div>
 
                     <div className="w-[142px] h-[22px] left-[684px] top-[60px] absolute">
