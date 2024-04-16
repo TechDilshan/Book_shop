@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import Home from './HomePage/Rathi_Home'
 
 function App() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  // const navigate = useNavigate();
+  // const [email, setEmail] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  // const handleEmailChange = (event) => {
+  //   setEmail(event.target.value);
+  // };
 
-  const saveSession = () => {
-    // Save the email to sessionStorage
-    sessionStorage.setItem('userEmail', email);
-    // You can add more session data here if needed
-    console.log("Session saved. Email:", email);
-  };
+  // const saveSession = () => {
+  //   // Save the email to sessionStorage
+  //   sessionStorage.setItem('userEmail', email);
+  //   // You can add more session data here if needed
+  //   console.log("Session saved. Email:", email);
+  // };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div >
+
+      <Home/>
+
+      {/* <header className="App-header">
         <h1>Welcome to Test App</h1>
         
         <input 
@@ -38,7 +42,7 @@ function App() {
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>Financial Manager "Abishan"</button>
         <button className='Admin-button' onClick={() => { navigate('/'); saveSession(); }}>User Profile Manager "Sathushan"</button>
         
-      </header>
+      </header> */}
     </div>
   );
 }

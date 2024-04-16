@@ -248,22 +248,7 @@ router.get('/getEmployeeDetails', async (req, res) => {
 });
 
 
-router.get('/getpaysheet', async (req, res) => {
-  try {
-    const { userEmail } = req.query;
 
-    const employee = await EmployeeSal.findOne({ employeeEmail: userEmail });
-
-    if (!employee) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
-
-    return res.status(200).json({ response: employee });
-  } catch (error) {
-    console.error("Error fetching employee salary details:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-});
 
 
 router.put('/updateEmployeeDetails', async (req, res) => {
@@ -343,19 +328,21 @@ router.get('/readCustomerDetails', async (req, res) => {
 
 
 
+
+
 router.get('/getEmployeeSalary', async (req, res) => {
   try {
     const { userEmail } = req.query;
 
-    const employee = await EmployeeSal.findOne({ employeeEmail: userEmail });
+    const employees = await EmployeeSal.find({ employeeEmail: userEmail });
 
-    if (!employee) {
+    if (!employees || employees.length === 0) {
       return res.status(404).json({ message: "Employee not found" });
     }
 
-    const perDaySalary = [employee.perDaySalary];
-
-    return res.status(200).json({ response: perDaySalary });
+    const perDaySalaries = employees.map(employee => employee.perDaySalary);
+console.log(perDaySalaries)
+    return res.status(200).json({ response: perDaySalaries });
   } catch (error) {
     console.error("Error fetching employee details:", error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -363,7 +350,43 @@ router.get('/getEmployeeSalary', async (req, res) => {
 });
 
 
-module.exports = router;
+
+// router.get('/getpaysheet', async (req, res) => {
+//   try {
+//       const { userEmail } = req.query;
+      
+//       if (!userEmail) {
+//           return res.status(400).json({ message: "User email is required" });
+//       }
+
+//       const employee = await EmployeeSal.findOne({ employeeEmail: userEmail });
+
+//       if (!employee) {
+//           return res.status(404).json({ message: "Employee not found" });
+//       }
+
+//       return res.status(200).json({ response: employee });
+//   } catch (error) {
+//       console.error("Error fetching employee salary details:", error);
+//       return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
+router.get('/getpaysheet', async (req, res) => {
+  try {
+    const userEmail = req.query.email; // Retrieve email from query parameters
+    const emp = await EmployeeSal.find({ email: userEmail }); // Find all employees with the specified email
+
+    if (!emp || emp.length === 0) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    return res.status(200).json({ response: emp });
+    
+  } catch (error) {
+    console.error("Error fetching employee details:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 
 
@@ -371,5 +394,7 @@ module.exports = router;
 
 
 module.exports = router;
+
+
 
 

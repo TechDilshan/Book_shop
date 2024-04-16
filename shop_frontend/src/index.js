@@ -58,6 +58,7 @@ import FeedbackMProfile from './Components_S/FeedbackMProfile'
 import EmDetails from './Components_S/EmDetails'
 import CustomerDetails from './Components_S/CustomerDetails'
 import EmployeePaySheet from './Components_S/EmployeePaySheet'
+import Rathi_Home from './HomePage/Rathi_Home'
 
 
 import Shippingscreen_Drew from './component_Andrew/Shippingscreen';
@@ -145,6 +146,7 @@ root.render(
                 <Route path="/emdetails" element={<EmDetails/>} />
                 <Route path="/cusdetails" element={<CustomerDetails/>} />
                 <Route path="/empaysheet" element={<EmployeePaySheet/>} />
+                <Route path="/h" element={<Rathi_Home/>} />
                 
 
 {/* Andrew */}

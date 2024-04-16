@@ -285,6 +285,7 @@ const Profile = () => {
         </div>
       </div>
 
+
       <div
         style={{
             marginTop :"30px",
@@ -300,7 +301,7 @@ const Profile = () => {
 
       <div>
         <Foot />
-      </div>
+    </div>
     </div>
   );
 };

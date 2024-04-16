@@ -27,6 +27,20 @@ const EmpProfile = () => {
 
     const navigate = useNavigate()
 
+
+    const handleLogout =()=>{
+        axios.get('http://localhost:5000/auth/logout')
+        .then(res => {
+          if(res.data.status){
+            sessionStorage.removeItem('userEmail');
+            navigate('/login')
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+
+
     const getEmployeeDetails = () => {
         axios
             .get('http://localhost:5000/auth/getEmployeeDetails', {
@@ -176,6 +190,7 @@ const EmpProfile = () => {
                 <div className="Pro-header-component"><Link to='/emdetails'>Employee Details </Link></div>
                 <div className="Pro-header-component"><Link to='/cusdetails'>Customer Details </Link></div>
                 <div className="Pro-header-component"><Link to='/eprofile'>Profile </Link></div>
+                <div className="Pro-header-component" onClick={handleLogout}>Logout</div>
             </div>
         );
     }
@@ -187,7 +202,7 @@ const EmpProfile = () => {
 
             <div className='customerProfile_Top'>
                 <div className='customerProfile'>
-                    <h1>Profile Manager</h1>
+                    <h3>Profile Manager</h3>
                     <div className="avatar-container">
                         <Upload
                             name="avatar"

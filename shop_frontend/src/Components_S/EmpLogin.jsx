@@ -48,7 +48,8 @@ const EmpLogin = () => {
           navigate('/omprofile');
         }
         else if (eroll === 'Financial Manager') {
-          navigate('/fmprofile');
+          navigate('/FM_PO');
+          window.location.reload();
         }
         else if (eroll === 'Promotion Manager') {
           navigate('/cmdashboard');
@@ -93,7 +94,7 @@ const EmpLogin = () => {
         onFinish={handleSubmit}
       >
 
-        <h1>Employee Login</h1>
+        <h3>Employee Login</h3>
         <Form.Item
           name="email"
           rules={[
