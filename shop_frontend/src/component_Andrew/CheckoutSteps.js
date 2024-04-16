@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const CheckoutSteps = ({ step1, step2, step3 }) => {
   return (
     <div className="flex justify-center items-center space-x-6">
-      <StepLink step={step1} to="/shipping">Shipping</StepLink>
+      <StepLink step={step1} to="/shippingScreen">Shipping</StepLink>
       {step2 && <hr className="w-8 border-t-2 border-gray-300" />}
       <StepLink step={step2} to="/payment">Payment</StepLink>
       {step3 && <hr className="w-8 border-t-2 border-gray-300" />}
