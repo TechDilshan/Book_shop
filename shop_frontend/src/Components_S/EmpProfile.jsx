@@ -339,8 +339,6 @@ const EmpProfile = () => {
                                     />
                                 </Form.Item>
 
-
-
                                 <Form.Item
                                     label="NIC Number"
                                     className="nic"
@@ -405,7 +403,7 @@ const EmpProfile = () => {
 
                     </div>
 
-                    <p>Total Salary : Rs. {sum}.00</p>
+                    <p>Total Salary : Rs. {sum}.00 <Link to='/empaysheet'><button type="primary" htmlType="submit" className="submit">summary</button></Link></p>
                 </div>
 
 
