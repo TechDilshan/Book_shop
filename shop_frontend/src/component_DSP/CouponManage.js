@@ -5,13 +5,13 @@ import logo from '../image/logo.jpg'
 
 function CouponManage() {
 
-    const [couponId , setCouponId] = useState('COUPON01');
-    const [discountType, setDiscountType] = useState('Free_Deliver');
+    const [couponId , setCouponId] = useState('');
+    const [discountType, setDiscountType] = useState('Percentage_Discount');
     const [discountPercentage, setDiscountPercentage] = useState('0');
     const [fixedAmount, setFixedAmount] = useState('');
     const [minCount , setMinCount] = useState();
-    const [ExpDate , setExpDate] = useState("(Exp Date)");
-    const [description , setDescription] = useState('Description');
+    const [ExpDate , setExpDate] = useState("");
+    const [description , setDescription] = useState('');
     const [couponVisibility, setCouponVisibility] = useState('All_Users');
     const [cusId, setCustomerId] = useState('');
 
@@ -236,18 +236,18 @@ function CouponManage() {
 <br/>
 
    
-    <div class="flex">
+<div class="flex">
  
  <div class="container mx-auto">
  <div class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
            <img src={logo} class="w-20 mx-auto mb-4 rounded-lg" />
-           <h3 class="text-2xl font-semibold mb-4">{description}<br />{discountPercentage} % </h3>
+           <h3 class="text-2xl font-semibold mb-4">Description For Coupon<br /> 100 % </h3>
            <div class="flex items-center space-x-2 mb-1">
-             <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">{couponId}</span>
-             <button onClick={() => navigator.clipboard.writeText(couponId)}> <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
+             <span id="cpnCode" class="border-dashed border text-white px-4 py-2 rounded-l" value="STEALDEAL20">COUPON CODE</span>
+             <button > <span id="cpnBtn" class="border border-white bg-white text-purple-600 px-4 py-2 rounded-r cursor-pointer">Copy Code</span> 
              </button>
            </div>
-           <p class="text-sm">Valid Till: {ExpDate}</p>
+           <p class="text-sm">Valid Till: 2024-11-11</p>
            
      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
@@ -320,7 +320,7 @@ function CouponManage() {
                         <input type="text" id="couponCode" name="couponCode" class="mt-1 p-2 w-full border rounded-md"   value={couponId}                   
                         onChange={(e)=>{
                         setCouponId(e.target.value);
-                        setDiscountType('Free_Deliver');
+                        setDiscountType('Percentage_Discount');
                         setCouponVisibility('All_Users');
 
                     }}

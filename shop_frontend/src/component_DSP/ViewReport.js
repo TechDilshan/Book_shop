@@ -1,13 +1,11 @@
 import React, { useState ,useEffect } from 'react';
 import axios from 'axios';
 import CouponReport from './CouponReport';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 
 function ViewReport() {
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showPreview, setShowPreview] = useState(false);
 
   const getCouponsDB = () => {
     setLoading(true);
@@ -20,10 +18,6 @@ function ViewReport() {
         setError(err.message);
         setLoading(false);
       });
-  }
-
-  const togglePreview = () => {
-    setShowPreview(prevState => !prevState);
   }
 
         
