@@ -41,6 +41,21 @@ import FrogotPasswor from './Components_S/FrogotPasswor';
 import ResetPassword from './Components_S/ResetPassword';
 import Dashboard_S from './Components_S/Dashboard';
 import EmpRegister from './Components_S/EmpRegister';
+import EmpLogin from './Components_S/EmpLogin'
+import Profile from './Components_S/Profile'
+
+import EmpProfile from './Components_S/EmpProfile'
+
+import ProductMProfile from './Components_S/ProductMProfile'
+import FinancialMProfile from './Components_S/FinancialMProfile'
+import PrintingOMProfile from './Components_S/PrintingOMProfile'
+import OrderMProfile from './Components_S/OrderMProfile'
+import PromotionMProfile from './Components_S/PromotionMProfile'
+import FeedbackMProfile from './Components_S/FeedbackMProfile'
+
+import EmDetails from './Components_S/EmDetails'
+import CustomerDetails from './Components_S/CustomerDetails'
+import EmployeePaySheet from './Components_S/EmployeePaySheet'
 
 
 import Shippingscreen_Drew from './component_Andrew/Shippingscreen';
@@ -104,6 +119,19 @@ root.render(
         <Route path="/resetPassword/:token" element={<ResetPassword/>} />
         <Route path="/eregistor" element={<EmpRegister/>} />
         <Route path="/dashboard" element={<Dashboard_S/>} />
+        <Route path="/Profile" element={<Profile/>} />
+        <Route path="/elogin" element={<EmpLogin/>} />
+        <Route path="/eprofile" element={<EmpProfile/>} />
+                <Route path="/pmprofile" element={<ProductMProfile/>} />
+                <Route path="/fmprofile" element={<FinancialMProfile/>} />
+                <Route path="/prmprofile" element={<PrintingOMProfile/>} />
+                <Route path="/omprofile" element={<OrderMProfile/>} />
+                <Route path="/promomprofile" element={<PromotionMProfile/>} />
+                <Route path="/feedprofile" element={<FeedbackMProfile/>} />
+                <Route path="/emdetails" element={<EmDetails/>} />
+                <Route path="/cusdetails" element={<CustomerDetails/>} />
+                <Route path="/empaysheet" element={<EmployeePaySheet/>} />
+                
 
 {/* Andrew */}
         <Route path='/Shippingscreen'  element={<Shippingscreen_Drew /> } />
@@ -112,7 +140,10 @@ root.render(
         <Route path='/viewpayment'  element={<ViewPayments/> } />
         <Route path='/viewshipping'  element={<ViewShipping/> } />
 
-  
+
+
+
+
     </Routes>
   </BrowserRouter>
 );

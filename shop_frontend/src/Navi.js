@@ -54,7 +54,7 @@ const NaviBar = () => {
         )}
         {userEmail && (
           <>
-            <li><a href="#">My Account <i className="fas fa-user"></i></a></li>
+            <li><a href="/profile">My Account <i className="fas fa-user"></i></a></li>
             <label htmlFor="check" className="close-menu"><i className="fas fa-times"></i></label>
             <li><a href="#" onClick={handleLogout}>Logout</a></li>
           </>

@@ -1,0 +1,202 @@
+/* details.css
+
+.dex {
+    display: flex;
+    height: 100vh;
+}
+
+.dexa {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tbx {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tbx table {
+    width: 100%;
+}
+
+.tbx th,
+.tbx td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tbx th {
+    background-color: #f2f2f2;
+}
+
+.tbx tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tbx tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+.loading {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+/* Styling for the delete button 
+.tbx button {
+    padding: 8px 16px;
+    background-color: #ff3333; /* Red background color 
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.tbx button:hover {
+    background-color: #cc0000; /* Darker red on hover 
+}
+
+
+/* details.css 
+
+.search-container {
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+   */
+
+
+   /* details.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .Pro-header-component {
+    margin-right: 10px;
+  }
+  
+  .center-heading {
+    text-align: center;
+  }
+  
+/* details.css */
+
+.search-container {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .search-input {
+    padding: 10px 40px 10px 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    color: #999;
+    cursor: pointer;
+  }
+  
+  .search-button {
+    display: none;
+  }
+  
+  .search-input:focus + .search-icon {
+    color: #007bff;
+  }
+  .tbx button {
+    padding: 8px 16px;
+    background-color: #ff3333; 
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.tbx button:hover {
+    background-color: #cc0000; 
+}
+  .tbx {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tbx table {
+    width: 100%;
+  }
+  
+  .tbx th,
+  .tbx td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tbx th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .tbx tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .tbx tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .loading {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+  }
+  

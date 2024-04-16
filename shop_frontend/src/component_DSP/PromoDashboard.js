@@ -40,7 +40,9 @@ function Dashboard() {
 
           <div className="text-center">
             <p className="font-medium">Welcome</p>
+            <a href='/promomprofile' target="iframe_a"> 
             <button className="bg-green-500 text-white rounded-md px-4 py-2">DILINA</button>
+            </a>
           </div>
         </div>
       </header>

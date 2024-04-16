@@ -15,7 +15,7 @@ const NaviBar = () => {
               <li><a href="/AdminMain_D">Home</a></li>
               <li><a href="/PrintingOrderDisplayAdmin_D">All Printing Orders</a></li>
               <li><a href="/PriceChartDisplay_D">Price Chart</a></li>
-              <li><a href="#">My Account <i className="fas fa-user"></i></a></li>
+              <li><a href="/prmprofile">My Account <i className="fas fa-user"></i></a></li>
               <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
               <li><a href="/">Logout</a></li>
           </span>
