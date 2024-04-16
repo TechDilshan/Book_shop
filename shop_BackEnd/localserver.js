@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const app_U = express();
+const app_a = express();
 const cors = require('cors');
 const bodyparser = require ("body-parser"); 
 const mongoose = require('mongoose');
@@ -19,6 +20,10 @@ const host = 'localhost';
 
 const router = require('./router');
 const router_U = require('./router_U');
+
+
+app_a.use(cors());
+app_a.use(express.json());
 
 app.use(cors());
 app.use(express.json());
@@ -95,3 +100,15 @@ const server_U = app_U.listen(port_U, host, () => {
 app.use('/api', router,couponRouter,feedbackRouter);
 app_U.use('/api_U', router_U);
 //ABI
+
+
+//Andrew
+const paymentRouter = require("./routes_A/paymentRoutes.js");
+app_a.use("/payment", paymentRouter);
+
+ const shippingRouter = require("./routes_A/shippingRoutes.js");
+ app_a.use("/shipping", shippingRouter);
+
+const server_A = app_a.listen(3004, host, () => {
+    console.log(`Node server is listening to ${server_A.address().port}`)
+});

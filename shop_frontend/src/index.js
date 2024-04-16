@@ -42,6 +42,14 @@ import ResetPassword from './Components_S/ResetPassword';
 import Dashboard_S from './Components_S/Dashboard';
 import EmpRegister from './Components_S/EmpRegister';
 
+
+import Shippingscreen_Drew from './component_Andrew/Shippingscreen';
+import PaymentScreen from './component_Andrew/paymentScreen';
+import PlaceOrder from './component_Andrew/placeOrder';
+import ViewPayments from './component_Andrew/AllPayments';
+import ViewShipping from './component_Andrew/AllShipping';
+
+
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
 fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
@@ -96,6 +104,14 @@ root.render(
         <Route path="/resetPassword/:token" element={<ResetPassword/>} />
         <Route path="/eregistor" element={<EmpRegister/>} />
         <Route path="/dashboard" element={<Dashboard_S/>} />
+
+{/* Andrew */}
+        <Route path='/Shippingscreen'  element={<Shippingscreen_Drew /> } />
+        <Route path='/payment'  element={<PaymentScreen/> } />
+        <Route path='/place'  element={<PlaceOrder/> } />
+        <Route path='/viewpayment'  element={<ViewPayments/> } />
+        <Route path='/viewshipping'  element={<ViewShipping/> } />
+
   
     </Routes>
   </BrowserRouter>

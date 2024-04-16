@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../components_D/PrintOrderReadStyle_D.css';
 import logo from '../image/logo.jpg';
+import { Link } from 'react-router-dom';
 
 function PrintOrderForm({ printOrder, onUpdate, allPaperSizes }) {
   const [showPayNow, setShowPayNow] = useState(false);
@@ -147,7 +148,11 @@ const calculateTotalPrice = () => {
                     <td>Rs.{calculateTotalPrice()}</td><tr></tr>
 
                     <td></td>
-                    <td><button className='btnPayNow_D'>PayNow</button></td>
+                    <td>
+                      <Link to="/Shippingscreen">
+                      <button className='btnPayNow_D'>PayNow</button>
+                      </Link>
+                      </td>
                   </table>
               </div>
         )}
