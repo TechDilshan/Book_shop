@@ -1,13 +1,29 @@
 // StockDetails.js
 
 import React from 'react';
-//import './stockDetails.css'; // Import your CSS file
-import PromoPage from './PromoPage';
+
 import logo from '../image/logo.jpg'
 import Navi from '../Navi';
 import Foot from '../footer';
+import { useNavigate} from 'react-router-dom'
+import axios from 'axios'
+
 
 function Dashboard() {
+  const navigate = useNavigate()
+  const handleLogout =()=>{
+    axios.get('http://localhost:5000/auth/logout')
+    .then(res => {
+      if(res.data.status){
+        sessionStorage.removeItem('userEmail');
+        //window.location.reload();
+        navigate('/')
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div >
       <div className='fixed w-[100%]' >
@@ -24,7 +40,9 @@ function Dashboard() {
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="couponpage" target="iframe_a">Manage Coupon</a>
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="viwerepo" target="iframe_a">Genarate Report</a>
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-gray-700 hover:text-white" href="promopagetest" target="iframe_a">Test Coupons</a>
+          <button  onClick={handleLogout}>
           <a className="block my-6 py-2.5 px-4 rounded transition duration-200 bg-gray-300 hover:bg-red-500 hover:text-white"href="/">Logout</a>
+          </button>
         </nav>
       </div>
     </div>
