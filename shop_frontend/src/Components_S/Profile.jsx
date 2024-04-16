@@ -133,7 +133,7 @@ const Profile = () => {
       </div>
       <div className="customerProfile_Top">
         <div className="customerProfile">
-          <h1>My Account</h1>
+          <h3>My Account</h3>
           <div className="avatar-container">
             <Upload
               name="avatar"

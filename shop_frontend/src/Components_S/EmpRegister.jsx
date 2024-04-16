@@ -65,10 +65,11 @@ const EmpRegister = () => {
   return (
 
     <div> <Header/>{Header}
+    <br/>
     <div className="Registercontainer">
 
       <div className="register-main-box">
-        <h1>Employee Sign Up!</h1>
+        <h2>Employee Sign Up!</h2>
 
         <Form
           name="normal_login"
@@ -142,7 +143,6 @@ const EmpRegister = () => {
               <Option value="Profile Manager">Profile Manager</Option>
               <Option value="Product Manager">Product Manager</Option>
               <Option value="Order Manager">Order Manager</Option>
-              <Option value="Cart Manager">Cart Manager</Option>
               <Option value="Financial Manager">Financial Manager</Option>
               <Option value="Promotion Manager">Promotion Manager</Option>
               <Option value="Feedback Manager">Feedback Manager</Option>

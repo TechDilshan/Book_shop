@@ -141,6 +141,7 @@ const EmpLogin = () => {
 
       </Form>
     </div>
+    <br/>
     <div>
       <Foot/>
       </div>

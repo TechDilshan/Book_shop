@@ -200,6 +200,8 @@ const EmpProfile = () => {
         <div>
             <Header />{Header}
 
+            <br/>
+
             <div className='customerProfile_Top'>
                 <div className='customerProfile'>
                     <h3>Profile Manager</h3>
@@ -267,7 +269,7 @@ const EmpProfile = () => {
                         <Button type="primary" onClick={showModal}>
                             Update
                         </Button>
-                        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        <Modal title="Employee Profile Update" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                             <Form
                                 onFinish={handleUpdate}
                             >
@@ -403,7 +405,7 @@ const EmpProfile = () => {
 
                     </div>
 
-                    <p>Total Salary : Rs. {sum}.00 <Link to='/empaysheet'><button type="primary" htmlType="submit" className="submit">summary</button></Link></p>
+                    <p>Total Salary : Rs. {sum}.00 <Link to='/empaysheet'><button type="primary" htmlType="submit" className="sub1515">summary</button></Link></p>
                 </div>
 
 

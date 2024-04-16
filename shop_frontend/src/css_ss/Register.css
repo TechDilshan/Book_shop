@@ -1,60 +1,53 @@
 .Registercontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
-    
-  }
-  
-  .register-main-box {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 40%;
-  }
-  
-  .register-main-box h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .login-form .form-row {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .login-register {
-    text-align: center;
-  }
-  
-  .log-link {
-    margin-left: 5px;
-  }
-  
-  .submit {
-    width: 40%;
-    height: 40px;
-    margin-top: 20px; /* Add margin at the top */
-    font-size: 16px; /* Increase font size */
-    margin-left: 200px;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f5ff; /* Light blue background */
+}
 
-  .forget-password {
-    color: initial; /* Set initial text color */
-    cursor: pointer; /* Add pointer cursor */
-    display: inline-block; /* Ensure it is displayed as inline */
-    margin-right: 10px; /* Add some space between the checkbox and the link */
-   margin-left: 65px;
-  }
-  
-  .forget-password:hover {
-    color: blue; /* Change text color to blue on hover */
-  }
+.register-main-box {
+  text-align: center; /* Center align the content */
+}
 
-  
-  
-  
-  
-  
+.register-main-box h2 {
+  margin-bottom: 20px;
+  color: #1890ff; /* Blue text */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-form-item-icon {
+  color: #1890ff; /* Blue icon color */
+}
+
+.site-form-item-icon svg {
+  font-size: 16px;
+}
+
+.sub123 {
+  width: 50%;
+  background-color: #1890ff; /* Blue button */
+}
+
+.sub123:hover {
+  background-color: #40a9ff; /* Lighter blue on hover */
+  border: none;
+}
+
+.log-link {
+  padding: 50px;
+  color: #1890ff; /* Blue text for login link */
+}
+
+.log-link:hover {
+  text-decoration: underline;
+}
+
+.login-register{
+  padding: 20px;
+}

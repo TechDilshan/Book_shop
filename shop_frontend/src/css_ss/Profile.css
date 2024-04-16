@@ -1,80 +1,69 @@
-.customerProfile_Top{
-    margin-top: 30px;
-}
-
-h2{
-    color: rgb(9, 9, 58);
+.customerProfile_Top {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f5ff; /* Light blue background */
 }
 
 .customerProfile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    margin-top: 100px;
-    margin-left: 500px;
+  text-align: center;
+}
+
+.customerProfile h3 {
+  color: #1890ff; /* Blue text */
 }
 
 .avatar-container {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-
-.user-details {
-    text-align: center;
+.avatar-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
-
 
 .user-details-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .user-details-table table {
-    width: 100%;
-  }
-  
-  .user-details-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .user-details-table tr:last-child td {
-    border-bottom: none;
-  }
-  
-  .user-details-table td:first-child {
-    font-weight: bold;
-    width: 30%; /* Adjust as needed */
-  }
-  
-  .user-details-table td:last-child {
-    width: 70%; /* Adjust as needed */
-  }.header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #007bff; /* Blue background color */
-    color: #fff; /* White text color */
-    padding: 10px 0; /* Add padding top and bottom */
-  }
-  
-  .Pro-header-component {
-    padding: 10px 20px; /* Add padding left and right */
-    border-radius: 5px; /* Add rounded corners */
-  }
-  
-  .Pro-header-component a {
-    color: #fff; /* White text color for links */
-    text-decoration: none; /* Remove underline from links */
-  }
-  
-  .Pro-header-component a:hover {
-    color: #000; /* Add underline on hover */
-  }
-  
-  
+  margin-bottom: 20px;
+}
 
-  
+.user-details-table table {
+  width: 100%;
+}
+
+.user-details-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.sub1515 {
+  width: 100px;
+  text-decoration-color:white;
+    background-color: #1890ff; /* Blue button */
+  border: none;
+}
+
+.sub1515:hover {
+  background-color: #40a9ff; /* Lighter blue on hover */
+}
+
+.nic {
+  margin-bottom: 20px;
+}
+
+.input-item {
+  margin-bottom: 20px;
+}
+
+.input-item-active {
+  border-color: #1890ff; /* Blue border color */
+}
+
