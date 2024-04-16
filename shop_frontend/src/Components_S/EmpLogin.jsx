@@ -54,7 +54,7 @@ const EmpLogin = () => {
           navigate('/cmdashboard');
         }
         else if (eroll === 'Feedback Manager') {
-          navigate('/feedbackadmin');
+          navigate('/framechamu');
         }
         else if (eroll === 'PrintingOrder Manager') {
   

@@ -363,8 +363,6 @@ const FeedbackMProfile = () => {
                     {/* <Button type="danger" onClick={handleDelete}>Delete</Button> */}
                 </div>
             </div>
-
-            <p>Total Salary : Rs. {sum}.00</p>
         </div>
     );
 };

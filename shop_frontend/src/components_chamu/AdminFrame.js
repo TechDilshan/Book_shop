@@ -30,10 +30,10 @@ const AdminFrame = () => {
         <div class="w-1/4 flex justify-end items-center space-x-4">
             <div class="relative group">
                 <button class="bg-purple-600 text-white rounded-full p-2 focus:outline-none focus:ring focus:border-blue-300">
-                    <i class='far fa-user-circle text-xl'></i>
+                <a href="/feedprofile" target="iframe_a" class="block text-white"><i class='far fa-user-circle text-xl'></i></a>
                 </button>
                 <div class="hidden absolute right-0 mt-2 space-y-2 bg-green-500 p-2 rounded-md">
-                    <a href="profilesetting.php" target="iframe_a" class="block text-white">Change Profile</a>
+                    <a href="/feedprofile" target="iframe_a" class="block text-white">Change Profile</a>
                     <a href="logout" class="block text-white">Logout</a>
                 </div>
             </div>
@@ -44,7 +44,7 @@ const AdminFrame = () => {
                     Logout
                 </button>
                 <div class="hidden absolute right-0 mt-2 space-y-2 bg-green-500 p-2 rounded-md">
-                    <a href="profilesetting.php" target="iframe_a" class="block text-white">Change Profile</a>
+                    <a href="profilesetting.php" target="iframe_a" >Change Profile</a>
                     <a href="logout" class="block text-white">Logout</a>
                 </div>
             </div>
