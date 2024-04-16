@@ -9,6 +9,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
 import StockUpdate_C from './component_Dila/StockUpdate_C';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import Foot from './footer';
 
 const styles = StyleSheet.create({
   page: {
@@ -249,7 +250,7 @@ const ShoppingCart = () => {
                 <h3 className="item-price">Quantity : {cart.quantity}</h3>
                 <p className="item-price">Price : LKR. {filteredCart ? filteredCart.price * cart.quantity : 'Price not available'}/=</p>
                 <div className={`stock-text ${filteredCart.stock === 0 ? 'text-red-500' : ''}`}>
-                  <p className="item-price">stock : {filteredCart.stock === 0 ? 'The stock is over' : filteredCart.stock}</p>
+                  <p className="item-price">Remaining stock : {filteredCart.stock === 0 ? 'The stock is over' : filteredCart.stock}</p>
                 </div>
               </div>
               <div className="item-actions">
@@ -265,9 +266,7 @@ const ShoppingCart = () => {
             </div>   
           );
         })}
-        <div>
-           <button class="update">UPDATE</button>
-           </div>
+       
         
         <div className="pdf-download-button">
           <PDFDownloadLink document={<BillGenerator items={filteredCartItems} total={total} carts={carts} />} fileName="bill.pdf">
@@ -285,8 +284,13 @@ const ShoppingCart = () => {
           <button className="coupon">Looking for DISCOUNT?</button>
         </Link>
       </div>
-      
+      <div>
+      <Foot/>
+      </div>
+    
     </div>
+
+    
   );
 };
 
