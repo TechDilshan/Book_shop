@@ -1,5 +1,6 @@
 import React from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import logo from '../image/logo.jpg';
 
 const styles = StyleSheet.create({
   page: {
@@ -24,6 +25,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     border: '1px solid #000000',
   },
+  logo: {
+    width: 100,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
 });
 
 const CouponReport = ({ coupons }) => (
@@ -31,6 +37,7 @@ const CouponReport = ({ coupons }) => (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
+          <Image src={logo} style={styles.logo} />
           <Text style={styles.header}>Coupon Report</Text>
           {coupons.map((coupon, index) => (
             <View key={index} style={styles.coupon}>

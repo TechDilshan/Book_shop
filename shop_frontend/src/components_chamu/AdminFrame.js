@@ -1,8 +1,8 @@
 
 import logo from  '../image/logo.jpg';
 import React, { useState } from 'react';
-import AdminFeedbackPage from './AdminFeedbackPage';
-import FeedbackReport from './FeedbackReport';
+import Navi from '../Navi';
+import Foot from '../footer';
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
@@ -30,6 +30,10 @@ const AdminFrame = () => {
   }
 
   return (
+    <div >
+      <div className=' w-[100%]' >
+         <Navi/>
+      </div>
 <div class="container m-auto p-5">
     <div class="flex items-center justify-between">
         <div class="w-1/4">
@@ -78,7 +82,9 @@ const AdminFrame = () => {
         </div>
     </div>
 
-    
+            
+      </div>
+      <Foot/>
 </div>
   );
 }
