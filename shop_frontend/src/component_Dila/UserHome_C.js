@@ -29,6 +29,7 @@ const UserHome_C = () => {
     getUsers();
   }, []);
 
+   //Getting Product Details using url
     const getUsers = () => {
       const fetchUsers = () => {
         Axios.get('https://book-shop-dep.vercel.app/api/users')//'http://localhost:3001/api/users'
@@ -42,20 +43,20 @@ const UserHome_C = () => {
       };
 
       fetchUsers();
-      const intervalId = setInterval(fetchUsers, 1000);
+      const intervalId = setInterval(fetchUsers, 1000); //Update Getting Details every 1 second
       return () => clearInterval(intervalId);
     };
 
-   // Filtered items based on search term
+   // Filtering rows based on search word
    const filteredUsers = users.filter(user => {
     if (searchTerm.trim() === '') {
-      return false; // If search term is empty, hide all items
+      return false; // If search word is empty, hide all items
     } else {
-      return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return user.name.toLowerCase().includes(searchTerm.toLowerCase()); // Return rows given search
     }
   });
 
-  // Determine which items to display based on search bar focus
+ 
   let visibleUsers;
   if (searchBarFocused) {
     visibleUsers = filteredUsers;
@@ -63,6 +64,7 @@ const UserHome_C = () => {
     visibleUsers = showAll ? users : filteredUsers.slice(0, 8);
   }
 
+// Filter Products based on item category
   const bookItems = users.filter(user => user.item === 'bookitem');
   const visibleUsersBook = showAllBook ? bookItems : bookItems.slice(0, 8);
 
@@ -94,13 +96,14 @@ const UserHome_C = () => {
     setShowForm(!showForm);
   };
 
+
+//Filter Function
   const handleOkButtonClick = () => {
-   
-    console.log(minPrice,maxPrice);
+ 
     const filtered = users.filter(user => {
-      const isInPriceRange = (user.price >= minPrice && user.price <= maxPrice);
-      const isMatchingCategory = (user.item === category);
-      return isInPriceRange && isMatchingCategory;
+      const isInPriceRange = (user.price >= minPrice && user.price <= maxPrice); //Check min price and max price
+      const isMatchingCategory = (user.item === category); //check category
+      return isInPriceRange && isMatchingCategory; // return matched products
     });
     // Update the state variable with filtered items
     setFilteredItems(filtered);
@@ -109,6 +112,7 @@ const UserHome_C = () => {
     setShowForm(false);
   };
 
+  //clear filtered and searched item history
   const clearFilteredItems = () => {
     setFilteredItems([]);
     setSearchTerm('');
@@ -131,7 +135,7 @@ const UserHome_C = () => {
       <div class="flex justify-end w-full px-2">
         <div class="flex space-x-4 w-full max-w-screen-lg items-center" >
 
-        {(filteredItems.length > 0 || visibleUsers.length > 0) && (
+        {(filteredItems.length > 0 || visibleUsers.length > 0) && ( // Clear section
           <button onClick={clearFilteredItems} className="flex items-center px-2 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             Clear
           </button>
@@ -163,6 +167,11 @@ const UserHome_C = () => {
                         className="w-full mb-2 p-2 border rounded-md" 
                         value={maxPrice} 
                         onChange={(e) => setMaxPrice(e.target.value)} 
+                        onKeyPress={(e) => {
+                          if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {  //validate input details
+                            e.preventDefault();
+                          }
+                        }}
                       />
                       <input 
                         type="number" 
@@ -170,6 +179,11 @@ const UserHome_C = () => {
                         className="w-full mb-2 p-2 border rounded-md" 
                         value={minPrice} 
                         onChange={(e) => setMinPrice(e.target.value)} 
+                        onKeyPress={(e) => {
+                          if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                            e.preventDefault();
+                          }
+                        }}
                       />
                       <label htmlFor="category" className='itemRow'>Product Category: </label>
                       <select
@@ -207,7 +221,7 @@ const UserHome_C = () => {
             )}
 
 
-
+        {/* Display All Category */}
 
           <div class="relative inline-block text-left">
             <button
@@ -233,6 +247,7 @@ const UserHome_C = () => {
             )}
           </div>
 
+ {/* Search bar input section */}
           <input
             type="text"
             class="block flex-grow px-2 py-1 text-blue-900 bg-white border border-blue-900 rounded-full focus:border-blue-900 focus:ring-blue-900 focus:outline-none focus:ring focus:ring-opacity-40 sm:px-4 sm:py-2 sm:text-base"
@@ -245,6 +260,7 @@ const UserHome_C = () => {
         </div>
       </div>
 
+ {/*Search bar display section */}
       <div class="bg-light-blue-50 p-2 flex flex-col" style={{ backgroundColor: "#e0f2fe" }}>
         <div class="flex flex-wrap justify-center">
           {visibleUsers.map((user) => (
@@ -254,7 +270,7 @@ const UserHome_C = () => {
           ))}
         </div>
       </div>
-
+ {/* Filtered Product display section */}
       <div className="bg-light-blue-50 p-2 flex flex-col" style={{ backgroundColor: "#e0f2fe" }}>
         <div className="flex flex-wrap justify-center">
           {filteredItems.map((user) => (
@@ -265,6 +281,7 @@ const UserHome_C = () => {
         </div>
       </div>
 
+ {/* Book Items Products Section */}
 
       <div id="book-items-section" class="product-section">
   <div class="section-header">
@@ -279,9 +296,9 @@ const UserHome_C = () => {
     )}
   </div>
   <div class="product-grid">
-    {visibleUsersBook.map((user) => (
+    {visibleUsersBook.map((user) => (   //Display all book items product
       <div key={user.id} class="product-item">
-        <ProductItem_C rows={[user]} />
+        <ProductItem_C rows={[user]} /> 
       </div>
     ))}
     {!showAllBook && (
@@ -302,7 +319,7 @@ const UserHome_C = () => {
         </div>
       </div>
 
-
+ {/* School Items Products Section */}
 <div id="school-items-section" class="product-section">
   <div class="section-header">
     <div>School Items Products</div>
@@ -316,9 +333,9 @@ const UserHome_C = () => {
     )}
   </div>
   <div class="product-grid">
-    {visibleUsersSchool.map((user) => (
+    {visibleUsersSchool.map((user) => (  //Display all School items product
       <div key={user.id} class="product-item">
-        <ProductItem_C rows={[user]} />
+        <ProductItem_C rows={[user]} />  
       </div>
     ))}
     {!showAllSchool && (
@@ -332,6 +349,7 @@ const UserHome_C = () => {
   </div>
 </div>
 
+ {/* Tech Items Products Section */}
 <div id="tech-items-section" class="product-section">
   <div class="section-header">
     <div>Tech Items Products</div>
@@ -345,7 +363,7 @@ const UserHome_C = () => {
     )}
   </div>
   <div class="product-grid">
-    {visibleUsersTech.map((user) => (
+    {visibleUsersTech.map((user) => ( //Display all Tech items product
       <div key={user.id} class="product-item">
         <ProductItem_C rows={[user]} />
       </div>
@@ -361,6 +379,7 @@ const UserHome_C = () => {
   </div>
 </div>
 
+ {/* Mobile Items Products Section */}
 <div id="mobile-items-section" class="product-section">
   <div class="section-header">
     <div>Mobile Items Products</div>
@@ -374,7 +393,7 @@ const UserHome_C = () => {
     )}
   </div>
   <div class="product-grid">
-    {visibleUsersMobile.map((user) => (
+    {visibleUsersMobile.map((user) => ( //Mobile all book items product
       <div key={user.id} class="product-item">
         <ProductItem_C rows={[user]} />
       </div>
@@ -394,7 +413,7 @@ const UserHome_C = () => {
 </div>
 
 
-
+ {/* Call footer section */}
       <div>
         <Foot/>
       </div>

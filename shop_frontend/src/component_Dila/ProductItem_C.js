@@ -25,6 +25,7 @@ const ProductItem_C = ({ rows }) => {
     }
   };
 
+  // Getting loged email address using session
   useEffect(() => {
     const email = sessionStorage.getItem('userEmail');
     setUserEmail(email);
@@ -32,6 +33,7 @@ const ProductItem_C = ({ rows }) => {
 
   useEffect(() => {
     
+    //Getting Image in firebase storage using image id 
     const fetchImageUrls = async () => {
       const urls = await Promise.all(rows.map(async (row) => {
         try {
@@ -52,13 +54,17 @@ const ProductItem_C = ({ rows }) => {
     
   return (
     <div>
+
+      {/* Display Product Data in given data */}
       {rows.map((row) => {
-        const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
+        const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id); // Find the image URL for the current block
         const imageUrl = imageUrlObj ? imageUrlObj.url : null;
         
         return (
-          <div className="flex" key={row.id}>
+          <div className="flex" key={row.id}> 
             <div className="product-container">
+
+               {/* NAvigate to the ProductDetails_C.js page */}
                 <Link to={`/ProductDetails_C`} state={{ row }}>
                 <div className="image-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   {loading ? (
@@ -67,7 +73,7 @@ const ProductItem_C = ({ rows }) => {
                     </div>
                   ) : (
                     <>
-                      {imageUrl ? (
+                      {imageUrl ? ( //Display current block image
                         <img src={imageUrl} alt={`Photo-${row.id}`} />
                       ) : (
                         <img src="https://t4.ftcdn.net/jpg/05/07/58/41/360_F_507584110_KNIfe7d3hUAEpraq10J7MCPmtny8EH7A.jpg" alt="Placeholder" />
@@ -77,6 +83,8 @@ const ProductItem_C = ({ rows }) => {
                 </div>
 
               </Link>
+
+               {/*Display other details */}
               <div className="product-details">
                 <div className="product-name">
                   <div className="name-tag">{row.name}</div>
@@ -101,14 +109,16 @@ const ProductItem_C = ({ rows }) => {
                         if (row.stock === 0) {
                           alert("Stock is zero. Cannot add to cart.");
                         } else {
+                          //pass data for update the product stock 
                           StockUpdate_C({ productId: row.id, qty: quantity, stk: row.stock, type: "add", name: row.name, sdes: row.sdes, price: row.price });
+                          //pass data for Create cart
                           createCart({ productId: row.id, qty: quantity, stk: row.stock });
                         }
                       } else {
-                        
+                        //Display loging message if user not login in the web page
                         const confirmLogin = window.confirm("Please login to add to cart. Do you want to login now?");
                         if (confirmLogin) {
-                          window.location.href = "/login";
+                          window.location.href = "/login"; //Navigate to the login page
                         }
                       }
                     }}
@@ -116,6 +126,8 @@ const ProductItem_C = ({ rows }) => {
                     <span className="add-text">+Add</span>
                   </button>
                 </div>
+
+                 {/*Display Product stock or out of stock message */}
                 <div className="stock-info">
                   <div className="stock-indicator"></div>
                   <div className={`stock-text ${row.stock === 0 ? 'text-red-500' : ''}`}  style={{ fontSize: '13px' }}>

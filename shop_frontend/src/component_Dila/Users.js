@@ -9,6 +9,7 @@ import '../CSS_C/navi.css';
 import logo from '../image/logo.jpg';
 
 const Users = () => {
+  // Create useStates
   const [users, setUsers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
@@ -19,6 +20,7 @@ const Users = () => {
     getUsers();
   }, []);
 
+  //Getting Product Details using url
   const getUsers = () => {
       const getAdminDetails = () => {
         Axios.get('https://book-shop-dep.vercel.app/api/users')//http://localhost:3001/api/users
@@ -30,14 +32,17 @@ const Users = () => {
           });
       };
       getAdminDetails();
-      const intervalId = setInterval(getAdminDetails, 1000);
+      const intervalId = setInterval(getAdminDetails, 1000);  //Update Getting Details every 1 second
       return () => clearInterval(intervalId);
   };
 
+
+  // Add new Product Items in the online store
   const addUser = (data) => {
     setSubmitted(true);
     setIsEdit(false);
 
+    // create Payload for the create new product record
     const payload = {
       id: data.id,
       name: data.name,
@@ -49,6 +54,7 @@ const Users = () => {
       stock: data.stock,
     };
 
+    // Create new Product using url
     Axios.post('https://book-shop-dep.vercel.app/api/createuser', payload)//http://localhost:3001/api/createuser
       .then((response) => {
         getUsers();
@@ -60,10 +66,13 @@ const Users = () => {
       });
   };
 
+
+  // Add new Product Items in the online store
   const updateUser = (data) => {
     setSubmitted(true);
     setIsEdit(false);
 
+    // create Payload for the Update new product record
     const payload = {
       id: data.id,
       name: data.name,
@@ -75,6 +84,7 @@ const Users = () => {
       stock: data.stock,
     };
 
+    // Update existing product using this url
     Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
       .then((response) => {
         getUsers();
@@ -86,6 +96,7 @@ const Users = () => {
       });
   };
 
+  // Delete existing product using this url
   const deleteUser = (data) => {
     Axios.post('https://book-shop-dep.vercel.app/api/deleteuser', data)//http://localhost:3001/api/deleteuser
       .then((response) => {
@@ -96,15 +107,19 @@ const Users = () => {
       });
   };
 
+  // Display all product item button set
   const handleDisplayButtonClick = () => {
     setDisplayTable(true);
     setSelectedUser({});
-    setIsEdit(false); // Reset isEdit when displaying the table
+    setIsEdit(false);
   };
 
+
+  // Start return
   return (
     <div class="w-calc(100% - 100px) mx-auto mt-2 lg:ml-2 lg:mr-2" style={{ backgroundColor: '#c3ddec' }}>
 
+{/* Product Manager Navigation bar */}
     <div class="menu-body">
       <nav>
       <ul class='nav-bar'>
@@ -126,9 +141,9 @@ const Users = () => {
     <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '40px' }}>
       
       {displayTable ? (
-        <AdminDisplay
-          rows={users}
-          selectedUser={(user) => {
+        <AdminDisplay  // Call all product items display page
+          rows={users} //Pass all product details getting in the api
+          selectedUser={(user) => {  
             setSelectedUser(user);
             setIsEdit(true);
             setDisplayTable(false);
@@ -137,7 +152,7 @@ const Users = () => {
         />
       ) : (
         <div>
-          <UserForm
+          <UserForm  // Call all Add or Update items form page
             addUser={addUser}
             updateUser={updateUser}
             submitted={submitted}
@@ -149,6 +164,8 @@ const Users = () => {
       )}
     </Box>
 
+
+{/* Call footer */}
     <div>
         <Foot/>
       </div>

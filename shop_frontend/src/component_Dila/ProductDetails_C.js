@@ -30,6 +30,7 @@ const ProductDetails_C = () => {
     }
   };
 
+  //Getting Image in firebase storage using image id 
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
@@ -51,12 +52,15 @@ const ProductDetails_C = () => {
   
 <div class="product-container1" className='flex' >
     
+    {/* Display Product Data in Selected item */}
   <div class="product-image">
-    {imageUrl && (
+    {imageUrl && ( //Display image
       <img class="product-size" src={imageUrl} alt={`Photo-${row.id}`} />
     )}
   </div>
   <div class="product-detailss">
+
+    {/* Display Other data in selected item */}
     <h2 class="product-name">{row.name}</h2>
     <p class="product-description">{row.sdes}</p>
     <p class="product-description">{row.des}</p>

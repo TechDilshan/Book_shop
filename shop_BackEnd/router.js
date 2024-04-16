@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./controller');
 
+//Create router links
 router.get('/users', controller.getUsers);
 router.post('/createuser', controller.addUser);
 router.post('/updateuser', controller.updateUser);

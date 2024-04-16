@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import StockUpdate_C from './StockUpdate_C';
 
-
+//PDF generation - Styles
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -38,20 +38,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
+// Getting all details in the Users.js file
+const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {    
   const [imageUrls, setImageUrls] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const navigate = useNavigate();
-  const [loadingcy, setLoadingcy] = useState(true);
+  const [loadingcy, setLoadingcy] = useState(true); //Use loading spinner untill geting details in the mongodb
   const [searchTerm, setSearchTerm] = useState('');
   const [searchBarFocused, setSearchBarFocused] = useState(false);
   const [stockup, setStockUp] = useState(0);
 
+
+  // Getting product image in the firebase storage using imageId
   useEffect(() => {
     const fetchImageUrls = async () => {
       const urls = await Promise.all(rows.map(async (row) => {
         try {
-          const url = await getDownloadURL(ref(storage, `images/${row.imgId}`));
+          const url = await getDownloadURL(ref(storage, `images/${row.imgId}`));  // get image using saving path
           return { id: row.id, url };
         } catch (error) {
           console.error('Error fetching image URL:', error);
@@ -59,20 +62,24 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
         }
       }));
       setImageUrls(urls.filter(url => url !== null));
-      setLoadingcy(false); 
+      setLoadingcy(false);  // finishing loading spinner
     };
     fetchImageUrls();
   }, [rows]);
 
+  //handle update button click Function
   const handleUpdateButtonClick = (id) => {
     const selectedUserData = rows.find(row => row.id === id);
     selectedUser(selectedUserData);
   };
   
+  //handle category button click Funtion
   const handleCategoryButtonClick = (category) => {
     setSelectedCategory(category);
   };
 
+
+  //Generating pdf file using 'data' parameter
   const MyDocument = ({ data }) => (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -90,34 +97,37 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
     </Document>
   );
 
-  const filteredRows = selectedCategory === 'All' ? rows : 
-    selectedCategory === 'outstock' ? rows.filter(row => row.stock === 0) :
-    rows.filter(row => row.item === selectedCategory);
 
-    const visibleRows = searchTerm.trim() === '' ? [] : filteredRows.filter(row => {
-      const searchTermLowerCase = searchTerm.toLowerCase();
-      return row.name.toLowerCase().includes(searchTermLowerCase) || row.id.toString().includes(searchTermLowerCase);
+// Filtering rows based on selected category and search word
+  const filteredRows = selectedCategory === 'All' ? rows :  // If category is 'All', show all rows
+    selectedCategory === 'outstock' ? rows.filter(row => row.stock === 0) :  // If category is 'outstock', filter rows with stock equal to 0
+    rows.filter(row => row.item === selectedCategory);  //filter rows based on Clicked category
+
+    //filter visible rows based on search word
+    const visibleRows = searchTerm.trim() === '' ? [] : filteredRows.filter(row => { // If search term is empty, show no rows
+      const searchTermLowerCase = searchTerm.toLowerCase();  // Convert case-insensitive search
+      return row.name.toLowerCase().includes(searchTermLowerCase) || row.id.toString().includes(searchTermLowerCase);   // Return rows given name or ID includes the search word or number
     });
     
+
+    //handle Quik stock update button click Funtion
     const handleStockButtonClick = (id) => {
-      // Use the 'stock' state value when the button is clicked
-      console.log("Stock Value:", stockup, "id is:", id);
-      StockUpdate_C({ productId: id, stk: stockup, type: "admin" });
+      StockUpdate_C({ productId: id, stk: stockup, type: "admin" });  //pass details in the stockupdate page for the update new stock
     };
 
   
+    // Starting return function
   return (
     <div className="mb-8">
-      {loadingcy ? (
+      {loadingcy ? (  //Display CircularProgress until getting the details in the mongodb
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <CircularProgress size={150} />
         </div>
       ) : (
         <>
 
+        {/* Category buttons */}
           <div className="mb-25">
-          
-
             <button onClick={() => handleCategoryButtonClick('All')} className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2">All Items</button>
             <button onClick={() => handleCategoryButtonClick('bookitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">Book Items</button>
             <button onClick={() => handleCategoryButtonClick('schoolitem')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2">School Items</button>
@@ -132,17 +142,18 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
           )}
         </div>
 
+      {/* Search bar */}
         <input
             type="text"
             className="block flex-grow px-2 py-1 mb-8 mt-8 text-blue-900 bg-white border border-blue-900 rounded-full focus:border-blue-900 focus:ring-blue-900 focus:outline-none focus:ring focus:ring-opacity-40 sm:px-4 sm:py-2 sm:text-base"
             placeholder="Search items..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}  //pass search data
             onFocus={() => setSearchBarFocused(true)}
             onBlur={() => setSearchBarFocused(false)}
           />
 
-
+          {/* Table Titles */}
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -161,25 +172,33 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
               </TableHead>
               <TableBody>
 
+
+          {/* Display Product Data in relevent search word or id */}
               {visibleRows.map((row) => {
-                    const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
+                    const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id); // Find the image URL for the current row
                     const imageUrl = imageUrlObj ? imageUrlObj.url : null;
                     return (
+                      // Display a table row for each product
+
                       <TableRow key={row.id}>
                         <TableCell>{row.id}</TableCell>
                         <TableCell>{row.name}</TableCell>
                         <TableCell>
-                          {imageUrl ? (
+                          {imageUrl ? ( 
+                            //Display relevent image 
                             <img src={imageUrl} alt={`Photo-${row.id}`} style={{ width: '50px', height: '50px' }} />
                           ) : (
-                            <div>No Image</div>
+                            <div>No Image</div> //Do not have image display No image 
                           )}
                         </TableCell>
+                        {/* Display Other Product Details */}
                         <TableCell>{row.price}</TableCell>
                         <TableCell>{row.sdes}</TableCell>
                         <TableCell>{row.des}</TableCell>
                         <TableCell>{row.item}</TableCell>
                         <TableCell>{row.stock} </TableCell>
+
+                        {/* stock update with input field and button */}
                         <TableCell>
                         <div className="flex items-center space-x-2">
                           <input 
@@ -191,7 +210,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                             min={0}
                             onChange={(e) => setStockUp(e.target.value)}
                             onKeyPress={(e) => {
-                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') { //Validate input data
                                 e.preventDefault();
                               }
                             }}
@@ -205,6 +224,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                             Update Stock
                           </button>
                         </div>
+                        {/* Buttons for updating and deleting the Selected product */}
                       </TableCell>
                         <TableCell>
                           <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
@@ -215,25 +235,30 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                   })}
 
 
+        {/* Display Product Data based on Selectd category */}
                 {filteredRows.map((row) => {
-                  const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);
+                  const imageUrlObj = imageUrls.find(urlObj => urlObj.id === row.id);  // Find the image URL for the current row
                   const imageUrl = imageUrlObj ? imageUrlObj.url : null;
                   return (
+                    // Display a table row for each product
                     <TableRow key={row.id}>
                       <TableCell>{row.id}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>
-                        {imageUrl ? (
+                        {imageUrl ? (//Display relevent image 
                           <img src={imageUrl} alt={`Photo-${row.id}`} style={{ width: '50px', height: '50px' }} />
                         ) : (
-                          <div>No Image</div>
+                          <div>No Image</div> //Do not have image display No image 
                         )}
                       </TableCell>
+                      {/* Display Other Product Details */}
                       <TableCell>{row.price}</TableCell>
                       <TableCell>{row.sdes}</TableCell>
                       <TableCell>{row.des}</TableCell>
                       <TableCell>{row.item}</TableCell>
                       <TableCell>{row.stock}</TableCell>
+
+                      {/* stock update with input field and button */}
                       <TableCell>
                         <div className="flex items-center space-x-2">
                           <input 
@@ -245,7 +270,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                             min={0}
                             onChange={(e) => setStockUp(e.target.value)}
                             onKeyPress={(e) => {
-                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                              if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') { //Validate input data
                                 e.preventDefault();
                               }
                             }}
@@ -261,7 +286,7 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
                         </div>
                       </TableCell>
 
-
+                    {/* Buttons for updating and deleting the Selected product */}
                       <TableCell>
                         <Button onClick={() => handleUpdateButtonClick(row.id)}>Update</Button>
                         <Button onClick={() => deleteUser({ id: row.id })}>Delete</Button>

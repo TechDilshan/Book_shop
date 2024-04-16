@@ -1,18 +1,21 @@
 import React from 'react';
 import Axios from 'axios';
 
-const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
+const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {  //Getting details in other page for update stock
     
 
-    if(type=="add"){
-        if(stk>qty){
+    if(type=="add"){  // Add new product items in the cart then Decrease Product stock
+
+        if(stk>qty){ 
             const newstk = stk - qty;
 
+            //Create payload for update stock
             const payload = {
                 id: productId,
                 stock: newstk,
               };
 
+              //Update Product stock using this url
               Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
@@ -21,17 +24,18 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
               });
 
               alert('The product cart successfully updated..!');
-             // window.location.reload();
         }
-        else if(stk==qty){
+        else if(stk==qty){ //Stock is 0
 
           const newstk = stk - qty;
 
+          //Create payload for update stock
             const payload = {
                 id: productId,
                 stock: newstk,
               };
 
+              //Update Product stock using this url
               Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
@@ -39,8 +43,7 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {
                 console.error('Axios Error: ', error);
               });
 
-              //pass email
-
+              // Send email in product manager
             const emailPayload = {
               email: 'chamikamaths2002@gmail.com',
               subject: `${name} is Out of stock..!`,
@@ -57,6 +60,7 @@ ___________________________________
 Thank you..!`,
             };
 
+            //Send email in Product manager using this url
             Axios.post('https://book-shop-dep.vercel.app/api/send-email', emailPayload)//http://localhost:3001/api/send-email
                 .then((response) => {
                     console.log('Email sent!');
@@ -71,14 +75,16 @@ Thank you..!`,
             }
         
     }
-    else if(type=="remove"){
+    else if(type=="remove"){  // Remove product items in the cart then Increase Product stock
         const newstk = stk + qty;
 
+        //Create payload for update stock
             const payload = {
                 id: productId,
                 stock: newstk,
               };
 
+               //Update Product stock using this url
               Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
               .then((response) => {
               })
@@ -88,12 +94,15 @@ Thank you..!`,
 
               alert('The product cart successfully updated..!');
     }
-    else if(type=="admin"){
+    else if(type=="admin"){ //Admin Update only stock
+
+      //Create payload for update stock
           const payload = {
             id: productId,
             stock: stk,
           };
 
+           //Update Product stock using this url
           Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
           .then((response) => {
           })

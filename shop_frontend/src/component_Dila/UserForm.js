@@ -7,6 +7,7 @@ import Axios from 'axios';
 import { useMediaQuery } from '@mui/material';
 import '../CSS_C/UserForm_C.css';
 
+// Component for adding or updating Product data
 const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) => {
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
@@ -24,6 +25,7 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
   const [loadingcy, setLoadingcy] = useState(true);
 
   useEffect(() => {
+    // Set initial data for Create new Product
     if (!submitted || isEdit) {
       setId(0);
       setName('');
@@ -36,7 +38,7 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
       setImagePreview(null);
       fetchMaxIdAndSetId();
     }
-    if (isEdit) {
+    if (isEdit) { // Set Existing data for Updating existing Product
       setId(data.id);
       setName(data.name);
       setImgId(data.imgId);
@@ -45,59 +47,67 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
       setDes(data.des);
       setItem(data.item);
       setStock(data.stock);
-
       setImagePreview(data.imageUrl);
     }
   }, [submitted, isEdit, data]);
 
+  // Get maximum ID from API and set ID for new Product
   const fetchMaxIdAndSetId = async () => {
     try {
       const response = await Axios.get('https://book-shop-dep.vercel.app/api/getmaxid'); //http://localhost:3001/api/getmaxid
       const maxId = response.data?.maxId || 0; 
-      isEdit ? setId(data.id) : setId(maxId + 1);
+      isEdit ? setId(data.id) : setId(maxId + 1);  // set next product id
       setLoadingcy(false); 
     } catch (error) {
       console.error('Axios Error (getMaxId): ', error);
     }
   };
 
+  // Upload image in firebase storage
   const uploadFile = async () => {
     if (imageUpload == null) return null;
-    const imgX = v4();
-    const imageRef = ref(storage, `images/${imgX}`);
+
+    const imgX = v4(); // Generate a unique ID for the image
+    const imageRef = ref(storage, `images/${imgX}`);  // Saving the image in the firebase path using the generated ID
     
     try {
-      await uploadBytes(imageRef, imageUpload);
-      const url = await getDownloadURL(imageRef);
+      await uploadBytes(imageRef, imageUpload);  // Upload the file to storage
+      const url = await getDownloadURL(imageRef); // Get URL of the uploaded image
       setImageUrls((prev) => [...prev, url]);
-      return imgX;
+      return imgX;// Return the generated ID
     } catch (error) {
       console.error(error);
       return null;
     }
   };
 
+
+  // Function to handle updating Product data
   const handleUserDataUpdate = async () => {
-    setLoading(true); // Set loading to true when upload starts
+    setLoading(true); // Set loading until upload all data
 
     try {
       let uploadedImgId = imgId;
-      if (imageUpload) {
-        uploadedImgId = await uploadFile();
+      if (imageUpload) {   // Check if there is a new image upload
+        uploadedImgId = await uploadFile();  // Upload the new image using previous funtion and get the image ID
       }
 
-      setImgId(uploadedImgId);
+      setImgId(uploadedImgId); // Update the image ID in state
+
+      // If in Update product, update the existing Product data, otherwise add a new Product
       isEdit ? updateUser({ id, name, price, sdes, des, item, stock, imgId: uploadedImgId }) : addUser({ id, name, price, sdes, des, item, stock, imgId: uploadedImgId });
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false); // Set loading to false after upload completes (whether successful or not)
+      setLoading(false); // Cloase loading after saving data
     }
   };
 
+
+  //Main Upload button
   const handleSaveButtonClick = async () => {
     await handleUserDataUpdate();
-    setIsEdit(false); // Reset isEdit after handling update
+    setIsEdit(false); // Cloase loading after saving data
   };
 
 //drag and drop
@@ -105,18 +115,19 @@ const handleDrop = (event) => {
 event.preventDefault();
 const file = event.dataTransfer.files[0];
 if (file) {
-  setImageUpload(file);
+  setImageUpload(file); // If a picture is drag and drop generate a preview URL
   const previewUrl = URL.createObjectURL(file);
   setImagePreview(previewUrl);
 }
 };
 
+// Function to handle drag over event
 const handleDragOver = (event) => {
 event.preventDefault();
 };
 
 const handleFileInputChange = (event) => {
-const file = event.target.files[0];
+const file = event.target.files[0]; // Get the selected file from the input
 if (file) {
   setImageUpload(file);
   const previewUrl = URL.createObjectURL(file);
@@ -142,6 +153,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
           <h2 className='topicTitle'>{isEdit ? "Update Product Item" : "Add New Product Item"}</h2>
           <form>
 
+            {/* Get Product ID */}
             <label htmlFor="id" className='itemRow'>Product ID: </label>
             <input
               type="number"
@@ -154,6 +166,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
             />
             <br/>
 
+            {/* Get Product Name */}
             <label htmlFor="id" className='itemRow'>Product Name: </label>
             <input
               type="text"
@@ -165,6 +178,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
             />
             <br/>
 
+            {/* Get Product Price */}
             <label htmlFor="id" className='itemRow'>Product Price: </label>
             <input
               type="number"
@@ -173,7 +187,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               onKeyPress={(e) => {
-                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') { //Validate entered data
                   e.preventDefault();
                 }
               }}
@@ -181,6 +195,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
             />
             <br/>
 
+              {/* Get Product Short Description */}
             <label htmlFor="id" className='itemRow'>Short Description: </label>
             <input
               type="text"
@@ -192,6 +207,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
             />
             <br/>
 
+            {/* Get Product Long Description */}
             <label htmlFor="id" className='itemRow'>Long Description: </label>
             <input
               type="text"
@@ -204,7 +220,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
             <br/>
 
            
-
+               {/* Get Product Categoryn */}
             <label htmlFor="id" className='itemRow'>Product Category: </label>
             <table style={{ marginLeft: "50px", borderSpacing: "0" }}>
               <tr>
@@ -278,18 +294,18 @@ const isMobile = useMediaQuery('(max-width:600px)');
             {isMobile && (
                 <Grid
                   item
-                  xs={12} // Take up full width on extra small screens
+                  xs={12} 
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center", // Center align on mobile
-                    marginTop: "20px", // Adjust top margin for better spacing
+                    alignItems: "center",
+                    marginTop: "20px",
                   }}
                 >
                   <div
                     className="App"
                     style={{
-                      width: "80%", // Adjust width for better fit on mobile
+                      width: "80%",
                       height: "250px",
                       border: "2px dashed #ccc",
                       borderRadius: "5px",
@@ -312,7 +328,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
                       <img
                         src={imagePreview}
                         alt="Preview"
-                        style={{ width: "80%", height: "180px", marginTop: "10px" }} // Adjust width for better fit
+                        style={{ width: "80%", height: "180px", marginTop: "10px" }}
                       />
                     )}
                   </div>
@@ -321,7 +337,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
                     accept="image/*"
                     onChange={handleFileInputChange}
                     style={{
-                      width: "80%", // Adjust width for better fit
+                      width: "80%", 
                       marginTop: "10px",
                       backgroundColor: "#404040",
                       color: "white",
@@ -342,7 +358,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "300px", // Maximizes the drop-down box size
+                  width: "300px", 
                   marginBottom: "20px",
                   marginLeft: "20px",
                 }}
@@ -401,6 +417,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               )}
 
 
+               {/* Get Product Availabl Stock */}
             <label htmlFor="copies" className='itemRow'>Availabl Stock: </label>
             <input
               type="number"
@@ -410,7 +427,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               defaultValue={0}
               onChange={(e) => setStock(e.target.value)}
               onKeyPress={(e) => {
-                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') { //Validate Input data
                   e.preventDefault();
                 }
               }}
@@ -421,6 +438,8 @@ const isMobile = useMediaQuery('(max-width:600px)');
             <div style={{ color: "#000000" }}>
                 {loading && <LinearProgress />}
             </div>
+
+             {/* Add New Product and Update Existing Product Button */}
               <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
                 <Button
                   sx={{
