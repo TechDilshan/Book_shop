@@ -34,7 +34,7 @@ app_U.use(express.json());
 
 const uri = 'mongodb+srv://ITP_book:bookshop_itp@bookitp.pjtndp0.mongodb.net/?retryWrites=true&w=majority';
 
-const connect = async () => {
+const connect = async () => { // Function to connect to MongoDB database
     try{
         await mongoose.connect(uri);
         console.log('Connect to MongoDB ');
@@ -44,7 +44,7 @@ const connect = async () => {
     }
 };
 
-connect();
+connect(); // Call the connect function to establish connection to MongoDB
 
 
 //________________________________________________________________________________________________________

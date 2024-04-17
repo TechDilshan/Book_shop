@@ -79,104 +79,106 @@ const BillGenerator = ({ items, total, carts }) => (
 );
 
 const ShoppingCart = () => {
-  const [carts, setCarts] = useState([]);
-  const [carts2, setCarts2] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [imageUrls, setImageUrls] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [billVisible, setBillVisible] = useState(false);
+  const [carts, setCarts] = useState([]);  // State to store items in the shopping cart
+  const [carts2, setCarts2] = useState([]); // State to store additional items in the shopping cart
+  const [total, setTotal] = useState(0);       // State to store the total price of items in the cart
+  const [imageUrls, setImageUrls] = useState([]);   // State to store URLs of images related to items in the cart
+  const [searchQuery, setSearchQuery] = useState('');    // State to store the search query for filtering items
+  const [billVisible, setBillVisible] = useState(false);  // State to control visibility of the billing information
 
-  useEffect(() => {
-    getCartDetails();
-    getCart();
+  
+  useEffect(() => {      // useEffect hook to fetch cart details and initial cart data when the component mounts
+    getCartDetails();    // Function to fetch detailed cart information
+    getCart();            // Function to fetch initial cart data
   }, []);
 
-  useEffect(() => {
-    const fetchImageUrls = async () => {
-      const urls = await Promise.all(carts.map(async (cart) => {
+  useEffect(() => {       // useEffect hook to fetch image URLs for items in the cart whenever the 'carts' state changes
+    const fetchImageUrls = async () => {       // Function to fetch image URLs asynchronously
+      const urls = await Promise.all(carts.map(async (cart) => {    // Use Promise.all to concurrently fetch image URLs for all items in the cart
         try {
-          const filteredCart = carts.find(c => c.id === cart.id);
-          if (!filteredCart || !filteredCart.imgId) {
+          const filteredCart = carts.find(c => c.id === cart.id);     // Find the corresponding cart item in the state
+          if (!filteredCart || !filteredCart.imgId) {                // If the cart item or its image ID is missing, return null
             return null;
           }
-          const url = await getDownloadURL(ref(storage, `images/${filteredCart.imgId}`));
-          return { id: cart.id, url };
+          const url = await getDownloadURL(ref(storage, `images/${filteredCart.imgId}`));   // Fetch the image URL from Firebase Storage
+          return { id: cart.id, url };        // Return an object containing the cart item ID and its image URL
         } catch (error) {
-          console.error('Error fetching image URL:', error);
+          console.error('Error fetching image URL:', error);    // Log any errors encountered during the fetching process
           return null;
         }
       }));
-      setImageUrls(urls.filter(url => url !== null));
+      setImageUrls(urls.filter(url => url !== null));  // Filter out any null values and update the image URLs state
     };
-    fetchImageUrls();
+    fetchImageUrls();   // Call the fetchImageUrls function
   }, [carts]);
 
-  useEffect(() => {
-    let calculatedTotal = 0;
+  useEffect(() => {       // useEffect hook to calculate the total price of items in the cart for the logged-in user whenever 'carts' or 'carts2' state changes
+    let calculatedTotal = 0;   // Variable to store the calculated total
     carts2
-      .filter(cart => cart.email === userEmail)
-      .forEach(cart => {
-        const filteredCart = carts.find(c => c.id === cart.id);
-        if (filteredCart) {
+      .filter(cart => cart.email === userEmail)   // Filter 'carts2' to include only items associated with the logged-in user's email,
+      .forEach(cart => {               // then iterate over each item to calculate the total price
+        const filteredCart = carts.find(c => c.id === cart.id);    // Filtering by user's email
+        if (filteredCart) {       // If the cart item exists, calculate its contribution to the total
           calculatedTotal += filteredCart.price * cart.quantity;
         }
       });
     
-    setTotal(calculatedTotal);
+    setTotal(calculatedTotal);  // Set the total price in the state
   }, [carts, carts2]);
 
-  const handleButtonClick = (id, stock, quantity, name, sdes, price) => {
-    StockUpdate_C({ productId: id, qty: quantity , stk: stock, type: "remove", name: name, sdes: sdes, price: price });
-    window.location.reload();
+  const handleButtonClick = (id, stock, quantity, name, sdes, price) => {  // Function to handle button click event for deleting an item from the cart
+    StockUpdate_C({ productId: id, qty: quantity , stk: stock, type: "remove", name: name, sdes: sdes, price: price });  // Call the StockUpdate_C function to update the stock (quantity) of the product
+    window.location.reload(); // auto refresh
   };
 
-  const getCartDetails = () => {
-    const FetchDetails = () => {
+  const getCartDetails = () => { // Function to fetch cart details from the server periodically
+    const FetchDetails = () => {  // Send a GET request to the server to fetch cart details
       Axios.get('http://localhost:3001/api/users')
         .then((response) => {
-          setCarts(response.data?.response || []);
+          setCarts(response.data?.response || []); // Set the fetched cart details to the 'carts' state
         })
         .catch((error) => {
-          console.error('Axios Error: ', error);
+          console.error('Axios Error: ', error);  // Log any errors encountered during the request
         });
     };
 
-    FetchDetails();
-    const intervalId = setInterval(FetchDetails, 1000);
-    return () => clearInterval(intervalId);
+    FetchDetails(); // Call FetchDetails function 
+    const intervalId = setInterval(FetchDetails, 1000); // Set up an interval to periodically fetch cart details (every  1 second)
+    return () => clearInterval(intervalId);  // Cleanup function to clear the interval when the component unmounts
   };
 
-  const deleteCart = (id) => {
-    Axios.post('http://localhost:3002/api_U/deletecart', { id: id })
+  const deleteCart = (id) => { // Function to delete a cart item by its ID
+    Axios.post('http://localhost:3002/api_U/deletecart', { id: id }) // Send a POST request to the server to delete the cart item
       .then((response) => {
-        setCarts(prevCarts => prevCarts.filter(cart => cart.id !== id));
+        setCarts(prevCarts => prevCarts.filter(cart => cart.id !== id));   // Update the 'carts' state by removing the deleted cart item
       })
       .catch((error) => {
         console.error('Axios Error: ', error);
       });
   };
 
-  const getCart = () => {
-    Axios.get(`http://localhost:3002/api_U/getcart`)
+  const getCart = () => {  // Function to fetch cart data from the server
+    Axios.get(`http://localhost:3002/api_U/getcart`)  // Send a GET request to the server to fetch cart data
       .then((response) => {
-        setCarts2(response.data?.response || []);
+        setCarts2(response.data?.response || []); // Set the fetched cart data to the 'carts2' state
       })
       .catch((error) => {
         console.error('Axios Error: ', error);
       });
   };
 
-  const userEmail = sessionStorage.getItem('userEmail');
-  const filteredCarts = carts.filter(cart => cart.email === userEmail);
-  const filteredCartItems = carts2.filter(cart => cart.email === userEmail && 
-    (carts.find(c => c.id === cart.id)?.name.toLowerCase().includes(searchQuery.toLowerCase())));
+  const userEmail = sessionStorage.getItem('userEmail');  // Retrieve the user's email from sessionStorage
+  const filteredCarts = carts.filter(cart => cart.email === userEmail);   // Filter the 'carts' array to include only items associated with the logged-in user
+  const filteredCartItems = carts2.filter(cart => cart.email === userEmail && // Filter the 'carts2' array to include only items associated with the logged-in user and matching the search query
+    (carts.find(c => c.id === cart.id)?.name.toLowerCase().includes(searchQuery.toLowerCase())));  // Additional filtering based on search query
 
 
-    const updateCart = (id, quantity) => {
-      // Update quantity in backend
-      Axios.post('http://localhost:3002/api_U/updateCart', { id: id, quantity: quantity })
+    const updateCart = (id, quantity) => {  // Function to update the quantity of a cart item
+     
+      Axios.post('http://localhost:3002/api_U/updateCart', { id: id, quantity: quantity })  // Send a POST request to the server to update the cart item's quantity
         .then((response) => {
-          // Update quantity in local state
+          
+          // Update the 'carts2' state by mapping over the previous carts and updating the quantity of the matching cart item
           setCarts2((prevCarts) =>
             prevCarts.map((cart) => (cart.id === id ? { ...cart, quantity: quantity } : cart))
           );
@@ -187,23 +189,23 @@ const ShoppingCart = () => {
     };
 
     
-  const handleIncrement = (id, stock, name, sdes, price) => {
-    const cartItem = filteredCartItems.find((cart) => cart.id === id);
+  const handleIncrement = (id, stock, name, sdes, price) => { // Function to handle incrementing the quantity of a cart item
+    const cartItem = filteredCartItems.find((cart) => cart.id === id); // Find the cart item in the filtered cart items array by its ID
 
-    if (cartItem) {
-      const newQuantity = cartItem.quantity + 1;
-      if(stock >= cartItem.quantity -1 ){
-        updateCart(id, newQuantity);
-        StockUpdate_C({ productId: id, qty: 1, stk: stock, type: "add", name: name, sdes: sdes, price: price });
+    if (cartItem) { // If the cart item exists
+      const newQuantity = cartItem.quantity + 1;   // Calculate the new quantity by incrementing the current quantity by 1
+      if(stock >= cartItem.quantity -1 ){ // Check if there is enough stock to increment the quantity
+        updateCart(id, newQuantity); // Update the cart with the new quantity
+        StockUpdate_C({ productId: id, qty: 1, stk: stock, type: "add", name: name, sdes: sdes, price: price }); // Update the stock with the appropriate action
       }
       else{
-        alert("Stock is zero. Cannot add to cart.");
+        alert("Stock is zero. Cannot add to cart.");  // Alert the user if there's not enough stock to add
       }
       
     }
   };
 
-  const handleDecrement = (id, stock, name, sdes, price) => {
+  const handleDecrement = (id, stock, name, sdes, price) => {  // Function to handle decrementing the quantity of a cart item
     const cartItem = filteredCartItems.find((cart) => cart.id === id);
     if (cartItem && cartItem.quantity > 1) {
       const newQuantity = cartItem.quantity - 1;
@@ -225,17 +227,17 @@ const ShoppingCart = () => {
             type="text" 
             placeholder="Search..." 
             value={searchQuery} 
-            onChange={(e) => setSearchQuery(e.target.value)} 
+            onChange={(e) => setSearchQuery(e.target.value)}   // Update the search query state when the input changes
             className="search-input"
           />
         </div>
 
         {filteredCartItems.map((cart) => {
-          const imageUrlObj = imageUrls.find(urlObj => urlObj.id === cart.id);
-          const imageUrl = imageUrlObj ? imageUrlObj.url : null;
-          const filteredCart = carts.find(c => c.id === cart.id);
+          const imageUrlObj = imageUrls.find(urlObj => urlObj.id === cart.id);  // Find the corresponding image URL object for the current cart item
+          const imageUrl = imageUrlObj ? imageUrlObj.url : null;  // Extract the image URL from the object, if it exists
+          const filteredCart = carts.find(c => c.id === cart.id);  // Find the corresponding cart item from the 'carts' array
 
-          return (
+          return (  // Render the cart item
             <div className="cart-item" key={cart.id}>
               <div className="item-photo">
                 {imageUrl ? (
