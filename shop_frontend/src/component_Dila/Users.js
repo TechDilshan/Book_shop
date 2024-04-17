@@ -23,7 +23,7 @@ const Users = () => {
   //Getting Product Details using url
   const getUsers = () => {
       const getAdminDetails = () => {
-        Axios.get('https://book-shop-dep.vercel.app/api/users')//http://localhost:3001/api/users
+        Axios.get('http://localhost:3001/api/users')//http://localhost:3001/api/users  https://book-shop-dep.vercel.app/api/users
           .then((response) => {
             setUsers(response.data?.response || []);
           })
@@ -55,7 +55,7 @@ const Users = () => {
     };
 
     // Create new Product using url
-    Axios.post('https://book-shop-dep.vercel.app/api/createuser', payload)//http://localhost:3001/api/createuser
+    Axios.post('http://localhost:3001/api/createuser', payload)//http://localhost:3001/api/createuser  https://book-shop-dep.vercel.app/api/createuserv
       .then((response) => {
         getUsers();
         setSubmitted(false);
@@ -85,7 +85,7 @@ const Users = () => {
     };
 
     // Update existing product using this url
-    Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+    Axios.post('http://localhost:3001/api/updateuser', payload)//http://localhost:3001/api/updateuser  https://book-shop-dep.vercel.app/api/updateuser
       .then((response) => {
         getUsers();
         setSubmitted(false);
@@ -98,7 +98,7 @@ const Users = () => {
 
   // Delete existing product using this url
   const deleteUser = (data) => {
-    Axios.post('https://book-shop-dep.vercel.app/api/deleteuser', data)//http://localhost:3001/api/deleteuser
+    Axios.post('http://localhost:3001/api/deleteuser', data)//http://localhost:3001/api/deleteuser  https://book-shop-dep.vercel.app/api/deleteuser
       .then((response) => {
         getUsers();
       })

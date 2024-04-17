@@ -54,7 +54,7 @@ const UserForm = ({ addUser, updateUser, submitted, data, isEdit, setIsEdit }) =
   // Get maximum ID from API and set ID for new Product
   const fetchMaxIdAndSetId = async () => {
     try {
-      const response = await Axios.get('https://book-shop-dep.vercel.app/api/getmaxid'); //http://localhost:3001/api/getmaxid
+      const response = await Axios.get('http://localhost:3001/api/getmaxid'); //http://localhost:3001/api/getmaxid  https://book-shop-dep.vercel.app/api/getmaxid
       const maxId = response.data?.maxId || 0; 
       isEdit ? setId(data.id) : setId(maxId + 1);  // set next product id
       setLoadingcy(false); 
@@ -187,7 +187,7 @@ const isMobile = useMediaQuery('(max-width:600px)');
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               onKeyPress={(e) => {
-                if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') { //Validate entered data
+                if (e.key === '-' || e.key === 'e' || e.key === ',') { //Validate entered data
                   e.preventDefault();
                 }
               }}

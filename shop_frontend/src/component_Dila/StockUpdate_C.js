@@ -16,7 +16,7 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {  /
               };
 
               //Update Product stock using this url
-              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+              Axios.post('http://localhost:3001/api/updateuser', payload)//http://localhost:3001/api/updateuser  https://book-shop-dep.vercel.app/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
@@ -36,7 +36,7 @@ const StockUpdate_C = ({ productId, qty, stk, type, name, sdes, price }) => {  /
               };
 
               //Update Product stock using this url
-              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+              Axios.post('http://localhost:3001/api/updateuser', payload)//http://localhost:3001/api/updateuser https://book-shop-dep.vercel.app/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
@@ -61,7 +61,7 @@ Thank you..!`,
             };
 
             //Send email in Product manager using this url
-            Axios.post('https://book-shop-dep.vercel.app/api/send-email', emailPayload)//http://localhost:3001/api/send-email
+            Axios.post('http://localhost:3001/api/send-email', emailPayload)//http://localhost:3001/api/send-email  https://book-shop-dep.vercel.app/api/send-email
                 .then((response) => {
                     console.log('Email sent!');
                 })
@@ -85,7 +85,7 @@ Thank you..!`,
               };
 
                //Update Product stock using this url
-              Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+              Axios.post('http://localhost:3001/api/updateuser', payload)//http://localhost:3001/api/updateuser https://book-shop-dep.vercel.app/api/updateuser
               .then((response) => {
               })
               .catch((error) => {
@@ -103,7 +103,7 @@ Thank you..!`,
           };
 
            //Update Product stock using this url
-          Axios.post('https://book-shop-dep.vercel.app/api/updateuser', payload)//http://localhost:3001/api/updateuser
+          Axios.post('http://localhost:3001/api/updateuser', payload)//http://localhost:3001/api/updateuser https://book-shop-dep.vercel.app/api/updateuser
           .then((response) => {
           })
           .catch((error) => {

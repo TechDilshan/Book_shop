@@ -32,7 +32,7 @@ const UserHome_C = () => {
    //Getting Product Details using url
     const getUsers = () => {
       const fetchUsers = () => {
-        Axios.get('https://book-shop-dep.vercel.app/api/users')//'http://localhost:3001/api/users'
+        Axios.get('http://localhost:3001/api/users')//'http://localhost:3001/api/users'  https://book-shop-dep.vercel.app/api/users
           .then((response) => {
             setUsers(response.data?.response || []);
             setLoading(false); 

@@ -19,8 +19,8 @@ const NaviBar = () => {
     .then(res => {
       if(res.data.status){
         sessionStorage.removeItem('userEmail');
-        window.location.reload();
-        navigate('/UserHome_C')
+        //window.location.reload();
+        navigate('/')
       }
     }).catch(err => {
       console.log(err)
@@ -31,7 +31,7 @@ const NaviBar = () => {
     <div className="menu-body">
   <nav>
     <ul className='nav-bar'>
-      <li className='logo'><a href='/UserHome_C'><img src={logo} alt="Logo"/></a></li>
+      <li className='logo'><a href='/'><img src={logo} alt="Logo"/></a></li>
       <input type='checkbox' id='check' />
       <span className="menu">
         <li><a href="/UserHome_C" className="phone-logo"><img src={logo} alt="Logo"/></a></li>
