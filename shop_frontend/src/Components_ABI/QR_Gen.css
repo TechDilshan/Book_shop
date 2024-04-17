@@ -1,49 +1,48 @@
 .qrContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    width: 30%;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
-  }
-  
-  .qrContainer p {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .qrCoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .qr-input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    padding-top: 10px;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .generate-button,
-  .download-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .generate-button:hover,
-  .download-button:hover {
-    background-color: #0056b3; 
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 30%;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.qrContainer p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.qrCoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding-top: 10px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.generate-button,
+.download-button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.generate-button:hover,
+.download-button:hover {
+  background-color: #0056b3; 
+}

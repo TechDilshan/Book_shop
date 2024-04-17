@@ -1,4 +1,4 @@
-/* Style the table */
+/* Style the table
 
 table {
   width: 100%;
@@ -38,7 +38,7 @@ tr:hover {
 
 td:first-child {
   text-align: center;
-}
+} */
 
 .anticon {
   color: #1890ff; 
@@ -48,12 +48,12 @@ td:first-child {
 .arrow{
     border-radius: 50%;
 }
-
+/* 
 .delete{
   background-color: red;
   color: white;
   font-weight: bold;
-}
+} */
 
 .delete:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
@@ -92,14 +92,14 @@ td:first-child {
   z-index: 9999;
 }
 
-.alert-container {
+/* .alert-container {
   width: 400px; 
   height: 100px; 
   background-color: white; 
   border-radius: 8px; 
   padding: 20px; 
   z-index: 10000; 
-}
+} */
 
 
 .PurchaseOrder-details {
@@ -127,7 +127,7 @@ td:first-child {
   align-items: center; 
   margin: 20px 0 40px 30px;
 }
-
+/* 
 .POID_Serach input {
   padding: 8px 12px;
   border: 1px solid #ccc;
@@ -149,5 +149,5 @@ td:first-child {
 .FM_PO_table .action-buttons button {
   margin-right: 8px; 
 }
-
+ */
 

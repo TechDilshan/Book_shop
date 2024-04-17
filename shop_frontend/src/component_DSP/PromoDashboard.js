@@ -31,7 +31,7 @@ function Dashboard() {
       </div>
        
       
-    <div className='flex mx-auto' >
+    <div className='flex' >
       
     <div className="h-screen  bg-gray-100 shadow-xl w-64">
       <div className="px-8 pt-20">
@@ -46,7 +46,9 @@ function Dashboard() {
         </nav>
       </div>
     </div>
-    <div className="md:container md:mx-auto ">
+
+    {/* Header start */}
+    <div className="md:container md:mt-[250px] ">
         
     <header className="flex justify-between items-center m-20">
         <img src={logo} alt="Logo" className="w-20" />
