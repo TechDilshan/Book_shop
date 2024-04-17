@@ -280,7 +280,8 @@ const ShoppingCart = () => {
         <div className="total-amount">Total : LKR.{total}</div>
 
         <div class="pay-now-button-container">
-          <button class="pay-now-button">Pay Now</button>
+        <a href="/Shippingscreen">
+          <button class="pay-now-button">Pay Now</button></a>
         </div>
         <Link to={`/promopage/${total}`}>
           <button className="coupon">Looking for DISCOUNT?</button>
