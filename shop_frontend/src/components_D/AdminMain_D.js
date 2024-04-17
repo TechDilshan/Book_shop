@@ -211,6 +211,7 @@ export default function AllPapers() {
                             className='boxesforInSe_D'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
+                            min="1"
                             required
                         />
                         <br /><br />
