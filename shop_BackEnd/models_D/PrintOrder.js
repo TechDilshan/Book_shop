@@ -7,8 +7,8 @@ const PrintOrderSchema = new Schema({
         type: String,
     },
     document: {
-        data: Buffer, // Store the doc as binary data
-        contentType: String // Store the content type (eg - application/pdf, image/jpg)
+        data: Buffer,
+        contentType: String
     },
     colour: {
         type: String,
