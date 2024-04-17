@@ -16,6 +16,31 @@ const Shippingscreen_Drew = () => {
 
   function submitHandler(e) {
     e.preventDefault();
+    
+    // Required field validation
+    if (!fullName || !address || !city || !postalCode || !phone || !email) {
+      alert('Please fill in all fields.');
+      return;
+    }
+  
+    // Format validation for postal code
+    if (!/^\d{5}$/.test(postalCode)) {
+      alert('Please enter a valid 5-digit postal code.');
+      return;
+    }
+  
+    // Format validation for email address
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+  
+    // Format validation for phone number
+    if (!/^\d{10}$/.test(phone)) {
+      alert('Please enter a valid 10-digit phone number.');
+      return;
+    }
+  
     const shippingAddress = {
       fullName,
       address,
@@ -24,7 +49,7 @@ const Shippingscreen_Drew = () => {
       phone,
       email
     };
-
+  
     axios
       .post("http://localhost:3004/shipping/add", shippingAddress)
       .then(() => {
@@ -35,6 +60,8 @@ const Shippingscreen_Drew = () => {
         alert(err);
       });
   }
+  
+  
 
   return (
     <div className="bg-gray-100 min-h-screen">

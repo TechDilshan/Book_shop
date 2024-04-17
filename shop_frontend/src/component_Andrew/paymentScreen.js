@@ -7,14 +7,20 @@ import Navi from '../Navi';
 
 const PaymentScreen = () => {
   const navigate = useNavigate();
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [showDetails, setShowDetails] = useState(false); // State to control the visibility of additional details
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!paymentMethod) {
+      // If payment method is not selected, prevent form submission and display an error message
+      alert('Please select a payment method.');
+      return;
+    }
     localStorage.setItem('paymentMethod', paymentMethod);
     navigate('/place');
   };
+  
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -107,9 +113,10 @@ const PaymentScreen = () => {
               </div>
             )}
 
-            <Button type='submit' variant='primary' className="mt-4 w-full bg-blue-600 hover:bg-blue-700">
-              Continue
+            <Button type='submit' variant='primary' className="mt-4 w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700">
+             Continue
             </Button>
+
           </Form>
         </div>
       </div>

@@ -14,24 +14,49 @@ export default function PlaceOrder() {
 
   function sendData(e) {
     e.preventDefault();
-
+  
+    // Validate required fields
+    if (!cardHolderName || !cardNumber || !expiryDate || !cvv) {
+      alert("Please fill in all fields.");
+      return;
+    }
+  
+    // Validate card number format (numeric)
+    if (!/^\d{16}$/.test(cardNumber)) {
+      alert("Please enter a valid card number.");
+      return;
+    }
+  
+    // Validate CVV format (numeric)
+    if (!/^\d{3}$/.test(cvv)) {
+      alert("Please enter a valid CVV.");
+      return;
+    }
+  
+    // Validate expiry date format (MM/YY)
+    if (!/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/.test(expiryDate)) {
+      alert("Please enter a valid expiry date (MM/YY).");
+      return;
+    }
+  
     const newPayment = {
-        cardHolderName,
-        cardNumber,
-        expiryDate,
-        cvv
+      cardHolderName,
+      cardNumber,
+      expiryDate,
+      cvv
     };
-
+  
     axios
       .post("http://localhost:3004/payment/add", newPayment)
       .then(() => {
         alert("Payment Details were recorded.");
-        navigate('/OrderReview');
+        navigate('/UserHome_C');
       })
       .catch((err) => {
         alert(err);
       });
   }
+  
 
   return (
     <div>
