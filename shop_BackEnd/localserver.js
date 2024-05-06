@@ -8,6 +8,11 @@ const mongoose = require('mongoose');
 const bodyPaeser = require('body-parser');
 const nodemailer = require('nodemailer');
 
+const pricechartrouter = require('./routes_D/PrintPriceCharts.js');
+const printorderrouter = require('./routes_D/PrintOrders.js');
+const notificationRouter = require('./routes_D/Notifications.js'); 
+
+
 const dotenv = require('dotenv');
 require('dotenv').config();
 
@@ -46,6 +51,9 @@ const connect = async () => { // Function to connect to MongoDB database
 
 connect(); // Call the connect function to establish connection to MongoDB
 
+app.use('/printprice', pricechartrouter);
+app.use('/printorders', printorderrouter);
+app.use('/notifications', notificationRouter);
 
 //________________________________________________________________________________________________________
 // Nodemailer transporter setup
@@ -91,10 +99,6 @@ const couponRouter = require("./routes/coupons.js")
 
 const server = app.listen(port, host, () => {
     console.log(`Node server is listening to ${server.address().port}`)
-});
-
-const server_U = app_U.listen(port_U, host, () => {
-    console.log(`Node server is listening to ${server_U.address().port}`)
 });
 
 app.use('/api', router,couponRouter,feedbackRouter,router_U,router_note);

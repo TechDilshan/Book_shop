@@ -43,7 +43,7 @@ export default function OrderDisplayAdmin() {
 
     // Getting the data from the DB
     const getAllPrintingOrders = () => {
-        axios.get("http://localhost:3003/printorders/")
+        axios.get("http://localhost:3001/printorders/")
             .then((res) => {
                 setAllPrintingOrders(res.data);
             })
@@ -120,7 +120,7 @@ export default function OrderDisplayAdmin() {
         if (!notificationsSent.includes(documentID)) {
             setLoading(true);
         
-            axios.post('http://localhost:3003/notifications/sendNotification', { orderDetails })
+            axios.post('http://localhost:3001/notifications/sendNotification', { orderDetails })
                 .then(response => {
                     setLoading(false);
                     if (response && response.data && response.data.message) {

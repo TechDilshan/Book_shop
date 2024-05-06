@@ -10,7 +10,7 @@ function PrintOrderForm({ printOrder, onUpdate, allPaperSizes }) {
     const handleDelete = () => {
         const confirmation = window.confirm("Are you sure you want to delete this order?");
         if (confirmation) {
-          axios.delete(`http://localhost:3003/printorders/delete/${printOrder._id}`)
+          axios.delete(`http://localhost:3001/printorders/delete/${printOrder._id}`)
             .then(response => {
               console.log(response.data);
               alert("Print Order Deleted Successfully");

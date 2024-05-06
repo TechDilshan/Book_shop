@@ -25,7 +25,7 @@ export default function AllPapers() {
     const handleDelete = (priceChartid) => {
         const confirmation = window.confirm("Are you sure you want to delete this paper size?");
         if (confirmation) {
-            axios.delete(`http://localhost:3003/printprice/delete/${priceChartid}`)
+            axios.delete(`http://localhost:3001/printprice/delete/${priceChartid}`)
                 .then(() => {
                     alert("Paper Size Deleted Successfully");
                     getAllPaperSizes();
@@ -40,7 +40,7 @@ export default function AllPapers() {
     
     //Getting the data from the DB
     const getAllPaperSizes = () =>{
-        axios.get("http://localhost:3003/printprice/")
+        axios.get("http://localhost:3001/printprice/")
             .then((res) => {
                 setAllPaperSizes(res.data);
             })
@@ -77,7 +77,7 @@ export default function AllPapers() {
     
         if (selectedPaper) {
             // If selectedPaper exists, update
-            axios.put(`http://localhost:3003/printprice/update/${selectedPaper._id}`, newPaperSize)
+            axios.put(`http://localhost:3001/printprice/update/${selectedPaper._id}`, newPaperSize)
                 .then(() => {
                     alert("Price Of The Paper Updated Successfully");
                     setAddSection(false);
@@ -89,7 +89,7 @@ export default function AllPapers() {
                 });
         } else {
             // If selectedPaper is null, add
-            axios.post("http://localhost:3003/printprice/add", newPaperSize)
+            axios.post("http://localhost:3001/printprice/add", newPaperSize)
                 .then(() => {
                     alert("New Paper Size Added Successfully");
                     // Clear the form after successful submission

@@ -20,7 +20,7 @@ const AddPaperSize = () => {
     }
 
     // Adding a paper size through the form to the DB
-    axios.post("http://localhost:3003/printprice/add", newPaperSize)
+    axios.post("http://localhost:3001/printprice/add", newPaperSize)
       .then(() => {
         alert("New paper size added successfully")
         // Clear the form after successful submission

@@ -9,7 +9,7 @@ function PriceTable() {
 
   // Get data from the database
   useEffect(() => {
-    axios.get("http://localhost:3003/printprice/")
+    axios.get("http://localhost:3001/printprice/")
       .then((response) => {
         // Group data by paper size
         const groupedData = groupData(response.data);

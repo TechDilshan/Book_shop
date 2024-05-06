@@ -83,7 +83,7 @@ function PriceTable() {
       documentID: documentID,
     };
   
-    axios.post('http://localhost:3003/printorders/add', formDataWithUserEmail)
+    axios.post('http://localhost:3001/printorders/add', formDataWithUserEmail)
       .then((response) => {
         console.log(response.data);
         setLoading(false); // Reset loading state
@@ -143,7 +143,7 @@ function PriceTable() {
   }));
 
     // Fetch paper sizes data
-    axios.get("http://localhost:3003/printprice/")
+    axios.get("http://localhost:3001/printprice/")
       .then((response) => {
         // Group data by paper size
         const groupedData = groupData(response.data);
@@ -191,7 +191,7 @@ function PriceTable() {
 
   const fetchLatestPrintOrder = async () => {
     try {
-      const response = await axios.get(`http://localhost:3003/printorders/latest/${sessionStorage.getItem('userEmail')}`);
+      const response = await axios.get(`http://localhost:3001/printorders/latest/${sessionStorage.getItem('userEmail')}`);
       setLatestPrintOrder(response.data.printOrder);
       setDataFetched(true);
     } catch (error) {
@@ -202,7 +202,7 @@ function PriceTable() {
   const handleViewOrderClick = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3003/printorders/latest/${sessionStorage.getItem('userEmail')}`
+        `http://localhost:3001/printorders/latest/${sessionStorage.getItem('userEmail')}`
       );
       const latestPrintOrderData = response.data.printOrder;
       setLatestPrintOrder(latestPrintOrderData);
@@ -214,7 +214,7 @@ function PriceTable() {
 
   useEffect(() => {
     // Fetch all print orders
-    axios.get("http://localhost:3003/printorders")
+    axios.get("http://localhost:3001/printorders")
       .then(response => {
         setAllPrintOrders(response.data);
       })
@@ -231,7 +231,7 @@ function PriceTable() {
 
     // Function to handle update form submission
     const handleUpdateSubmit = (updatedData) => {
-        axios.put(`http://localhost:3003/printorders/update/${updatePrintOrder._id}`, updatedData)
+        axios.put(`http://localhost:3001/printorders/update/${updatePrintOrder._id}`, updatedData)
             .then(response => {
                 console.log(response.data);
                 alert("Print Order Updated Successfully");
