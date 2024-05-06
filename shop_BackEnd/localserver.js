@@ -20,6 +20,7 @@ const host = 'localhost';
 
 const router = require('./router');
 const router_U = require('./router_U');
+const router_note = require('./router_note')
 
 
 app_a.use(cors());
@@ -98,7 +99,7 @@ const server_U = app_U.listen(port_U, host, () => {
 });
 
 app.use('/api', router,couponRouter,feedbackRouter);
-app_U.use('/api_U', router_U);
+app_U.use('/api_U', router_U,router_note);
 
 //ABI
 

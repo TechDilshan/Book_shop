@@ -39,4 +39,32 @@ app.post('/deletecart',(req,res) => { // Route to handle deleting a cart item
     });
 });
  
+
+
+//Message
+
+app_U.post('/createmessage',(req,res) => { // Route to handle creating a new cart item
+    controller_U.createMessage(req.body, (callack) => { // Call the createCart function from the controller module and send the response
+        res.send(callack);
+    });
+});
+
+
+app.get('/getmessage',(req,res) => { // Route to handle retrieving all cart items
+    controller_U.getMessage((req, res, next) => { // Call the getCart function from the controller module and send the response back
+        res.send();
+    });
+});
+
+app.post('/updatemessage',(req,res) => { // Route to handle updating a cart item
+    controller_U.updateMessage(req.body, (callack) => {  // Call the updateCart function from the controller module and send the response back
+        res.send(callack);
+    });
+});
+
+app.post('/deletemessage',(req,res) => { // Route to handle deleting a cart item
+    controller_U.deleteMessage(req.body, (callack) => { // Call the deleteCart function from the controller module and send the response back
+        res.send(callack);
+    });
+});
 module.exports = app_U; // Export the express application

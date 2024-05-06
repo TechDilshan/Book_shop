@@ -1,0 +1,76 @@
+/* ShoppingNote.css */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .form-input {
+    margin-bottom: 15px;
+  }
+  
+  .form-input input,
+  .form-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .form-input textarea {
+    height: 100px;
+  }
+  
+  .btn-container {
+    margin-top: 20px;
+  }
+  
+  .btn-container button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .btn-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .notes-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notes-list li {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .notes-list li div {
+    margin-bottom: 10px;
+  }
+  
+  .notes-list li div:last-child {
+    margin-bottom: 0;
+  }
+  
+  .action-buttons button {
+    margin-right: 10px;
+  }
+  

@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ShoppingCart from './ShoppingCart'
+import ShoppingCart from './ShoppingCart';
+import ShoppingNote from './ShoppingNote';
 import Users from './component_Dila/Users';
 import AdminDisplay from './component_Dila/AdminDisplay';
 import UserHome from './component_Dila/UserHome_C';
@@ -93,6 +94,7 @@ root.render(
         <Route path='/UserHome_C' element={<UserHome />} />
         <Route path='/ProductDetails_C' element={<ProductDetails />} />
         <Route path='/shopping-cart' element={<ShoppingCart />} />
+        <Route path='/ShoppingNote' element={<ShoppingNote />} />
 
         {/*  Routes Promotion Management - DILINA */}
        <Route path='/promopagetest' element={<PromoPageTest />} />
