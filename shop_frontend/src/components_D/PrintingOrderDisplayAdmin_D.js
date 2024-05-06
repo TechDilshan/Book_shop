@@ -10,6 +10,14 @@ import { storage } from "../firebase";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
+
+// Banner
+const Banner2 = () => (
+    <div className="banner2">
+      <p className="slogan2"><span className="bold-italic2_D">Document Management Perfected  :  </span> Download with Ease, Serve with Pride!</p>
+    </div>
+  );
+
 export default function OrderDisplayAdmin() {
     const [allprintingorders, setAllPrintingOrders] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -144,6 +152,9 @@ export default function OrderDisplayAdmin() {
             </div>
             <div>
                 <h1 className='AllprintTop'>All Printing Orders</h1>
+                <div>
+                    <Banner2/>
+                </div>
                 <div>
                     <input
                         type="text"

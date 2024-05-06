@@ -98,6 +98,7 @@ const Users = () => {
 
   // Delete existing product using this url
   const deleteUser = (data) => {
+    alert("Do you want to delete this product ..!")
     Axios.post('http://localhost:3001/api/deleteuser', data)//http://localhost:3001/api/deleteuser  https://book-shop-dep.vercel.app/api/deleteuser
       .then((response) => {
         getUsers();

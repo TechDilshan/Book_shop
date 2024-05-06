@@ -5,6 +5,13 @@ import '../components_D/AdminStyle_D.css';
 import Foot from '../footer';
 import NaviPrintManager from '../components_D/NaviPrintManager_D';
 
+// Banner
+const Banner1 = () => (
+    <div className="banner1">
+      <p className="slogan1">Empowering Precision, Exceeding Expectations: Your Printing Order Headquarters!</p>
+    </div>
+  );
+
 export default function AllPapers() {
     const [allpaperSizes, setAllPaperSizes] = useState([]);
     const [addSection, setAddSection] = useState(false);
@@ -128,6 +135,9 @@ export default function AllPapers() {
             {!addSection && (
                 <div>
                     <h1 className='Allpapertop'>All Paper Sizes</h1>
+                    <div>
+                        <Banner1/>
+                    </div>
                     <table className="admintable">
                         <thead>
                             <tr>

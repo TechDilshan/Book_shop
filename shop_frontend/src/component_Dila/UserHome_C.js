@@ -168,7 +168,7 @@ const UserHome_C = () => {
                         value={maxPrice} 
                         onChange={(e) => setMaxPrice(e.target.value)} 
                         onKeyPress={(e) => {
-                          if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {  //validate input details
+                          if (e.key === '-' || e.key === 'e' || e.key === ',') {  //validate input details
                             e.preventDefault();
                           }
                         }}
@@ -180,7 +180,7 @@ const UserHome_C = () => {
                         value={minPrice} 
                         onChange={(e) => setMinPrice(e.target.value)} 
                         onKeyPress={(e) => {
-                          if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                          if (e.key === '-' || e.key === 'e' || e.key === ',') {
                             e.preventDefault();
                           }
                         }}
