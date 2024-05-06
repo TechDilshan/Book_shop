@@ -23,7 +23,7 @@ const ShoppingNote = () => {
 
   const getMessage = () => {
     const FetchDetails = () => {  // Send a GET request to the server to fetch cart details
-      Axios.get('http://localhost:3002/api_U/getmessage')
+      Axios.get('http://localhost:3001/api/getmessage')
         .then((response) => {
           setNotes(response.data?.response || []); // Set the fetched cart details to the 'carts' state
         })
@@ -59,7 +59,7 @@ const ShoppingNote = () => {
                 note: noteText,
             }
           
-            Axios.post('http://localhost:3002/api_U/createmessage', payload) // Send a POST request to the server to create a new cart item
+            Axios.post('http://localhost:3001/api/createmessage', payload) // Send a POST request to the server to create a new cart item
             .then((response) => {
                 // Handle response if needed
             })
@@ -100,7 +100,7 @@ const updateM = () => {
 
       console.log(payload);
 
-      Axios.post('http://localhost:3002/api_U/updatemessage', payload)
+      Axios.post('http://localhost:3001/api/updatemessage', payload)
           .then((response) => {
               console.log("Success");
           })
@@ -113,7 +113,7 @@ const updateM = () => {
 };
 
 const deleteMessage = () => {
-  Axios.post('http://localhost:3002/api_U/deletemessage', { email: userEmail }) // Send a POST request to the server to delete the cart item
+  Axios.post('http://localhost:3001/api/deletemessage', { email: userEmail }) // Send a POST request to the server to delete the cart item
       .then((response) => {
       })
       .catch((error) => {

@@ -17,7 +17,7 @@ const createCart = ({ productId, qty, stk}) => { // Function to create a new car
         console.log('q', qty);
         console.log('e', userEmail);
     
-        Axios.post('http://localhost:3002/api_U/createcart', payload) // Send a POST request to the server to create a new cart item
+        Axios.post('http://localhost:3001/api/createcart', payload) // Send a POST request to the server to create a new cart item
             .then((response) => {
                 // Handle response if needed
             })

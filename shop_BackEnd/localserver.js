@@ -14,7 +14,6 @@ require('dotenv').config();
 app.use(bodyPaeser.json()); 
 
 const port = process.env.PORT || 3001;
-const port_U = 3002;
 //const host = 'https://book-shop-nine-jet.vercel.app';
 const host = 'localhost';
 
@@ -98,8 +97,7 @@ const server_U = app_U.listen(port_U, host, () => {
     console.log(`Node server is listening to ${server_U.address().port}`)
 });
 
-app.use('/api', router,couponRouter,feedbackRouter);
-app_U.use('/api_U', router_U,router_note);
+app.use('/api', router,couponRouter,feedbackRouter,router_U,router_note);
 
 //ABI
 

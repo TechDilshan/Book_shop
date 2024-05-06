@@ -148,7 +148,7 @@ const ShoppingCart = () => {
   };
 
   const deleteCart = (id) => { // Function to delete a cart item by its ID
-    Axios.post('http://localhost:3002/api_U/deletecart', { id: id }) // Send a POST request to the server to delete the cart item
+    Axios.post('http://localhost:3001/api/deletecart', { id: id }) // Send a POST request to the server to delete the cart item
       .then((response) => {
         setCarts(prevCarts => prevCarts.filter(cart => cart.id !== id));   // Update the 'carts' state by removing the deleted cart item
       })
@@ -158,7 +158,7 @@ const ShoppingCart = () => {
   };
 
   const getCart = () => {  // Function to fetch cart data from the server
-    Axios.get(`http://localhost:3002/api_U/getcart`)  // Send a GET request to the server to fetch cart data
+    Axios.get(`http://localhost:3001/api/getcart`)  // Send a GET request to the server to fetch cart data
       .then((response) => {
         setCarts2(response.data?.response || []); // Set the fetched cart data to the 'carts2' state
       })
@@ -175,7 +175,7 @@ const ShoppingCart = () => {
 
     const updateCart = (id, quantity) => {  // Function to update the quantity of a cart item
      
-      Axios.post('http://localhost:3002/api_U/updateCart', { id: id, quantity: quantity })  // Send a POST request to the server to update the cart item's quantity
+      Axios.post('http://localhost:3001/api/updateCart', { id: id, quantity: quantity })  // Send a POST request to the server to update the cart item's quantity
         .then((response) => {
           
           // Update the 'carts2' state by mapping over the previous carts and updating the quantity of the matching cart item
