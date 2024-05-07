@@ -78,6 +78,6 @@ connect();
 
 // Start the server
 const server = app.listen(port, host, () => {
-  console.log(`Node server is listening on ${server.address().port}`);
+  //console.log(`Node server is listening on ${server.address().port}`);
 });
 

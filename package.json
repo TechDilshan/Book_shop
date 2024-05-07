@@ -18,6 +18,6 @@
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd shop_frontend && npm start",
-    "dev:backend": "cd shop_BackEnd && concurrently \"nodemon localserver.js\" \"nodemon server_D.js\" \"nodemon server_ss.js\" \"nodemon server_A.js\" \"nodemon server_ABI\""
+    "dev:backend": "cd shop_BackEnd && concurrently \"nodemon localserver.js\" \"nodemon server_ss.js\" \"nodemon server_A.js\" \"nodemon server_ABI\""
   }
 }

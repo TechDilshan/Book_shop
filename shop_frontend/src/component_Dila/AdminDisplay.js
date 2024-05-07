@@ -4,8 +4,9 @@ import { Paper } from "@mui/material";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { useNavigate } from 'react-router-dom';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import StockUpdate_C from './StockUpdate_C';
+import logoImage from '../image/logo.jpg';
 
 //PDF generation - Styles
 const styles = StyleSheet.create({
@@ -35,6 +36,16 @@ const styles = StyleSheet.create({
     color: '#333', 
     padding: 10, 
     marginTop: 20,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginRight: 50,
+  },
+  date: {
+    fontSize: 12,
+    marginBottom: 2,
+    color: '#666',
   },
 });
 
@@ -78,12 +89,19 @@ const AdminDisplay = ({ rows, selectedUser, deleteUser }) => {
     setSelectedCategory(category);
   };
 
-
+  const currentDate = new Date().toLocaleString();
   //Generating pdf file using 'data' parameter
   const MyDocument = ({ data }) => (
+    
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.topic}>Rathiy Intech {selectedCategory} Available Item List</Text>
+      <View style={styles.header}>
+          <Image src={logoImage} style={styles.logo} />
+          <View>
+            <Text style={styles.date}>Generated Product pdf on: {currentDate}</Text>
+            <Text style={styles.topic}>Rathiy Intech Available Item List</Text>
+          </View>
+      </View>
         <View style={styles.table}>
           {data.map((row) => (
             <View key={row.id} style={styles.tableRow}>

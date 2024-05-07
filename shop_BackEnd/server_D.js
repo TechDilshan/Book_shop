@@ -30,7 +30,7 @@
 // app.use('/notifications', notificationRouter);
 
 // const server = app.listen(port, host, () => {
-//     console.log(`Node server is listening to ${server.address().port}`);
+//     //console.log(`Node server is listening to ${server.address().port}`);
 // });
 
 // // Graceful shutdown
