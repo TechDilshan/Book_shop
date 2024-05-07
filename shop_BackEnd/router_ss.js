@@ -7,7 +7,7 @@ const EmployeeSal = require('./modelSal');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
-const KEY = "jwttokenkey"; // Define KEY globally
+const KEY = "jwttokenkey"; 
 
 router.post('/registor', async (req, res) => {
   const { username, email, number, address, password } = req.body;
@@ -110,6 +110,8 @@ router.post('/forgot-password', async (req, res) => {
     console.log(err)
   }
 })
+
+
 
 router.post('/reset-password/:token', async (req, res) => {
   const { token } = req.params;
@@ -215,7 +217,6 @@ router.delete('/deleteCustomerDetails', async (req, res) => {
   try {
       const { userEmail } = req.body;
 
-      // Delete customer details using userEmail
       await Customer.deleteOne({ email: userEmail });
 
       return res.status(200).json({ message: "Customer details deleted successfully" });
@@ -281,7 +282,7 @@ router.delete('/deleteEmployeeDetails', async (req, res) => {
   try {
       const { employeeId } = req.body;
 
-      // Delete employee details using employeeId
+    
       await Employee.deleteOne({ _id: employeeId });
 
       return res.status(200).json({ message: "Employee details deleted successfully" });
@@ -351,30 +352,11 @@ console.log(perDaySalaries)
 
 
 
-// router.get('/getpaysheet', async (req, res) => {
-//   try {
-//       const { userEmail } = req.query;
-      
-//       if (!userEmail) {
-//           return res.status(400).json({ message: "User email is required" });
-//       }
 
-//       const employee = await EmployeeSal.findOne({ employeeEmail: userEmail });
-
-//       if (!employee) {
-//           return res.status(404).json({ message: "Employee not found" });
-//       }
-
-//       return res.status(200).json({ response: employee });
-//   } catch (error) {
-//       console.error("Error fetching employee salary details:", error);
-//       return res.status(500).json({ message: "Internal Server Error" });
-//   }
-// });
 router.get('/getpaysheet', async (req, res) => {
   try {
-    const userEmail = req.query.email; // Retrieve email from query parameters
-    const emp = await EmployeeSal.find({ email: userEmail }); // Find all employees with the specified email
+    const userEmail = req.query.email; 
+    const emp = await EmployeeSal.find({ email: userEmail }); 
 
     if (!emp || emp.length === 0) {
       return res.status(404).json({ message: "Employee not found" });

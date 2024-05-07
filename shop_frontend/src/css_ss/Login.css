@@ -1,54 +1,12 @@
-/* .loginForm {
-  width: 100%;
-  height: 100vh; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-}
-.h1login{
-  size: 20px;
-}
-
-.loginForm .login-form {
-  width: 100%; 
-  max-width: 400px; 
-  padding: 50px;
-  border: 1px solid #e8e8e8;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-}
-
-.loginForm .login-form-forgot {
-  float: right;
-}
-
-.loginForm .login-form-button {
-  width: 100%;
-}
-
-.loginForm .register-link {
-  margin-left: 5px;
-}
-
-.forget-password {
-  padding-left: 120px;
-  color: initial; 
-  cursor: pointer; 
-}
-
-.forget-password:hover {
-  color: blue; 
-} */
-
 
 .loginForm {
-  max-width: 400px;
+  max-width: 500px;
+  max-height: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f5ff; /* Light blue background */
+  background-color: #f0f5ff; 
 }
 
 .login-form {
@@ -56,16 +14,20 @@
   flex-direction: column;
 
 }
+.namel{
+  font-size: 30px;
+  margin: 0 auto;
+}
 
 .login-form h3 {
   margin-bottom: 20px;
-  color: #1890ff; /* Blue text */
+  color: #1890ff; 
 text-align: left;
   
 }
 
 .site-form-item-icon {
-  color: #1890ff; /* Blue icon color */
+  color: #1890ff; 
 }
 
 .site-form-item-icon svg {
@@ -73,7 +35,7 @@ text-align: left;
 }
 
 .forget-password {
-  color: #1890ff; /* Blue text for forgot password */
+  color: #1890ff; 
   cursor: pointer;
   text-align: center;
 }
@@ -84,17 +46,17 @@ text-align: left;
 
 .login-form-button {
   width: 100%;
-  background-color: #1890ff; /* Blue button */
+  background-color: #1890ff; 
   border: none;
 }
 
 .login-form-button:hover {
-  background-color: #40a9ff; /* Lighter blue on hover */
+  background-color: #40a9ff; 
   border: none;
 }
 
 .register-link {
-  color: #1890ff; /* Blue text for registration and employee login links */
+  color: #1890ff; 
 }
 
 .register-link:hover {

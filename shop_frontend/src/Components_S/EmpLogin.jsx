@@ -94,7 +94,7 @@ const EmpLogin = () => {
         onFinish={handleSubmit}
       >
 
-        <h3>Employee Login</h3>
+        <h3 className="namel">Employee Login</h3>
         <Form.Item
           name="email"
           rules={[

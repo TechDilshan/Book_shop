@@ -165,56 +165,38 @@ const PromotionMProfile = () => {
             <div className='customerProfile'>
                 <h1>Profile Manager</h1>
                 <div className="avatar-container">
-                    <Upload
-                        name="avatar"
-                        listType="picture-circle"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                        beforeUpload={beforeUpload}
-                        onChange={handleChange}
-                    >
-                        {imageUrl ? (
-                            <img
-                                src={imageUrl}
-                                alt="avatar"
-                                className="avatar-image"
-                            />
-                        ) : (
-                            uploadButton
-                        )}
-                    </Upload>
+
                 </div>
                 {data ? (
                     <div className="user-details-table">
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>User Name:</td>
+                                    <td>User Name</td>
                                     <td>{data?.username}</td>
                                 </tr>
                                 <tr>
-                                    <td>Full Name:</td>
+                                    <td>Full Name</td>
                                     <td>{data?.fullname}</td>
                                 </tr>
                                 <tr>
-                                    <td>E-mail:</td>
+                                    <td>E-mail</td>
                                     <td>{data?.email}</td>
                                 </tr>
                                 <tr>
-                                    <td>Address:</td>
+                                    <td>Address</td>
                                     <td>{data?.address}</td>
                                 </tr>
                                 <tr>
-                                    <td>Phone No:</td>
+                                    <td>Phone No</td>
                                     <td>{data?.number}</td>
                                 </tr>
                                 <tr>
-                                    <td>NIC:</td>
+                                    <td>NIC</td>
                                     <td>{data?.nic}</td>
                                 </tr>
                                 <tr>
-                                    <td>Employee Roll:</td>
+                                    <td>Employee Roll</td>
                                     <td>{data?.eroll}</td>
                                 </tr>
                             </tbody>
@@ -366,7 +348,8 @@ const PromotionMProfile = () => {
 
                 </div>
             </div>
-            <p>Total Salary : Rs. {sum}.00</p>
+            <p>Total Salary : Rs. {sum}.00 <Link to='/empaysheet'><button type="primary" htmlType="submit" className="sub1515">summary</button></Link></p>
+
 
         </div>
     );

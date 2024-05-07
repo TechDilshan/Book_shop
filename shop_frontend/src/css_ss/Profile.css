@@ -4,7 +4,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f5ff; /* Light blue background */
+  background-color: #f0f5ff; 
 }
 
 .customerProfile {
@@ -67,3 +67,26 @@
   border-color: #1890ff; /* Blue border color */
 }
 
+
+.user-details-table td {
+  padding: 12px; /* Increase padding for better alignment */
+  text-align: left; /* Align text to the left */
+}
+
+.user-details-table tr:last-child td {
+  border-bottom: none; /* Remove bottom border for the last row */
+}
+
+
+.button-container .ant-btn-danger {
+  background-color: #ff0004; /* Red background color */
+  border-color: #ff0004; /* Red border color */
+}
+
+.button-container .ant-btn-danger:hover {
+  background-color: #ff3f3b; /* Lighter red on hover */
+  border-color: #ff3f3b; /* Lighter red border on hover */
+}
+.xcs{
+  color: #f0f5ff;
+}

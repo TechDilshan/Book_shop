@@ -7,6 +7,11 @@
   background-color: #f0f5ff; /* Light blue background */
 }
 
+.ren{
+  font-size: 30px;
+  margin: 0 auto;
+}
+
 .register-main-box {
   text-align: center; /* Center align the content */
 }

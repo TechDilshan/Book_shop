@@ -135,21 +135,6 @@ const Profile = () => {
         <div className="customerProfile">
           <h3>My Account</h3>
           <div className="avatar-container">
-            <Upload
-              name="avatar"
-              listType="picture-circle"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imageUrl ? (
-                <img src={imageUrl} alt="avatar" className="avatar-image" />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
           </div>
           {data ? (
             <div className="user-details-table">
@@ -175,12 +160,7 @@ const Profile = () => {
               </table>
             </div>
           ) : (
-            // <div className="user-details">
-            //     <p>User Name: {data?.username}</p>
-            //     <p>E-mail: {data?.email}</p>
-            //     <p>Address: {data?.address}</p>
-            //     <p>Phone No: {data?.number}</p>
-            // </div>
+
             <p>Loading...</p>
           )}
 
@@ -278,7 +258,7 @@ const Profile = () => {
               </Form>
             </Modal>
 
-            <Button type="danger" onClick={handleDelete}>
+            <Button type="danger" onClick={handleDelete} className="xcs">
               Delete
             </Button>
           </div>

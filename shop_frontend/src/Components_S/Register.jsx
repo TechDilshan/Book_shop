@@ -58,7 +58,7 @@ const Register = () => {
       </div>
     <div className="Registercontainer">
       <div className="register-main-box">
-        <h2>Sign Up!</h2>
+        <h2 className="ren">Sign Up!</h2>
 
         <Form
           name="normal_login"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Upload, message, Button, Modal, Form, Input } from "antd";
+import { Upload, message, Button, Modal, Form, Input, Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
 import '../css_ss/Profile.css';
 import { Link } from "react-router-dom";
@@ -105,13 +105,13 @@ const EmpProfile = () => {
 
     const handleChange = (info) => {
         if (info.file.status === 'done') {
-            getBase64(info.file.originFileObj, (imageUrl) => setImageUrl(imageUrl));
+            getBase64(info.file.originFileObj, (imageUrl) => {
+                setImageUrl(imageUrl);
+                console.log('Image URL:', imageUrl); // Log the image URL to the console
+            });
         }
     };
-
-
-
-
+    
 
     const getBase64 = (img, callback) => {
         const reader = new FileReader();
@@ -161,7 +161,7 @@ const EmpProfile = () => {
                 })
                 .catch((error) => {
                     console.error("Deletion failed:", error);
-                    // You may want to display an error message to the user if the deletion fails
+                    
                 });
         }
     };
@@ -206,56 +206,37 @@ const EmpProfile = () => {
                 <div className='customerProfile'>
                     <h3>Profile Manager</h3>
                     <div className="avatar-container">
-                        <Upload
-                            name="avatar"
-                            listType="picture-circle"
-                            className="avatar-uploader"
-                            showUploadList={false}
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            beforeUpload={beforeUpload}
-                            onChange={handleChange}
-                        >
-                            {imageUrl ? (
-                                <img
-                                    src={imageUrl}
-                                    alt="avatar"
-                                    className="avatar-image"
-                                />
-                            ) : (
-                                uploadButton
-                            )}
-                        </Upload>
                     </div>
                     {data ? (
                         <div className="user-details-table">
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>User Name:</td>
+                                        <td>User Name</td>
                                         <td>{data?.username}</td>
                                     </tr>
                                     <tr>
-                                        <td>Full Name:</td>
+                                        <td>Full Name</td>
                                         <td>{data?.fullname}</td>
                                     </tr>
                                     <tr>
-                                        <td>E-mail:</td>
+                                        <td>E-mail</td>
                                         <td>{data?.email}</td>
                                     </tr>
                                     <tr>
-                                        <td>Address:</td>
+                                        <td>Address</td>
                                         <td>{data?.address}</td>
                                     </tr>
                                     <tr>
-                                        <td>Phone No:</td>
+                                        <td>Phone No</td>
                                         <td>{data?.number}</td>
                                     </tr>
                                     <tr>
-                                        <td>NIC:</td>
+                                        <td>NIC</td>
                                         <td>{data?.nic}</td>
                                     </tr>
                                     <tr>
-                                        <td>Employee Roll:</td>
+                                        <td>Employee Roll</td>
                                         <td>{data?.eroll}</td>
                                     </tr>
                                 </tbody>

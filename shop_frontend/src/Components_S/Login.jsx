@@ -75,7 +75,7 @@ const Login = () =>{
         onFinish={handleSubmit}
       >
 
-        <h3>Login</h3>
+        <h3 className="namel">LOGIN</h3>
         <Form.Item
           name="email"
           rules={[
@@ -126,17 +126,19 @@ const Login = () =>{
           >
             Log in
           </Button>
-          Or{" "}
+
+
           <p>
-            Don't have an Account?
+          <br />
+            Don't have an Account? &nbsp; &nbsp; &nbsp; &nbsp;  
             <Link to="/registor" className="register-link">
               Sign Up
             </Link>
           </p>
-
+<br />
 
           <p>
-            If you are an Employee?
+            If you are an Employee? &nbsp; &nbsp; &nbsp; &nbsp; 
             <Link to="/elogin" className="register-link">
               Employee Login
             </Link>

@@ -1,0 +1,67 @@
+
+body {
+  background-color: #f2f2f2; /* Light gray background */
+  color: #333; /* Dark text color */
+}
+
+/* Container styling */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Table styling */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.tblkll {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* White background for table */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+
+.hujbj{
+  width: 50%;
+  border-collapse: collapse;
+  background-color: #fff; /* White background for table */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */ 
+}
+
+
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #007bff; /* Blue header background */
+  color: #fff; /* White text color */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row background color */
+}
+
+/* Button styling */
+.button {
+  background-color: #007bff; /* Blue button background */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+

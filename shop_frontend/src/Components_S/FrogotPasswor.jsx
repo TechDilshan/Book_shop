@@ -9,9 +9,10 @@ function FrogotPasswor(){
 
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (values) => {
+    values.preventDefault()
     Axios.post('http://localhost:5000/auth/forgot-password', { 
+      email: values.email, 
       email,
     }).then(response => {
       if (response.data.status){
