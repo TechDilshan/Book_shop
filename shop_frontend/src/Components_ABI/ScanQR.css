@@ -101,6 +101,12 @@
   margin-left: 600px;
 }
 
+.ScanQr_Table th {
+  padding: 8px;
+  text-align: center; 
+  background-color: #0649f0;
+}
+
 
 
 

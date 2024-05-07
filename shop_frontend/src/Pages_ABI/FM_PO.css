@@ -1,23 +1,21 @@
-/* Style the table
-
-table {
+.FM_PO_table table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th {
+.FM_PO_table th {
   padding: 8px;
   text-align: center; 
-  background-color: #f2f2f2;
+  background-color: #0649f0;
 }
 
-td {
+.FM_PO_table td {
   padding: 8px;
   border: none; 
   position: relative;
 }
 
-td input {
+.FM_PO_table td input {
   width: 50px; 
   padding: 0; 
   border: none;
@@ -25,20 +23,20 @@ td input {
   font-size: inherit; 
 }
 
-td input[type="number"] {
+.FM_PO_table td input[type="number"] {
   height: 100%;
   box-sizing: border-box;
   vertical-align: middle;
 }
 
 
-tr:hover {
+.FM_PO_table tr:hover {
   background-color: #f5f5f5;
 }
 
-td:first-child {
+.FM_PO_table td:first-child {
   text-align: center;
-} */
+} 
 
 .anticon {
   color: #1890ff; 
@@ -122,12 +120,13 @@ td:first-child {
   margin: 0 auto; 
 }
 
+
 .POID_Serach {
   display: flex; 
   align-items: center; 
   margin: 20px 0 40px 30px;
 }
-/* 
+
 .POID_Serach input {
   padding: 8px 12px;
   border: 1px solid #ccc;
@@ -149,12 +148,10 @@ td:first-child {
 .FM_PO_table .action-buttons button {
   margin-right: 8px; 
 }
-<<<<<<< Updated upstream
- */
-=======
+
 
 .GenaratePOReport{
   padding-left: 900px;
 }
->>>>>>> Stashed changes
+
 

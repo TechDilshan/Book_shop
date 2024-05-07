@@ -177,8 +177,8 @@ const ScanQR = () => {
     <div className="ScanQR_Full">
       <div className="employee-sal-details">
         <div className="EmpSalDetails">Employee Salary Details</div>
-        <table>
-          <thead>
+        <table className="ScanQr_Table">
+        <thead>
             <tr>
               <th>Employee Email</th>
               <th>Present Date</th>

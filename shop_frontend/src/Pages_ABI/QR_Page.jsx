@@ -64,23 +64,24 @@ const QR_Page = () => {
       />
 
       <table
+      className="QR_Page_Table"
         style={{ width: "90%", borderCollapse: "collapse", marginLeft: "50px" }}
       >
         <thead>
           <tr>
-            <th style={{ border: "1px solid black", padding: "8px" }}>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>
               User Name
             </th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>
               Full Name
             </th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>Email</th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>Role</th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>Email</th>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>Role</th>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>
               Address
             </th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>NIC</th>
-            <th style={{ border: "1px solid black", padding: "8px" }}>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>NIC</th>
+            <th style={{ border: "1px solid black", padding: "8px",color: "black" }}>
               Phone No
             </th>
           </tr>

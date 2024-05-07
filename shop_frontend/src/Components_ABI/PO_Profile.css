@@ -90,7 +90,6 @@
     justify-content: center; /* Center the button horizontally */
   }
 
-<<<<<<< Updated upstream
   /* Button styles */
   .viewModel button {
     background-color: #1890ff;
@@ -102,7 +101,6 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-=======
 .Po_PDf,
 .updatePO,
 .deletePO {
@@ -115,13 +113,12 @@
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
->>>>>>> Stashed changes
+
 
   .viewModel button:hover {
     background-color: #40a9ff;
   }
 
-<<<<<<< Updated upstream
   .Po_PDf {
     background-color: #1890ff; /* Background color */
     color: #fff; /* Text color */
@@ -141,7 +138,7 @@
     color: #666; /* Text color when disabled */
     cursor: not-allowed; /* Cursor style when disabled */
   }
-=======
+
 .viewPO,
 .updatePO,
 .deletePO {
@@ -208,7 +205,7 @@
   color: #666; 
   cursor: not-allowed; 
 }
->>>>>>> Stashed changes
+
 
 
 
