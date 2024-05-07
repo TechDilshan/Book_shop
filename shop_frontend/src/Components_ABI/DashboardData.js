@@ -1,5 +1,5 @@
 import React from 'react'
-import { HomeOutlined,MailOutlined,LineChartOutlined,DashboardOutlined} from '@ant-design/icons';
+import { HomeOutlined,QrcodeOutlined,ScanOutlined,DashboardOutlined} from '@ant-design/icons';
 
 export const DashboardData = [
     {
@@ -10,19 +10,19 @@ export const DashboardData = [
 
     {
         title :"QR Genarate",
-        icon:<MailOutlined />,
+        icon:<QrcodeOutlined />,
         link:"./QR_Page"
     },
 
     {
-        title :"Analytics",
-        icon:<LineChartOutlined />,
+        title :"Employee Salary",
+        icon:<ScanOutlined />,
         link:"./ScanQR_Page"
     },
 
     {
         title :"Dashboard",
         icon:<DashboardOutlined />,
-        link:"./Home"
+        link:"./FM_Admin"
     }
 ]

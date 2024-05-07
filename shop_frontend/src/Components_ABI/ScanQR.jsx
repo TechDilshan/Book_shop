@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import axios from "axios";
 import { Button, Modal } from "antd";
+import scanvoice from "./scanvoice.mp3";
+import cancelvoice from "./cancelvoice.mp3"
 import "./ScanQR.css";
 
 const ScanQR = () => {
@@ -11,61 +13,92 @@ const ScanQR = () => {
   const [selectedRow, setSelectedRow] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [employeeEmails, setEmployeeEmails] = useState(selectedRow ? selectedRow.employeeEmail : "");
-  const [presentDates, setPresentDates] = useState(selectedRow ? selectedRow.presentDate : "");
+  const [employeeEmails, setEmployeeEmails] = useState(
+    selectedRow ? selectedRow.employeeEmail : ""
+  );
+  const [presentDates, setPresentDates] = useState(
+    selectedRow ? selectedRow.presentDate : ""
+  );
   const [perHourSalary, setPerHourSalary] = useState(0);
   const [perDaySalary, setPerDaySalary] = useState(0);
 
   useEffect(() => {
+    const lastScanData = JSON.parse(localStorage.getItem("lastScanData")) || {};
+    const currentDate = new Date().toISOString().split("T")[0];
+    const { scannedEmail } = lastScanData[currentDate] || {};
+  
+
+  
     if (scanning) {
       const scanner = new Html5QrcodeScanner("reader", {
         qrbox: {
-          width: 250,
-          height: 250,
+          width: 500,
+          height: 300,
         },
         fps: 5,
       });
-
+  
       const success = (result) => {
         scanner.clear();
         setScanResult(result);
-
-        const currentDate = new Date().toISOString();
+  
         const perHourSalary = 0;
         const perDaySalary = 0;
-
+  
         console.log(result);
 
+        if (scannedEmail && scannedEmail === result) {
+          // If the email has already been scanned today
+          const errorAudio = new Audio(cancelvoice);
+          errorAudio.play().catch((error) => {
+            console.error("Error playing error audio:", error);
+          });
+          return;
+        }
+  
         const employeeSal = {
           employeeEmail: result,
           presentDate: currentDate,
           perHourSalary: perHourSalary,
           perDaySalary: perDaySalary,
         };
-
+  
         axios
           .post("http://localhost:6001/api/saveEmployeeSalData", employeeSal)
           .then((response) => {
             console.log("Scan data saved successfully:", response.data);
+            // Store last scan data
+            const newScanData = {
+              ...lastScanData,
+              [currentDate]: { scannedEmail: result},
+            };
+            localStorage.setItem("lastScanData", JSON.stringify(newScanData));
           })
           .catch((error) => {
             console.error("Error saving scan data:", error);
           });
-
+  
+        const successAudio = new Audio(scanvoice);
+        successAudio.play().catch((error) => {
+          console.error("Error playing success audio:", error);
+        });
+  
         setScanning(false);
+        fetchEmployeeSalData();
       };
-
+  
       const error = (err) => {
         console.warn(err);
       };
-
+  
       scanner.render(success, error);
-
+  
       return () => {
         scanner.clear();
       };
     }
   }, [scanning]);
+  
 
   const handleStartScanning = () => {
     setScanning(true);
@@ -80,9 +113,7 @@ const ScanQR = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-
-  };
+  const handleOk = () => {};
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -104,21 +135,22 @@ const ScanQR = () => {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
-    
+    e.preventDefault();
+
     const EmpSalUp = {
       employeeEmails,
       presentDates,
       perHourSalary,
       perDaySalary,
     };
-  
-    console.log(EmpSalUp)
+
+    console.log(EmpSalUp);
     axios
       .put("http://localhost:6001/api/updateEmployeeSalData", EmpSalUp)
       .then((response) => {
         console.log("Data updated successfully:", response.data);
         setIsModalOpen(false);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error updating data:", error);
@@ -127,29 +159,24 @@ const ScanQR = () => {
 
   const handleDelete = (data) => {
     const employeeEmail = data.employeeEmail; // Using the employee email as the identifier
-  
+
     axios
-    .delete(`http://localhost:6001/api/deleteEmployeeSalData`, {
-      data: { employeeEmail: employeeEmail } // Sending employeeEmail in request body
-    })
-    .then((response) => {
-      console.log("Data deleted successfully:", response.data);
-      fetchEmployeeSalData();
-    })
-    .catch((error) => {
-      console.error("Error deleting data:", error);
-    });
-  
+      .delete(`http://localhost:6001/api/deleteEmployeeSalData`, {
+        data: { employeeEmail: employeeEmail }, // Sending employeeEmail in request body
+      })
+      .then((response) => {
+        console.log("Data deleted successfully:", response.data);
+        fetchEmployeeSalData();
+      })
+      .catch((error) => {
+        console.error("Error deleting data:", error);
+      });
   };
-  
-  
-  
+
   return (
     <div className="ScanQR_Full">
       <div className="employee-sal-details">
-        <div className="EmpSalDetails">
-        Employee Salary Details
-        </div>
+        <div className="EmpSalDetails">Employee Salary Details</div>
         <table>
           <thead>
             <tr>
@@ -174,7 +201,12 @@ const ScanQR = () => {
                   >
                     View
                   </button>
-                  <button className="EmpSalDelete" onClick={() => handleDelete(data)}>Delete</button>
+                  <button
+                    className="EmpSalDelete"
+                    onClick={() => handleDelete(data)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -183,9 +215,15 @@ const ScanQR = () => {
       </div>
 
       <div className="ScanQR">
-        <h1>QR Code Scanner</h1>
+        <div className="QCSH">QR Code Scanner</div>
         <button onClick={handleStartScanning}>Start Scanning</button>
-        {scanResult ? <div>Success:{scanResult}</div> : <div id="reader"></div>}
+      <center>
+          {scanResult ? (
+            <div>Success:{scanResult}</div>
+          ) : (
+            <div id="reader"></div>
+          )}
+        </center>
       </div>
 
       <div className="employeeSalModel">
@@ -203,7 +241,6 @@ const ScanQR = () => {
                 type="text"
                 name="employeeEmail"
                 value={employeeEmails}
-
                 disabled
               />
             </div>
@@ -237,10 +274,16 @@ const ScanQR = () => {
                 onChange={(e) => setPerDaySalary(e.target.value)}
               />
             </div>
-            <button className="EmpSalUpB" type="submit">Submit</button>
+            <button className="EmpSalUpB" type="submit">
+              Submit
+            </button>
           </form>
         </Modal>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

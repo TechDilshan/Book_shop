@@ -19,7 +19,11 @@ const NaviBar = () => {
     .then(res => {
       if(res.data.status){
         sessionStorage.removeItem('userEmail');
+<<<<<<< Updated upstream
         //window.location.reload();
+=======
+       // window.location.reload();
+>>>>>>> Stashed changes
         navigate('/')
       }
     }).catch(err => {

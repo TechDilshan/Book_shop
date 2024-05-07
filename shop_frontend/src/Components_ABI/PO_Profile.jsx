@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Modal, message } from "antd";
-import jsPDF from 'jspdf';
+import jsPDF from "jspdf";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Form, Input } from "antd";
 import { FileOutlined, DownOutlined, DeleteOutlined } from "@ant-design/icons";
 import "./PO_Profile.css";
+const { PDFDocument, rgb, StandardFonts } = require("pdf-lib");
 
 const PO_Profile = () => {
-  // const location = useLocation();
-  // const email = location.state?.email;
+  const email = sessionStorage.getItem("userEmail");
 
-  const email = sessionStorage.getItem('userEmail');
-  
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null); 
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const getCustomerPO = () => {
     axios
@@ -152,38 +151,91 @@ const PO_Profile = () => {
         console.log("Order deleted successfully");
         message.success("Order deleted successfully");
         getCustomerPO();
+        window.location.reload();
       } else {
         console.error("Failed to delete order");
+        window.location.reload();
         message.success("Order deleted successfully");
       }
     } catch (error) {
       console.error("Error deleting order:", error);
     }
   };
-  const handleDownloadPDF = (order) => {
-    const doc = new jsPDF();
 
-    doc.text(`Purchase Order ID: ${order.order}`, 10, 10);
-    doc.text(`Full Name: ${order.name}`, 10, 20);
-    doc.text(`Address: ${order.address}`, 10, 30);
-    doc.text(`State: ${order.state}`, 10, 40);
-    doc.text(`Zip Code: ${order.zipCode}`, 10, 50);
-    doc.text(`Created Date: ${new Date(order.startDate).toLocaleDateString()}`, 10, 60);
-    doc.text(`Wanted Date: ${new Date(order.endDate).toLocaleDateString()}`, 10, 70);
-  
-    let yPos = 80; 
+  const handleDownloadPDF = async (order) => {
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage();
+
+    // Add header
+    const currentDate = new Date().toLocaleDateString();
+    const companyName = "Rathy Intech";
+    const phoneNumber = "0112 367 500";
+    const email = "your@email.com";
+
+    const headerY = 750;
+    const infoY = 720;
+
+    // const headerFont = await pdfDoc.embedFont(PDFDocument.Font.Helvetica);
+    // const textFont = await pdfDoc.embedFont(PDFDocument.Font.Helvetica);
+
+    page.drawText("Purchase Order", { x: 50, y: headerY, size: 24 });
+    page.drawText(`Company Name: ${companyName}`, { x: 50, y: infoY });
+    page.drawText(`Phone Number: ${phoneNumber}`, { x: 50, y: infoY - 20 });
+    page.drawText(`Email: ${email}`, { x: 50, y: infoY - 40 });
+    page.drawText(`Date: ${currentDate}`, { x: 50, y: infoY - 60 });
+    // Initial y position for order details
+    let yPos = infoY - 100;
+
+    page.drawText(`Purchase Order ID: ${order.order}`, { x: 50, y: yPos });
+    page.drawText(`Full Name: ${order.name}`, { x: 50, y: yPos - 20 });
+    page.drawText(`Address: ${order.address}`, { x: 50, y: yPos - 40 });
+    page.drawText(`State: ${order.state}`, { x: 50, y: yPos - 60 });
+    page.drawText(`Zip Code: ${order.zipCode}`, { x: 50, y: yPos - 80 });
+    page.drawText(
+      `Created Date: ${new Date(order.startDate).toLocaleDateString()}`,
+      { x: 50, y: yPos - 100 }
+    );
+    page.drawText(
+      `Wanted Date: ${new Date(order.endDate).toLocaleDateString()}`,
+      { x: 50, y: yPos - 120 }
+    );
+
+    yPos -= 160; // Adjust y position for the items
     order.items.forEach((item, index) => {
-      yPos += 10;
-      doc.text(`Item ${index + 1}: ${item.item}`, 10, yPos);
-      doc.text(`Description: ${item.description}`, 20, yPos + 10);
-      doc.text(`Quantity: ${item.quantity}`, 20, yPos + 20);
-      doc.text(`Price: Rs. ${item.price}`, 20, yPos + 30);
-      doc.text(`Amount: Rs. ${item.amount}`, 20, yPos + 40);
+      page.drawText(`Item ${index + 1}: ${item.item}`, { x: 50, y: yPos });
+      page.drawText(`Description: ${item.description}`, {
+        x: 70,
+        y: yPos - 20,
+      });
+      page.drawText(`Quantity: ${item.quantity}`, { x: 70, y: yPos - 40 });
+      page.drawText(`Price: Rs. ${item.price}`, { x: 70, y: yPos - 60 });
+      page.drawText(`Amount: Rs. ${item.amount}`, { x: 70, y: yPos - 80 });
+      yPos -= 100; // Adjust y position for the next item
     });
-  
-    doc.save('purchase_order.pdf');
+
+    const pdfBytes = await pdfDoc.save();
+    download(pdfBytes, "purchase_order.pdf", "application/pdf");
   };
-  
+
+  function download(data, filename, type) {
+    const file = new Blob([data], { type: type });
+    if (window.navigator.msSaveOrOpenBlob)
+      // IE10+
+      window.navigator.msSaveOrOpenBlob(file, filename);
+    else {
+      // Others
+      const a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    }
+  }
 
   return (
     <div className="PO_Profile_Container">
@@ -203,6 +255,7 @@ const PO_Profile = () => {
 
             <FileOutlined
               className="viewPO"
+              disabled={order.status === 1}
               onClick={() => handleFileIconClick(order)}
             />
             <Modal
@@ -258,35 +311,80 @@ const PO_Profile = () => {
                   <p>Purchase Order ID: </p>
                   <input value={selectedOrder.order} disabled />
 
-                  <p>Full Name:</p>
-                  <input
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
+                  <Form.Item
+                    label="Full Name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your full name!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
+                  </Form.Item>
 
-                  <p>Address:</p>
-                  <input
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
+                  <Form.Item
+                    label="Address"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your address!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </Form.Item>
 
-                  <p>Mobile Number:</p>
-                  <input
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                  />
+                  <Form.Item
+                    label="Mobile Number"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your mobile number!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      value={mobileNumber}
+                      onChange={(e) => setMobileNumber(e.target.value)}
+                    />
+                  </Form.Item>
 
-                  <p>State:</p>
-                  <input
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                  />
+                  <Form.Item
+                    label="State"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your state!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                    />
+                  </Form.Item>
 
-                  <p>Zip Code:</p>
-                  <input
-                    value={zipcode}
-                    onChange={(e) => setZipCode(e.target.value)}
-                  />
+                  <Form.Item
+                    label="Zip Code"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your zip code!",
+                      },
+                    ]}
+                  >
+                    <Input
+                      value={zipcode}
+                      onChange={(e) => setZipCode(e.target.value)}
+                    />
+                  </Form.Item>
 
                   <p>Created Date:</p>
                   <input
@@ -299,6 +397,7 @@ const PO_Profile = () => {
                   <input
                     value={new Date(wantedDate).toLocaleDateString()}
                     onChange={(e) => setWantedDate(e.target.value)}
+                    required
                   />
 
                   <p>Discount :</p>
@@ -314,6 +413,7 @@ const PO_Profile = () => {
                           onChange={(e) =>
                             handleItemChange(index, "item", e.target.value)
                           }
+                          required
                         />
 
                         <p>Description: </p>
@@ -326,6 +426,7 @@ const PO_Profile = () => {
                               e.target.value
                             )
                           }
+                          required
                         />
 
                         <p>Quantity: </p>
@@ -334,6 +435,7 @@ const PO_Profile = () => {
                           onChange={(e) =>
                             handleItemChange(index, "quantity", e.target.value)
                           }
+                          required
                         />
 
                         <p>Price: Rs.</p>
@@ -342,6 +444,7 @@ const PO_Profile = () => {
                           onChange={(e) =>
                             handleItemChange(index, "price", e.target.value)
                           }
+                          required
                         />
 
                         <p>Amount: Rs.</p>
@@ -350,6 +453,7 @@ const PO_Profile = () => {
                           onChange={(e) =>
                             handleItemChange(index, "amount", e.target.value)
                           }
+                          required
                         />
                       </li>
                     ))}
@@ -361,6 +465,7 @@ const PO_Profile = () => {
             </Modal>
             <DeleteOutlined
               className="deletePO"
+              disabled={order.status == 1}
               onClick={() => handleDeleteIconClick(order)}
             />
           </li>

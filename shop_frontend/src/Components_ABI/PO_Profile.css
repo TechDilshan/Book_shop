@@ -90,6 +90,7 @@
     justify-content: center; /* Center the button horizontally */
   }
 
+<<<<<<< Updated upstream
   /* Button styles */
   .viewModel button {
     background-color: #1890ff;
@@ -101,11 +102,26 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+=======
+.Po_PDf,
+.updatePO,
+.deletePO {
+  background-color: #ffffff;
+  color: #110000;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+>>>>>>> Stashed changes
 
   .viewModel button:hover {
     background-color: #40a9ff;
   }
 
+<<<<<<< Updated upstream
   .Po_PDf {
     background-color: #1890ff; /* Background color */
     color: #fff; /* Text color */
@@ -125,6 +141,74 @@
     color: #666; /* Text color when disabled */
     cursor: not-allowed; /* Cursor style when disabled */
   }
+=======
+.viewPO,
+.updatePO,
+.deletePO {
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.ant-modal {
+  font-size: 16px;
+}
+
+.viewModel input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.viewModel input[disabled] {
+  background-color: #f0f0f0;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.viewModel button {
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewModel button:hover {
+  background-color: #40a9ff;
+}
+
+.Po_PDf {
+  background-color: #1890ff; 
+  color: #fff; 
+  border: none; 
+  padding: 8px 16px; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+.Po_PDf:hover {
+  background-color: #40a9ff; 
+}
+
+.Po_PDf:disabled {
+  background-color: #ccc; 
+  color: #666; 
+  cursor: not-allowed; 
+}
+>>>>>>> Stashed changes
 
 
 

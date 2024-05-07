@@ -76,6 +76,8 @@ import  QR_Page from './Pages_ABI/QR_Page'
 import  ScanQR_Page from './Pages_ABI/ScanQR_Page'
 import PurchaseOrder from './Pages_ABI/PurchaseOrder'
 import PO_Profile from './Components_ABI/PO_Profile'
+import FM_Admin from './Pages_ABI/FM_Admin'
+import FM_PO_Report from './Components_ABI/FM_PO_Report'
 
 // Add the FontAwesome CDN link dynamically
 const fontAwesomeLink = document.createElement('link');
@@ -164,7 +166,8 @@ root.render(
         <Route path='/QR_Page' element={<QR_Page />} />
         <Route path='/ScanQR_Page' element={<ScanQR_Page />} />
         <Route path='/PO_Profile' element={<PO_Profile />} />
-
+        <Route path='/FM_Admin' element={<FM_Admin />} />
+        <Route path='/FM_PO_Report' element={<FM_PO_Report />} />
 
 
     </Routes>

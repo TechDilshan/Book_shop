@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, message, Alert, Input } from "antd";
+import { Button, message, Alert, Input, Modal } from "antd";
 import Dashboard from "../Components_ABI/Dashboard";
+import FM_PO_Report from "../Components_ABI/FM_PO_Report";
 import axios from "axios";
 import "./FM_PO.css";
 
@@ -15,7 +16,9 @@ const FM_PO = () => {
     axios
       .get(`http://localhost:6001/api/getPurchaseorder`)
       .then((response) => {
-        setData(response.data?.response || []);
+        const filteredData =
+          response.data?.response.filter((item) => item.status === 0) || [];
+        setData(filteredData);
       })
       .catch((error) => {
         console.error("Axios Error: ", error);
@@ -71,6 +74,7 @@ const FM_PO = () => {
       })
       .then(() => {
         message.success("Purchase order accepted successfully");
+        getPurchaseorder();
       })
       .catch((error) => {
         console.error("Axios Error: ", error);
@@ -82,6 +86,17 @@ const FM_PO = () => {
   const filteredData = data.filter((item) =>
     item.order.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="gap">
@@ -113,9 +128,6 @@ const FM_PO = () => {
       <div className="PurchaseOrder-details">
         <div className="purchaseDetails">
           <div>Purchase Order Details</div>
-          <div className="purchaseDownload">
-            <Button className="downloadPO">Download</Button>
-          </div>
         </div>
       </div>
       <div className="POID_Serach">
@@ -124,7 +136,23 @@ const FM_PO = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <SearchOutlined className="search-icon" />
+        <SearchOutlined className="searchPO-icon" />
+
+        <div className="GenaratePOReport">
+          <Button type="primary" onClick={showModal}>
+            Generate Report
+          </Button>
+          <Modal
+            className="FM_Po_R_M"
+            title="Basic Modal"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            width={1000} // Set the width here
+          >
+            <FM_PO_Report />
+          </Modal>
+        </div>
       </div>
 
       <table className="FM_PO_table">
@@ -231,7 +259,6 @@ const SubTable = ({ items: initialItems, order }) => {
         message.success("Record updated successfully");
         window.location.reload();
         console.log(updatedItems[index]._id);
-       
       })
       .catch((error) => {
         console.error("Axios Error: ", error);
@@ -269,7 +296,7 @@ const SubTable = ({ items: initialItems, order }) => {
             <td>{item.amount.toFixed(2)}</td>
             <td>
               <Button
-                className="update"
+                className="update_PO"
                 type="update"
                 onClick={() => handleUpdate(index, item)}
               >

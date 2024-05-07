@@ -4,7 +4,8 @@
     text-align: center;
   }
   
-  .ScanQR h1 {
+  .QCSH {
+    font-size: 50px;
     margin-bottom: 20px;
   }
   
@@ -92,10 +93,12 @@
 }
 
 .EmpSalDetails {
-  font-size: 24px; /* Font size */
-  font-weight: bold; /* Bold text */
-  color: #333; /* Text color */
-  margin-bottom: 20px; /* Bottom margin */
+  font-size: 24px; 
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 20px; 
+  margin-top: 100px;
+  margin-left: 600px;
 }
 
 

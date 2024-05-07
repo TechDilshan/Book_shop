@@ -1,0 +1,161 @@
+/* Style the table */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    padding: 8px;
+    text-align: center; 
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    padding: 8px;
+    border: none; 
+    position: relative;
+  }
+  
+  td input {
+    width: 50px; 
+    padding: 0; 
+    border: none;
+    background: transparent; 
+    font-size: inherit; 
+  }
+  
+  td input[type="number"] {
+    height: 100%;
+    box-sizing: border-box;
+    vertical-align: middle;
+  }
+  
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  td:first-child {
+    text-align: center;
+  }
+  
+  .anticon {
+    color: #1890ff; 
+    font-size: 18px;
+  }
+  
+  .arrow{
+      border-radius: 50%;
+  }
+  
+  .delete{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .delete:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .update_PO{
+    background-color: rgb(137, 218, 16);
+    color: white;
+    font-weight: bold;
+  }
+  
+  .update:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .accept{
+    background-color: rgb(86, 174, 229);
+    color: white;
+    font-weight: bold;
+  }
+  
+  .accept:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .alert-container {
+    width: 400px; 
+    height: 100px; 
+    background-color: white; 
+    border-radius: 8px; 
+    padding: 20px; 
+    z-index: 10000; 
+  }
+  
+  
+  .PurchaseOrder-details {
+    margin-top: 80px;
+    font-size: 30px;
+    margin-left: 650px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .purchaseDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .FM_PO_table {
+    max-width: 90%;
+    margin: 0 auto; 
+  }
+  
+  .POID_Serach {
+    display: flex; 
+    align-items: center; 
+    margin: 20px 0 40px 30px;
+  }
+  
+  .POID_Serach input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 300px;
+  }
+  
+  .POID_Serach input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .POID_Serach .searchPO-icon {
+    margin-left: 8px; 
+    color: #888; 
+  }
+  
+  .FM_PO_table .action-buttons button {
+    margin-right: 8px; 
+  }
+  
+  .GenaratePOReport{
+    padding-left: 900px;
+  }
+  
+  .GenarateRButton{
+    padding-left: 400px;
+  }
+  
+  

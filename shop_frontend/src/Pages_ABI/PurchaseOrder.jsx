@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
+import Navi from '../Navi'
 
 const PurchaseOrder = () => {
 
@@ -45,16 +46,16 @@ const PurchaseOrder = () => {
   const [summaryContent, setSummaryContent] = useState("");
 
   useEffect(() => {
-    generateOrderNumber(); // Generate order number when component mounts
+    generateOrderNumber();
   }, []);
 
   const generateOrderNumber = () => {
     let randomNumber;
     do {
       randomNumber = Math.floor(100000 + Math.random() * 900000);
-    } while (generatedOrderNumbers.includes(randomNumber)); // Check if the number is already generated
+    } while (generatedOrderNumbers.includes(randomNumber));
     setOrder("#" + randomNumber.toString());
-    setGeneratedOrderNumbers((prev) => [...prev, randomNumber]); // Update the list of generated order numbers
+    setGeneratedOrderNumbers((prev) => [...prev, randomNumber]);
   };
 
   const [generatedOrderNumbers, setGeneratedOrderNumbers] = useState([]);
@@ -69,7 +70,7 @@ const PurchaseOrder = () => {
   const searchRef = useRef(null);
 
   const [form] = Form.useForm();
-  const navigate = useNavigate(); // Define navigate here
+  const navigate = useNavigate();
 
   const handleSubmit = async (formValues) => {
     try {
@@ -98,7 +99,6 @@ const PurchaseOrder = () => {
         status: 0,
       };
 
-      // Create the summary content with each item in a separate row
       let summaryContent = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}\nZip Code: ${zipcode}\nState: ${state}\nOrder: ${order}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nItems:\n`;
 
       items.forEach((item, index) => {
@@ -111,30 +111,23 @@ const PurchaseOrder = () => {
         summaryContent += `   Amount: Rs.${item.amount}\n\n`;
       });
 
-      // Add subtotal, discount, and total to the summary
       summaryContent += `Subtotal: Rs.${calculateSubtotal()}\n`;
       summaryContent += `Discount: ${discount}%\n`;
       summaryContent += `Total: Rs.${calculateTotal()}`;
 
-      // Set the summary content in the state
       setSummaryContent(summaryContent);
 
       setModalVisible(true);
-      // Submit data to the backend
       const response = await axios.post(
         "http://localhost:6001/api/createPurchaseorder",
         dataList
       );
     } catch (error) {
-      // Handle validation errors or Axios errors
       if (error.response) {
-        // The request was made and the server responded with a status code
         console.error("Server Error:", error.response.data);
       } else if (error.request) {
-        // The request was made but no response was received
         console.error("No response from server:", error.request);
       } else {
-        // Something happened in setting up the request that triggered an error
         console.error("Request Error:", error.message);
       }
       console.log("Abishaan");
@@ -142,7 +135,6 @@ const PurchaseOrder = () => {
   };
 
   useEffect(() => {
-    // Save items to local storage whenever it changes
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
@@ -153,7 +145,7 @@ const PurchaseOrder = () => {
       description: "",
       quantity: "",
       price: "",
-      discount: discount, // Set the discount value for the new item
+      discount: discount, 
     };
     setItems([...items, newItem]);
     if (items.length === 0) {
@@ -165,7 +157,6 @@ const PurchaseOrder = () => {
     if (items.length > 1) {
       setItems(items.filter((item) => item.id !== id));
     } else {
-      // Display a message or handle the scenario where there must be at least one row
       console.log("At least one row must remain.");
     }
   };
@@ -177,14 +168,12 @@ const PurchaseOrder = () => {
     const price = parseFloat(item.price);
     const discountPercentage = parseFloat(item.discount);
 
-    // Check if the parsed values are valid numbers
     if (!isNaN(quantity) && !isNaN(price) && !isNaN(discountPercentage)) {
       const discountAmount = (price * quantity * discountPercentage) / 100;
       const amount = (quantity * price - discountAmount).toFixed(2);
       updatedItems[index] = { ...item, amount };
     } else {
-      // Handle case where quantity, price, or discount is not a valid number
-      updatedItems[index] = { ...item, amount: "" }; // Set amount to empty string
+      updatedItems[index] = { ...item, amount: "" };
     }
 
     setItems(updatedItems);
@@ -220,7 +209,7 @@ const PurchaseOrder = () => {
   const zipcodeRef = useRef(null);
   const stateRef = useRef(null);
 
-  const lastFocusedFieldRef = useRef(null); // Add this line
+  const lastFocusedFieldRef = useRef(null); 
 
   const handleClick = (fieldName) => {
     const fields = [
@@ -244,17 +233,16 @@ const PurchaseOrder = () => {
 
     fields.some((field) => {
       if (!field.value.trim() || fieldName === field.name) {
-        // Check if the field is empty or contains only whitespace characters
         field.setValue(" ");
         setTimeout(() => {
           field.ref.current.focus();
         }, 0);
-        return true; // Stop iteration
+        return true;
       }
-      return false; // Continue iteration
+      return false;
     });
 
-    lastFocusedFieldRef.current = fieldName; // Store the last focused field
+    lastFocusedFieldRef.current = fieldName; 
   };
 
   const sendEmail = (e) => {
@@ -277,6 +265,7 @@ const PurchaseOrder = () => {
   };
   return (
     <div className="Home">
+      <Navi />
       <div className="Home_Invoice">
         <div className="rathAni">
           <h2>Ratiy Intech</h2>
@@ -296,15 +285,15 @@ const PurchaseOrder = () => {
           </div>
         </div>
 
-        <h3>Instantly create a purchase order Document</h3>
+        <div className="PO_Document_Text"><h3>Instantly create a purchase order Document</h3></div>
         <button className="purchase-btn" onClick={scrollToPurchaseOrder}>
           Create a Purchase Order
         </button>
       </div>
 
-      <div className="container" id="purchase-order-section">
+      <div className="POS_container" id="purchase-order-section">
         <p className="personal">Enter your personal information</p>
-        <div className="content">
+        <div className="STEP_content">
           <p className="step">STEP 1 of 2</p>
           <span className="dot1"></span>
           <span className="dot"></span>
@@ -472,9 +461,9 @@ const PurchaseOrder = () => {
           </div>
         </div>
 
-        <div className="container" id="purchase-order-section">
+        <div className="POS_container" id="purchase-order-section">
           <p className="personal">Enter your Purchase Order information</p>
-          <div className="content">
+          <div className="STEP_content">
             <p className="step">STEP 1 of 2</p>
             <span className="dot1"></span>
             <span className="dot3"></span>
@@ -496,8 +485,8 @@ const PurchaseOrder = () => {
                 size="large"
                 placeholder="Purchase Order #"
                 className="Order"
-                value={order} // Bind the value to the order state
-                readOnly // Make the input field readonly
+                value={order} 
+                readOnly
               />
           </Form.Item>
           <Form.Item
@@ -610,7 +599,7 @@ const PurchaseOrder = () => {
                   name={`price-${item.id}`}
                   size="large"
                   placeholder="Unit Price"
-                  className="price"
+                  className="item_price"
                   value={item.price}
                   onChange={(e) => {
                     const updatedItems = [...items];
@@ -655,7 +644,7 @@ const PurchaseOrder = () => {
             <p>SUBTOTAL: Rs.{calculateSubtotal()}</p>
             <p>DISCOUNT: {discount}%</p>
           </div>
-          <div className="total-amount">
+          <div className="PO_total-amount">
             <p>TOTAL: Rs.{calculateTotal()}</p>
           </div>
         </div>
