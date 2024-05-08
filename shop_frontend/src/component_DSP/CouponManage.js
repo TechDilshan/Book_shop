@@ -107,6 +107,8 @@ function CouponManage() {
         alert("Please fill in all required fields.");
         return;
       }
+
+
     
       const cpnup ={
         couponId,
@@ -138,6 +140,12 @@ function CouponManage() {
 
       if (!couponId || !ExpDate || !description) {
         alert("Please fill in all required fields.");
+        return;
+      }
+
+      const existingCoupon = coupons.find(coupon => coupon.couponId === couponId);
+      if (existingCoupon) {
+        alert("Coupon ID already exists. Please choose a different one.");
         return;
       }
     
