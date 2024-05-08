@@ -117,6 +117,9 @@ const QR_Page = () => {
       <br />
       <br />
       <QR_Gen />
+      <br />
+      <br />
+
     </div>
   );
 };

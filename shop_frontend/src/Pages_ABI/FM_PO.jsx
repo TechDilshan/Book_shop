@@ -187,7 +187,7 @@ const FM_PO = () => {
                 <td>{new Date(rowData.endDate).toLocaleDateString()}</td>
                 <td className="action-buttons">
                   <Button
-                    className="delete"
+                    className="deleteFMPO"
                     type="Delete"
                     onClick={() => {
                       handleDelete(rowData.order);

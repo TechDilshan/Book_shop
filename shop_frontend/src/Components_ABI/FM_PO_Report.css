@@ -6,7 +6,6 @@
 .FM_PO_table th {
   padding: 8px;
   text-align: center; 
-  background-color: #0649f0;
 }
 
 .FM_PO_table td {
@@ -46,12 +45,12 @@
 .arrow{
     border-radius: 50%;
 }
-/* 
-.delete{
+
+.deleteFMPO{
   background-color: red;
   color: white;
   font-weight: bold;
-} */
+}
 
 .delete:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 

@@ -104,7 +104,10 @@
 .ScanQr_Table th {
   padding: 8px;
   text-align: center; 
-  background-color: #0649f0;
+}
+
+.ScanQr_Table{
+  margin-left: 300px;
 }
 
 
