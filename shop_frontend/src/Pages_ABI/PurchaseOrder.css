@@ -130,7 +130,7 @@ body {
   margin-left: 25px;
 }
 
-.ant-input {
+.input-row .ant-input {
   width: 400px;
   border-radius: 8px;
   border: 1px solid #000000;
