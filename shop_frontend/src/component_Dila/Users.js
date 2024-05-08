@@ -15,6 +15,7 @@ const Users = () => {
   const [selectedUser, setSelectedUser] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const [displayTable, setDisplayTable] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     getUsers();
@@ -115,6 +116,17 @@ const Users = () => {
     setIsEdit(false);
   };
 
+  const handleLogout =()=>{
+    Axios.get('http://localhost:5000/auth/logout')
+    .then(res => {
+      if(res.data.status){
+        sessionStorage.removeItem('userEmail');
+        navigate('/login')
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   // Start return
   return (
@@ -132,7 +144,7 @@ const Users = () => {
               <li><a href="#" onClick={handleDisplayButtonClick}>Display Product</a></li>
               <li><a href="/pmprofile">My Account <i className="fas fa-user"></i></a></li>
               <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
-              <li><a href="/">Logout</a></li>
+              <li><a onClick={handleLogout}>Logout</a></li>
           </span>
           <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
       </ul>
