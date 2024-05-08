@@ -22,18 +22,18 @@ const ShoppingNote = () => {
   }, []);
 
   const getMessage = () => {
-    const FetchDetails = () => {  // Send a GET request to the server to fetch cart details
+    const FetchDetails = () => {  // Send a GET request to the server to fetch 
       Axios.get('http://localhost:3001/api/getmessage')
         .then((response) => {
-          setNotes(response.data?.response || []); // Set the fetched cart details to the 'carts' state
+          setNotes(response.data?.response || []); 
         })
         .catch((error) => {
-          console.error('Axios Error: ', error);  // Log any errors encountered during the request
+          console.error('Axios Error: ', error);  
         });
     };
   FetchDetails(); // Call FetchDetails function 
-    const intervalId = setInterval(FetchDetails, 1000); // Set up an interval to periodically fetch cart details (every  1 second)
-    return () => clearInterval(intervalId);  // Cleanup function to clear the interval when the component unmounts
+    const intervalId = setInterval(FetchDetails, 1000); 
+    return () => clearInterval(intervalId); 
   };
 
   const userEmail = sessionStorage.getItem('userEmail');
@@ -113,11 +113,11 @@ const updateM = () => {
 };
 
 const deleteMessage = () => {
-  Axios.post('http://localhost:3001/api/deletemessage', { email: userEmail }) // Send a POST request to the server to delete the cart item
+  Axios.post('http://localhost:3001/api/deletemessage', { email: userEmail })
       .then((response) => {
       })
       .catch((error) => {
-        console.error('Axios Error: ', error);
+        console.error('Axios Error: ', error)
       });
 }
 
@@ -156,7 +156,7 @@ const deleteMessage = () => {
         <div className="form-input">
           <input
             type="tel"
-            placeholder="Phone Number"
+            placeholder="title"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
