@@ -171,6 +171,7 @@ const PrintingOMProfile = () => {
       
         <div className='customerProfile_Top'>
             <div className='customerProfile'>
+            <h3>Printing Order Manager</h3>
                 <div className="avatar-container">
 
                 </div>

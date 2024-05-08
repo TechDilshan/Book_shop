@@ -163,6 +163,7 @@ const FeedbackMProfile = () => {
     return (
         <div className='customerProfile_Top'>
             <div className='customerProfile'>
+            <h3>Admin Manager</h3>
                 <div className="avatar-container">
 
                 </div>

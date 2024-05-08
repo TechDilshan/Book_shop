@@ -163,7 +163,7 @@ const PromotionMProfile = () => {
     return (
         <div className='customerProfile_Top'>
             <div className='customerProfile'>
-                <h1>Profile Manager</h1>
+                <h1>Promotion Manager</h1>
                 <div className="avatar-container">
 
                 </div>

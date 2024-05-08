@@ -163,6 +163,7 @@ const FinancialMProfile = () => {
     return (
         <div className='customerProfile_Top'>
             <div className='customerProfile'>
+            <h3>Financial Manager</h3>
                 <div className="avatar-container">
 
                 </div>

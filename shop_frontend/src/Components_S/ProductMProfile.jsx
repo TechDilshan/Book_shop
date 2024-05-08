@@ -184,6 +184,7 @@ const ProductMProfile = () => {
 
         <div className='customerProfile_Top'>
             <div className='customerProfile'>
+            <h3>Product Manager</h3>
                 <div className="avatar-container">
 
                 </div>
