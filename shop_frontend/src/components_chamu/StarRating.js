@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 import  axios  from 'axios';
 import '../F_CSS/Form.css';
+// import DatePicker from 'react-datepicker';
 
 const StarRating = ({ productId , email }) => {
     
@@ -13,6 +14,9 @@ const StarRating = ({ productId , email }) => {
     const [hover, setHover] = useState(null);  
     const [showAlert, setShowAlert] = useState(false);
     const [nameError, setNameError] = useState("");
+    const [purchaseDate, setPurchaseDate] = useState("");
+    const [companyFeedback, setcompanyFeedback] = useState("");
+    const [suggestions, setSuggestions] = useState("");
 
 
     function sendData(e){
@@ -29,7 +33,7 @@ const StarRating = ({ productId , email }) => {
         if (rating) {
 
             const newRating ={
-                rating,comment,email,name,productId
+                rating,comment,email,name,productId, purchaseDate, companyFeedback, suggestions
 
             }
 
@@ -51,9 +55,34 @@ const StarRating = ({ productId , email }) => {
             setShowAlert(true);
         }
 
+    }
 
-       
-}
+    function handleNameChange(e) {
+
+        const value = e.target.value;
+        
+        if (!/\d/.test(value)) {
+            setName(value);
+
+            if (value.trim().split(/\s+/).length >= 2) {
+                setNameError(""); 
+            }
+        }
+    }
+
+    // const handleDateChange = date => {
+    //     setSelectedDate(date);
+    // };
+    
+
+
+// function handleNameChange(e) {
+
+//     const value = e.target.value;
+//     if (!/\d/.test(value)) {
+//         setName(value);
+//     }
+// }
 
     
 
@@ -70,6 +99,8 @@ const StarRating = ({ productId , email }) => {
                 {[...Array(5)].map((star, i) => {
                 
                 const ratingValue = i + 1;
+
+                
             
                 return (
 
@@ -107,13 +138,24 @@ const StarRating = ({ productId , email }) => {
             <p>{rating} stars rating..</p>
 
             <text type='number' values='productId' hidden></text>
+
             
 
-            <textarea className='revtextarea' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <textarea className='revtextarea' placeholder="Name" value={name} onChange={handleNameChange} />
             {nameError && <p className="revalert-message">{nameError}</p>}
             
             <textarea className='revtextarea' placeholder="Email" value={email} />
+
+            
             <textarea  className='revtextarea'placeholder="Write your feedback here..." value={comment} onChange={(e) => setComment(e.target.value)} />
+
+            <br />
+           
+            <h3>For Rathiy Intech Reference</h3>
+            <input className='revtextarea' placeholder="Enter Purchase Date" type="date" value={purchaseDate} onChange={(e) => setPurchaseDate(e.target.value)} />
+            <textarea className='revtextarea' placeholder="Suggestions/Report Issues..." value={suggestions} onChange={(e) => setSuggestions(e.target.value)} />
+            <textarea className='revtextarea' placeholder="Company Feedback..." value={companyFeedback} onChange={(e) => setcompanyFeedback(e.target.value)} />
+
             <form onSubmit={sendData}>
                 <button className='revsubmit' type="submit">Submit</button>
             </form>

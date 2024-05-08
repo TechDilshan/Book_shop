@@ -10,6 +10,9 @@ router.route('/addreview').post((req, res) => {
     const rating = Number(req.body.rating);
     const productId = Number(req.body.productId);
     const comment = req.body.comment;
+    const suggestions = req.body.suggestions;
+    const companyFeedback = req.body.companyFeedback;
+    const purchaseDate = req.body.purchaseDate;
 
     const newFeedback = new Feedback({
 
@@ -17,7 +20,10 @@ router.route('/addreview').post((req, res) => {
         name,
         rating,
         comment,
-        productId
+        productId,
+        purchaseDate,
+        companyFeedback,
+        suggestions
 
     });
 
@@ -46,12 +52,20 @@ router.route('/updatereview/:id').put(async(req, res) => {
     const email = req.body.email;
     const comment = req.body.comment;
     const rating = Number(req.body.rating);
+    const purchaseDate = req.body.purchaseDate;
+    const companyFeedback = req.body.companyFeedback;
+    const suggestions = req.body.suggestions;
+
+
 
     const updateFeedback = {
         email,
         name,
         comment,
-        rating
+        rating, 
+        purchaseDate,
+        companyFeedback,
+        suggestions
 
     };
 

@@ -21,7 +21,7 @@ import Dashboard from './component_DSP/PromoDashboard'
 import FeedbackDisplay from './components_chamu/FeedbackDisplay'
 import AdminFeedbackPage from './components_chamu/AdminFeedbackPage'
 import FeedbackUpdate from './components_chamu/FeedbackUpdate';
-
+import AdminReferencePage from './components_chamu/AdminReferencePage';
 
 import PrintingOrderDisplayAdmin from './components_D/PrintingOrderDisplayAdmin_D';
 import PrintDocCreate from './components_D/PrintDocCreate_D';
@@ -113,6 +113,7 @@ root.render(
         <Route path='/feedbackupdate/:UID' element={<FeedbackUpdate />} />
         <Route path='/framechamu' element={<AdminFrame/>} />
         <Route path='/adminreport' element={<FeedbackReport />} />
+        <Route path='/adminref' element={<AdminReferencePage />} />
 
         
 

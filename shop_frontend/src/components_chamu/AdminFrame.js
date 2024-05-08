@@ -11,8 +11,9 @@ import axios from 'axios'
 const AdminFrame = () => {
     const [currentPage, setCurrentPage] = useState('feedback'); // Initial page is feedback
     const navigate = useNavigate()
-    const navigateToFeedbackPage = () => setCurrentPage('feedback');
+    const navigateToRefPage = () => setCurrentPage('reference');
     const navigateToReportPage = () => setCurrentPage('report');
+  
 
   const [adminName] = useState("Admin");
 
@@ -34,20 +35,20 @@ const AdminFrame = () => {
       <div className=' w-[100%]' >
          <Navi/>
       </div>
-<div class="container m-auto p-5">
+<div class="containers m-auto p-5">
     <div class="flex items-center justify-between">
         <div class="w-1/4">
             <img src={logo} alt="Logo" class="w-32 h-auto"/>
         </div>
 
         <div class="w-1/2 text-center">
-            <h1 class="text-4xl font-bold text-indigo-700">Admin Dashboard</h1>
+            <h1 class="text-4xl font-bold text-blue-700">Admin Dashboard</h1>
             <h4 class="text-lg text-gray-700">--Reviews and Feedback Management--</h4>
         </div>
 
         <div class="w-1/4 flex justify-end items-center space-x-4">
             <div class="relative group">
-                <button class="bg-purple-600 text-white rounded-full p-2 focus:outline-none focus:ring focus:border-blue-300">
+                <button class="bg-blue-600 text-white rounded-full p-2 focus:outline-none focus:ring focus:border-blue-300">
                 <a href="/feedprofile" target="iframe_a" class="block text-white"><i class='far fa-user-circle text-xl'></i></a>
                 </button>
 
@@ -68,12 +69,12 @@ const AdminFrame = () => {
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
     <div class="col-span-1 lg:col-span-1">
             
-            <a href="/feedbackadmin" target="iframe_a" class="block text-center mt-4">
-                <button class="bg-indigo-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToFeedbackPage}>Display Reviews</button>
+            <a href="/adminreport" target="iframe_a" class="block text-center mt-4">
+                <button class="bg-blue-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToReportPage}>Manage Reviews</button>
             </a>           
             
-             <a href="/adminreport" target="iframe_a" class="block text-center mt-4">
-                <button class="bg-indigo-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToReportPage}>Generate Report</button>
+             <a href="/adminref" target="iframe_a" class="block text-center mt-4">
+                <button class="bg-blue-700 text-white rounded-md py-4 w-full font-bold" onClick={navigateToRefPage}>Admin Reference</button>
             </a>
         </div>
 

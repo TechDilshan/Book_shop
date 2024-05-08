@@ -8,34 +8,45 @@ const FeedbackUpdate = () => {
   const { UID } = useParams();
 
   const [updatedInfo, setUpdatedInfo] = useState({
+    
     name: '',
     email: '',
     comment: '',
     rating: '',
   });
 
+
   const [hover, setHover] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+
+
 
   useEffect(() => {
     axios.get(`http://localhost:3001/api/getonereview/${UID}`)
       .then(res => {
         setUpdatedInfo(res.data.user);
       })
+
       .catch(error => {
         alert('Error fetching user information:', error);
         console.error(`Error fetching user information: ${error}`);
       });
+
   }, [UID]);
+
 
   const handleRatingChange = (ratingValue) => {
     setUpdatedInfo({ ...updatedInfo, rating: ratingValue });
   };
 
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedInfo({ ...updatedInfo, [name]: value });
   };
+
+
 
   const sendUpdatedData = () => {
     console.log(updatedInfo);
@@ -43,17 +54,26 @@ const FeedbackUpdate = () => {
       .then(() => {
         alert("Review Updated successfully");
       })
+
+
       .catch((err) => {
         alert(err.message);
       });
   };
 
   return (
+
+
     <div className='feedback-container'>
       <h2>Share Your Feedback</h2>
+
       <div className='flex'>
+
         {[...Array(5)].map((star, i) => {
+          
           const ratingValue = i + 1;
+
+
           return (
             <label key={i}>
               <input
@@ -63,6 +83,7 @@ const FeedbackUpdate = () => {
                 value={ratingValue}
                 onClick={() => handleRatingChange(ratingValue)}
               />
+
               <FaStar
                 className="star"
                 color={ratingValue <= (hover || updatedInfo.rating) ? "#ffc107" : "#e4e5e9"}
@@ -70,12 +91,19 @@ const FeedbackUpdate = () => {
                 onMouseEnter={() => setHover(ratingValue)}
                 onMouseLeave={() => setHover(null)}
               />
+
+
             </label>
           );
+
         })}
+
+
       </div>
+
       {showAlert && <p className="revalert-message">Please select a rating.</p>}
       <p>{updatedInfo.rating} stars rating..</p>
+      
       <textarea
         className='revtextarea'
         name="name"
@@ -83,6 +111,7 @@ const FeedbackUpdate = () => {
         value={updatedInfo.name}
         onChange={handleChange}
       />
+
       <textarea
         className='revtextarea'
         name="email"
@@ -91,6 +120,7 @@ const FeedbackUpdate = () => {
         onChange={handleChange}
         disabled
       />
+
       <textarea
         className='revtextarea'
         name="comment"
@@ -98,6 +128,8 @@ const FeedbackUpdate = () => {
         value={updatedInfo.comment}
         onChange={handleChange}
       />
+
+      
       <button className='revsubmit' onClick={sendUpdatedData}>Submit</button>
     </div>
   );

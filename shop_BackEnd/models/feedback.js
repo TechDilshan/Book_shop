@@ -21,6 +21,19 @@ const feedbackSchema = new Schema({
     productId: {
         type: Number,
         required: true
+    },
+    purchaseDate: {
+        type: String,
+        required: true
+    }, 
+    companyFeedback: {
+        type: String,
+        required: true
+    },
+    suggestions: {
+        type: String,
+        required: true
+    
     }
 
 }, {
